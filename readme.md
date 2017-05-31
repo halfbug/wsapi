@@ -1,51 +1,59 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+Please see my questions and my understanding of document in Blue. 
+This site will act as a front end for a file processing service. 
+Processing service? API act as service and website will use it 
+{Client} Tho whole site with the API are just the front end. So all it needs to do is to received files, count usage, automate purchase of extra credit, and send ready files to the users
+Users can upload to the site a specific set of allowed file types along with some additional metadata. Once processed the sending user will receive the result (file) via email, link into a notification area (like Facebook) or directly streamed (as it was requested to be downloaded). 
+You mean the user who upload a file will get notify by email? OR the user who upload a file will give a email of another user (let’s say user2) to received file. And user2 notify by email and after login to the site he will see the notification.
+{Client} If user (a) uploaded filed (1) and asked for the result to be send in email – response file (2) will be sent to user(a)’s email as attachment.
+The ‘back end’ is saving the result (file) into a predefined folder on the front end server and log the necessary metadata so the sending user receive it. 
+What folder structure do you have in your mind?
+Is it file type specific or anything else?
+{Client} As simple possible please. It could be a single folder for uploaded by the users and a separate one for those uploaded by the back end. 
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+First X number of uploads and results are free, for every extra users must purchase credits. Credit usage is per uploaded file count and extension, defined in to a DB table. 
+The X number will be defined by Admin user?
+{Client} Yes.
+ 
+Site’s API provides the following functionalities: 
+1. Authentications 2. Uploads 3. Downloads 4. Check balance 5. Check file list 6. Search file 7. Get file information 
+ 
+About the site in more details: 
+Every user visiting the site can upload up to X number of files without a need for registration. Such guest users can request results to be sent via email or received while they are visiting the site. In this case user’s IP will be logged and email if provided, to avoid abuse of the trial conditions. 
+ 
+Registered user can purchase credit which allows extra files to be uploaded. They are two types of credits: 
+1. Fixed amount of files with no expiration date. For example: 10 files
+ 2. Fixed amount of files per mount for X amount of months. For example: 15 files/per month for the next 13 months. 
+Credits are purchased in predefined packages and activated once the online payments confirmed by the payment provide – PayPal. 
+Package will be added by Admin user? – {Client} packages will be defined by the admin, yes. What is part of the package will be added to the user’s account after successful payment.
+Can you give any example package? Just to understand what information should a package may holds.
+{Client}
+Valid from Date:  2017-12-11
+Valid until Date: 2018-12-11
+Allowed number of uploaded files: 55000
+Reset uploaded files count:  never or monthly
+Price: {$...}
+Discount: if prepaid for 1 month – 0%, prepaid 6 months - ?% , prepaid 12 months - ??% 
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+About the additional metadata that needs to be stored with each file uploaded: 
+1. Field 1: A timestamp – which by default is 24 hours after file upload to the server, is completed. Indicated when file will be deleted. 
+2. Fields 2-10: varchar (50): with predefined but editable values pulled from a DB table. Registered user can save custom values for future uploads. 
+3. Fields 11-15: number (11): with predefined but editable values pulled from a DB table. Registered user can save custom values for future uploads. 
+Please provide a simple layout of file upload form OR a sample form. In which you mention the field’s names also.
+{Client} Please see examples provided in Project1123_v2.pdf.
+Back end users are of just one type and can perform the following actions: 
+1. Review the total amount of files uploaded by and sent to users in the last 7 days.  {Client} How much complication is if this is changed to 31 days, i.e. a month?
+2. How long it took for the result to be generated. Difference from the time result was available for download and the timestamp from the user’s successful his/her file. 
+3. Count files uploaded and downloaded by guest/free and registered users in the last 7 days .  {Client} How much complication is if this is changed to 31 days, i.e. a month?
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+4. Upload and download file counts per Website and the API in the last 7 days .  {Client} How much complication is if this is changed to 31 days, i.e. a month?
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb combination of simplicity, elegance, and innovation give you tools you need to build any application with which you are tasked.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough documentation and video tutorial library of any modern web application framework. The [Laravel documentation](https://laravel.com/docs) is thorough, complete, and makes it a breeze to get started learning the framework.
-
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 900 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](http://patreon.com/taylorotwell):
-
-- **[Vehikl](http://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Styde](https://styde.net)**
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+5. Create and edit packages
+ 6. Review credit(s) usage per user 
+how you define credits usage per user? 
+{Client} By how many files were uploaded by him/her
+Limitations: 
+The final product should be delivered in a way so it can be installed and used on web hosting with shared account. Database MySQL and written on PHP 7.
+We are going to use Laravel 5.4 for both website and API. It is PHP framework with MySQL database. 
+Note: Please make sure that your hosting have latest PHP installed as Laravel works only on php5.6 or above.
+{Client} Yes, that’s ok.
