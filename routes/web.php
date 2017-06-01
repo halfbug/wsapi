@@ -12,7 +12,20 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('frontend.welcome');
+});
+
+Route::get('/about', function () {
+    return view('frontend.about');
+});
+Route::get('/services', function () {
+    return view('frontend.services');
+});
+Route::get('/pricing', function () {
+    return view('frontend.pricetable');
+});
+Route::get('/contact', function () {
+    return view('frontend.contact');
 });
 
 Auth::routes();
