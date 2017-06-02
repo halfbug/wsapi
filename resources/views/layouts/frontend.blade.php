@@ -67,7 +67,7 @@
                 <li>
                     <a href="{{url('/contact')}}">Contact</a>
                 </li>
-                <li class="dropdown pull-right top-right">
+                <li class="dropdown ">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         @if (Route::has('login'))
@@ -84,7 +84,7 @@
                     </ul>
                 </li>
 
-
+                <li><button type="button" class="btn btn-info navbar-top-links" style="margin-top: 10px" title="file upload"data-toggle="modal" data-target="#myModal"><i class="fa fa-upload"></i></button></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -94,9 +94,14 @@
 @if (\Request::is('/'))
     <!-- Header Carousel -->
     <div class="text-center jumbotron">
-        <h1>Upload File from here</h1>
-        <p></p>
-        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Upload File</button>
+        
+        <h1>Welcome to a file processing tool</h1>
+        <p>You can upload a single or multiple files at once</p>
+        
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"><i class="fa fa-upload"></i> Upload Now</button>
+        <p>you can even use our <a href="{{url('api_doc')}}" >Api</a> service.</p>
+        
+        
     </div>
 @endif
 <br>
@@ -116,8 +121,15 @@
                 </div>
 
                 <div class="modal-body">
+                    <div class="form-grop" >
+                        <label for="field1 " class="col-sm-3 control-label">Deletion period</label>
+                        <div class="col-sm-9">
+                            <input  id="deletionperiod" type="input" class="form-control" >
+                        </div>
+                        
+                    </div>
 
-                    <div class="form-group">
+                    <div class="form-group ">
                         <label for="field1 " class="col-sm-3 control-label">Please select</label>
                         <div class="col-sm-9">
                             <select class="form-control " id="field1">
