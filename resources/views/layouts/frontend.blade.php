@@ -93,16 +93,16 @@
 </nav>
 @if (\Request::is('/'))
     <!-- Header Carousel -->
-
+    <div class="text-center jumbotron">
+        <h1>Upload File from here</h1>
+        <p></p>
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Upload File</button>
+    </div>
 @endif
 <br>
 
 
-<div class="text-center jumbotron">
-    <h1>Upload File from here</h1>
-    <p></p>
-    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Upload File</button>
-</div>
+
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
