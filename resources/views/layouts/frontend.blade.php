@@ -124,14 +124,14 @@
                     <div class="form-grop" >
                         <label for="field1 " class="col-sm-3 control-label">Deletion period</label>
                         <div class="col-sm-9">
-                            <input  id="deletionperiod" type="input" class="form-control" >
+                            <label for="field1 " class="col-sm-3 control-label">24 hours</label>
                         </div>
                         
                     </div>
 
                     <div class="form-group ">
                         <label for="field1 " class="col-sm-3 control-label">Please select</label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-6">
                             <select class="form-control " id="field1">
                                 <option value="1">Field 1</option>
                                 <option value="2">Field 2</option>
@@ -140,7 +140,7 @@
                     </div>
                     <div class="form-group">
                         <label for="file"  class="col-sm-3 control-label">File</label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-6">
                             <input  id="file" type="file" >
                         </div>
                     </div>
