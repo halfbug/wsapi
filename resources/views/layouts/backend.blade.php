@@ -20,7 +20,7 @@
         <link href="{{ asset('vendor/metisMenu/metisMenu.min.css') }}" rel="stylesheet">
 
         <!-- Custom CSS -->
-        <link href="{{ asset('dist/css/sb-admin-2.css') }}.." rel="stylesheet">
+        <link href="{{ asset('dist/css/sb-admin-2.css') }}" rel="stylesheet">
 
         <!-- Morris Charts CSS -->
         <link href="{{ asset('vendor/morrisjs/morris.css') }}" rel="stylesheet">
@@ -55,7 +55,7 @@
                 <!-- /.navbar-header -->
 
                 <ul class="nav navbar-top-links navbar-right">
-                    <li class="dropdown">
+<!--                    <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                             <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
                         </a>
@@ -103,9 +103,9 @@
                                 </a>
                             </li>
                         </ul>
-                        <!-- /.dropdown-messages -->
+                         /.dropdown-messages 
                     </li>
-                    <!-- /.dropdown -->
+                     /.dropdown 
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                             <i class="fa fa-tasks fa-fw"></i> <i class="fa fa-caret-down"></i>
@@ -182,9 +182,9 @@
                                 </a>
                             </li>
                         </ul>
-                        <!-- /.dropdown-tasks -->
+                         /.dropdown-tasks 
                     </li>
-                    <!-- /.dropdown -->
+                     /.dropdown -->
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                             <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
@@ -281,7 +281,7 @@
                             <li>
                                 <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                             </li>
-                            <li>
+<!--                            <li>
                                 <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
@@ -291,7 +291,7 @@
                                         <a href="morris.html">Morris.js")}} Charts</a>
                                     </li>
                                 </ul>
-                                <!-- /.nav-second-level -->
+                                 /.nav-second-level 
                             </li>
                             <li>
                                 <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
@@ -321,7 +321,7 @@
                                         <a href="grid.html">Grid</a>
                                     </li>
                                 </ul>
-                                <!-- /.nav-second-level -->
+                                 /.nav-second-level 
                             </li>
                             <li>
                                 <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
@@ -348,10 +348,10 @@
                                                 <a href="#">Third Level Item</a>
                                             </li>
                                         </ul>
-                                        <!-- /.nav-third-level -->
+                                         /.nav-third-level 
                                     </li>
                                 </ul>
-                                <!-- /.nav-second-level -->
+                                 /.nav-second-level 
                             </li>
                             <li>
                                 <a href="#"><i class="fa fa-files-o fa-fw"></i> Sample Pages<span class="fa arrow"></span></a>
@@ -363,8 +363,8 @@
                                         <a href="login.html">Login Page</a>
                                     </li>
                                 </ul>
-                                <!-- /.nav-second-level -->
-                            </li>
+                                 /.nav-second-level 
+                            </li>-->
                         </ul>
                     </div>
                     <!-- /.sidebar-collapse -->
