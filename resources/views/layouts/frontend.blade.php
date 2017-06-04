@@ -131,7 +131,9 @@
                     </ul>
                 </li>
 
-                <li><button type="button" class="btn btn-info navbar-top-links" style="margin-top: 10px" title="file upload"data-toggle="modal" data-target="#myModal"><i class="fa fa-upload"></i></button></li>
+<!--                <li><button type="button" class="btn btn-info navbar-top-links" style="margin-top: 10px" title="file upload"data-toggle="modal" data-target="#myModal"><i class="fa fa-upload"></i></button></li>
+            -->
+                <li><button type="button" class="btn btn-info navbar-top-links" style="margin-top: 10px" title="file upload" onclick="window.location = '{{url("file/create")}}'"><i class="fa fa-upload"></i></button></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -145,7 +147,7 @@
         <h1>Welcome to a file processing tool</h1>
         <p>You can upload a single or multiple files at once</p>
         
-        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"><i class="fa fa-upload"></i> Upload Now</button>
+        <button type="button" class="btn btn-info btn-lg" onclick="window.location = '{{ url("file/create") }}'" ><i class="fa fa-upload"></i> Upload Now</button>
         <p>you can even use our <a href="{{url('api_doc')}}" >Api</a> service.</p>
         
         
