@@ -9,7 +9,7 @@ use App\File;
 class FileController extends Controller
 {
     //
-	public function index(){
+public function index(){
 	
 	}
 	
@@ -19,9 +19,7 @@ class FileController extends Controller
 	
 	public function store(Request $request) {
 		//$file->ipaddress=$request->ipaddress;
-
 	}
-
 	public function show($fileid) {
 		//$file=File::find($fileid);
 		//return view(fileshowfile, $file =>$file );
@@ -29,5 +27,4 @@ class FileController extends Controller
 	
 	public function destroy($id) {
 		
-	}
-}
+	}}

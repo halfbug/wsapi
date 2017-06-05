@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,11 +9,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
     return view('frontend.welcome');
 });
-
 Route::get('/about', function () {
     return view('frontend.about');
 });
@@ -27,14 +24,9 @@ Route::get('/pricing', function () {
 Route::get('/contact', function () {
     return view('frontend.contact');
 });
-
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
-
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
-
 Route::get('/file/create', 'FileController@create');
 Route::post('/file/create', 'FileController@store');
