@@ -8,7 +8,7 @@
                 <div class="panel-heading">Upload File</div>
                 <div class="panel-body">
         
-            <form  method="post" action="" class="form-horizontal">
+            <form  method="post" action="" class="form-horizontal" enctype="multipart/form-data">
          <!--       <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Upload File</h4>

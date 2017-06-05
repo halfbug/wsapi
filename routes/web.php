@@ -28,5 +28,6 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/file/list', 'FileController@index');
 Route::get('/file/create', 'FileController@create');
 Route::post('/file/create', 'FileController@store');

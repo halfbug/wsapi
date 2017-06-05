@@ -278,6 +278,7 @@ class ComposerStaticInitc36b1a65c7508907b4782ff9edc8019a
     );
 
     public static $classMap = array (
+        'AddStatusToFilesTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_05_013311_add_status_to_files_table.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\File' => __DIR__ . '/../..' . '/app/File.php',
