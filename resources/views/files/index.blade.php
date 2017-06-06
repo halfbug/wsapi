@@ -26,8 +26,8 @@
 						}?>
 
 						<tr>
-						<td><?php echo $file->path; ?></td>
-						<td><?php echo $file->ipaddress;?></td>
+						<td><?php echo $file->ipaddress; ?></td>
+						<td><?php echo $file->path;?></td>
 						<td><?php echo $filestatus;?></td>
 						<td><?php echo $file->created_at;?></td>
 						</tr>
