@@ -1,5 +1,4 @@
 @extends('layouts.frontend')
-
 @section('content')
 	<div class="container">
     <div class="row">
@@ -125,15 +124,21 @@
                     <div id="main_box">
                         <div class="form-group inputRow" style="display:none;">
                             <label for="file"  class="col-sm-3 control-label">File</label>
-                            <div class="col-sm-6">
-                                <input type="file" id="photo[]" name="photo[]" class="input-file"> <input type="button" value="Remove" class="btn btn-danger btn-mini" onclick="delete_child(this); return false;">
+                            <div class="col-sm-4">
+                                <input type="file" id="photo[]" name="photo[]" class="input-file">
                             </div>
+                            <div class="col-sm-2"><input type="button" value="-&nbsp;" class="btn btn-danger btn-sm " onclick="delete_child(this); return false;"></div>
                         </div>
                         <div class="form-group">
                             <label for="file"  class="col-sm-3 control-label">File</label>
-                            <div class="col-sm-6">
-                                <input type="file" id="photo[]" name="photo[]" class="input-file"> <input type="button" value="Add More" class="btn btn-primary btn-mini" onclick="append_child('main_box');">
+                            <div class="col-sm-4">
+                                <input type="file" id="photo[]" name="photo[]" class="input-file">
+                                             </div>
+                            <div class="col-sm-2">
+                                <input type="button" value="+" class="btn btn-primary btn-sm" onclick="append_child('main_box');">
                             </div>
+
+
                         </div>
                         <div id="addRow">
 
