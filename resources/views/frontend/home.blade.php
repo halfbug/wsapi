@@ -16,7 +16,7 @@ Settings
     <!-- Sidebar Column -->
     <div class="col-md-3">
         <div class="list-group">
-            <a href="index.html" class="list-group-item">Meta data</a>
+            <a href="{{ url('meta/create') }}" class="list-group-item">Meta data</a>
             <a href="about.html" class="list-group-item">Uploaded Files</a>
             <a href="services.html" class="list-group-item">Proceed Files</a>
             <a href="contact.html" class="list-group-item">Downloaded Files</a>
