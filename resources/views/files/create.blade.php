@@ -1,4 +1,14 @@
 @extends('layouts.frontend')
+@section('title')
+Upload File
+@endsection
+@section('css')
+
+@endsection
+
+@section('heading')
+Upload File
+@endsection
 @section('content')
 	<div class="container">
     <div class="row">

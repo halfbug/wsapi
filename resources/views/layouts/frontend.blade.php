@@ -102,6 +102,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
+                 <li><button type="button" class="btn btn-info navbar-top-links" style="margin-top: 10px" title="file upload" onclick="window.location = '{{url("file/create")}}'"><i class="fa fa-upload"></i></button></li>
                 <li>
                     <a href="{{url('/about')}}">About</a>
                 </li>
@@ -114,27 +115,38 @@
                 <li>
                     <a href="{{url('/contact')}}">Contact</a>
                 </li>
-                <li class="dropdown ">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        @if (Route::has('login'))
+                
+                @if (Auth::guest())
+                            <li><a href="{{ route('login') }}">Login</a></li>
+                            <li><a href="{{ route('register') }}">Register</a></li>
+                        @else
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                   <i class="fa fa-user"></i>  {{ Auth::user()->name }} <span class="caret"></span>
+                                </a>
 
-                            @if (Auth::check())
-                                <li> <a href="{{ url('/home') }}">Dashboard</a></li>
-                            @else
-                                <li><a href="{{ url('/login') }}">Login</a></li>
-                                <li><a href="{{ url('/register') }}">Register</a></li>
-                            @endif
+                                <ul class="dropdown-menu" role="menu">
+                                    
+                                     <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                            </li>
+                            <li><a href="{{url("/home")}}"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                            </li>
+                            <li class="divider"></li>
+                                    <li>
+                                        <a href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                           <i class="fa fa-sign-out fa-fw"></i> Logout
+                                        </a>
 
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
                         @endif
-
-                    </ul>
-                </li>
-
-<!--                <li><button type="button" class="btn btn-info navbar-top-links" style="margin-top: 10px" title="file upload"data-toggle="modal" data-target="#myModal"><i class="fa fa-upload"></i></button></li>
-            -->
-                <li><button type="button" class="btn btn-info navbar-top-links" style="margin-top: 10px" title="file upload" onclick="window.location = '{{url("file/create")}}'"><i class="fa fa-upload"></i></button></li>
-            </ul>
+                 </ul>
         </div>
         <!-- /.navbar-collapse -->
     </div>
@@ -170,6 +182,13 @@
             <h1 class="page-header">
                 @yield('heading')
             </h1>
+            @if (!(\Request::is('/')))
+             <ol class="breadcrumb">
+                    <li><a href="index.html">Home</a>
+                    </li>
+                    <li class="active"><i class="fa fa-file"></i></li>
+                </ol>
+            @endif
         </div>
     </div>
     @yield('content')

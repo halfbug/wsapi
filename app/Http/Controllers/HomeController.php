@@ -23,6 +23,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if(\Auth::user()->hasRole('siteuser'))
+            return view('frontend.home');
+        else
         return view('home');
     }
 }

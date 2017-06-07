@@ -29,5 +29,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/file/list', 'FileController@index')->name('fileList');
-Route::get('/file/create', 'FileController@create');
-Route::post('/file/create', 'FileController@store');
+Route::get('/file/create', 'FileController@create')->middleware('auth');
+Route::post('/file/create', 'FileController@store')->middleware('auth');

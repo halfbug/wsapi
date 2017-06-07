@@ -31,6 +31,29 @@ class User extends Authenticatable
      * The roles that belong to the user.
      */
     public function roles() {
-        return $this->belongsToMany('App\Role', 'user_role');
+        return $this->belongsToMany('App\Role', 'role_user');
+    }
+    
+    public function assignRole($role)
+    {
+        if(is_string($role))
+        {
+            return $this->roles()->save($role);
+
+        }
+
+        return $this->roles()->save(
+            Role::whereName($role)->first()
+        );
+    }
+
+    public function hasRole($role)
+    {
+        if(is_string($role))
+        {
+            return $this->roles->contains('name', $role);
+
+        }
+        return !! $role->intersect($this->roles)->count();
     }
 }

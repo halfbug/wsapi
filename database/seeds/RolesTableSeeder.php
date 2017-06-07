@@ -27,5 +27,11 @@ class RolesTableSeeder extends Seeder
             'desc' => "registered users having site permissions",
             
         ]);
+        
+        DB::table("role_user")->insert([
+            'role_id' => \App\Role::sadmin(),
+            'user_id' => \App\User::first()->id
+            
+        ]);
     }
 }
