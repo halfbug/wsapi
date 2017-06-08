@@ -46,4 +46,9 @@ public function index(){
 	
 	public function destroy($id) {
 		
-	}}
+	}
+
+	public function format() {
+		return view('files.format');
+	}
+}

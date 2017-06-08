@@ -31,6 +31,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/file/list', 'FileController@index')->name('fileList');
 Route::get('/file/create', 'FileController@create')->middleware('auth');
 Route::post('/file/create', 'FileController@store')->middleware('auth');
+Route::get('/file/format', 'FileController@format')->middleware('auth');
 Route::get('/meta/create', 'MetaController@create')->middleware('auth');
 
 Route::group(['prefix' => 'profile','middleware' => 'auth'], function () {
