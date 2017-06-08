@@ -72,8 +72,11 @@ Files<small></small>
             </tr>
             <?php
             foreach ($files as $file) {
+				//// storing filename from  fullpath
 				$filepath=$file->path;
                 $filepath=basename($filepath);
+				////user friendly date time format
+				$createddate=date("d-M-Y h:i:s",strtotime($file->created_at));
 				if ($file->status == 1) {
                     $filestatus = "Uploaded";
                 } elseif ($file->status == 2) {
@@ -89,7 +92,7 @@ Files<small></small>
                 <!--<td><?php echo $file->ipaddress; ?></td>-->
                     <td>{{ $filepath }}</td>
                     <td>{{ $filestatus }}</td>
-                    <td>{{$file->created_at }}</td>
+                    <td>{{ $createddate }}</td>
                     <td> 
                         <button class="btn btn-secondary btn-detail edit_package" value="{{$file->id}}" title="Download Processed File"><i class="fa fa-download" ></i></button>
                         
