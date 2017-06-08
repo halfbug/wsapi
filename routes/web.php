@@ -32,3 +32,13 @@ Route::get('/file/list', 'FileController@index')->name('fileList');
 Route::get('/file/create', 'FileController@create')->middleware('auth');
 Route::post('/file/create', 'FileController@store')->middleware('auth');
 Route::get('/meta/create', 'MetaController@create')->middleware('auth');
+
+Route::group(['prefix' => 'profile','middleware' => 'auth'], function () {
+    Route::get('/', 'ProfileController@index');
+    Route::post('/','ProfileController@store');
+    Route::put('/update/{user_id}','ProfileController@update');
+    Route::get('/edit/{user_id}','ProfileController@edit');
+    Route::get('/{user_id}','ProfileController@show');
+    Route::delete('{user_id}','ProfileController@destroy');
+    Route::get('/linked_clients/{user_id}','ProfileController@showLinkedClients');
+});
