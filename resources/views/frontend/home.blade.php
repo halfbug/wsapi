@@ -7,22 +7,15 @@ Welcome
 @endsection
 
 @section('heading')
-Settings
+Dashboard
 @endsection
 @section('content')
 <!-- settings Tabs -->
 
 <div class="row">
-    <!-- Sidebar Column -->
-    <div class="col-md-3">
-        <div class="list-group">
-            <a href="{{ url('meta/create') }}" class="list-group-item">Meta data</a>
-            <a href="about.html" class="list-group-item">Uploaded Files</a>
-            <a href="services.html" class="list-group-item">Proceed Files</a>
-            <a href="contact.html" class="list-group-item">Downloaded Files</a>
-
-        </div>
-    </div>
+    <!--       include side bar file here-->
+        @include('frontend.sidebar')
+    
     <!-- Content Column -->
     <div class="col-md-9">
         <h2>Welcome!!</h2>
@@ -33,7 +26,7 @@ Settings
 
 @endsection  
 
-@section('css')
+@section('script')
 @parent
 
 <script>
