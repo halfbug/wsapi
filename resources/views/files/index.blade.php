@@ -72,7 +72,9 @@ Files<small></small>
             </tr>
             <?php
             foreach ($files as $file) {
-                if ($file->status == 1) {
+				$filepath=$file->path;
+                $filepath=basename($filepath);
+				if ($file->status == 1) {
                     $filestatus = "Uploaded";
                 } elseif ($file->status == 2) {
                     $filestatus = "In Progress";
@@ -85,9 +87,9 @@ Files<small></small>
 
                 <tr>
                 <!--<td><?php echo $file->ipaddress; ?></td>-->
-                    <td><?php echo $file->path; ?></td>
-                    <td><?php echo $filestatus; ?></td>
-                    <td><?php echo $file->created_at; ?></td>
+                    <td>{{ $filepath }}</td>
+                    <td>{{ $filestatus }}</td>
+                    <td>{{$file->created_at }}</td>
                     <td> 
                         <button class="btn btn-secondary btn-detail edit_package" value="{{$file->id}}" title="Download Processed File"><i class="fa fa-download" ></i></button>
                         
