@@ -275,7 +275,7 @@
                 <div class="navbar-default sidebar" role="navigation">
                     <div class="sidebar-nav navbar-collapse">
                         <ul class="nav" id="side-menu">
-                            <li class="sidebar-search">
+<!--                            <li class="sidebar-search">
                                 <div class="input-group custom-search-form">
                                     <input type="text" class="form-control" placeholder="Search...">
                                     <span class="input-group-btn">
@@ -284,11 +284,21 @@
                                         </button>
                                     </span>
                                 </div>
-                                <!-- /input-group -->
+                                 /input-group 
+                            </li>-->
+                            <li>
+                                <a href="{{url("/home")}}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                             </li>
                             <li>
-                                <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                                <a href="{{url("file/list")}}"><i class="fa fa-files-o fa-fw"></i> Files</a>
                             </li>
+                            <li>
+                                <a href="{{url("analysis/")}}"><i class="fa fa-diamond fa-fw"></i> Analysis</a>
+                            </li>
+                            <li>
+                                <a href="{{url("user/")}}"><i class="fa fa-users fa-fw"></i> Users</a>
+                            </li>
+                            
 <!--                            <li>
                                 <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">

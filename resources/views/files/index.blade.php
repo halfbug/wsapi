@@ -1,4 +1,13 @@
-@extends('layouts.dashboard')
+@php 
+if(\Auth::user()->hasRole('siteuser'))
+    $view = "dashboard";
+else
+    $view = "backend";
+@endphp
+
+
+@extends('layouts.'.$view)
+
 @section('title')
 Files
 @endsection
@@ -11,6 +20,44 @@ Files<small></small>
 @endsection
 
 @section('content')
+<div class="row form-group">
+        <div class="col-sm-3">
+            <label for="ddlCompany">Status</label>
+            <select id="ddlCompany" class="form-control">
+                <option value="0">Select Status</option>
+            </select>
+        </div>
+        <div class="col-sm-3">
+            <label for="ddlDepartment">User</label>
+            <select id="ddlDepartment" class="form-control">
+                <option value="0">Select User</option>
+            </select>
+        </div>
+        <div class="col-sm-3">
+            <label for="ddlBranch">Upload time</label>
+            <select id="ddlBranch" class="form-control" >
+                <option value="0">Select period</option>
+                <option value="0">Today</option>
+                <option value="0">Last Week</option>
+                <option value="0">Last Month</option>
+            </select>
+        </div>
+
+    </div>
+    <div class="row form-group">
+        <div class="col-sm-6">
+            <button class="btn btn-info btn-detail">Search&nbsp;&nbsp; <span class="glyphicon glyphicon-search"></span>
+
+            </button>
+            
+            <button class="btn btn-warning btn-detail">Reset&nbsp;&nbsp; <span class="glyphicon glyphicon-refresh"></span>
+
+            </button>
+        </div>
+        <div class="col-sm-6">
+            
+        </div>
+    </div>
 
 <div class="">
     <div class="col-md-12 ">
@@ -19,7 +66,7 @@ Files<small></small>
             <tr>
             <!--<th>File ip address</th>-->
                 <th>File path</th>
-                <!--<th>Status</th>-->
+                <th>Status</th>
                 <th>Upload Time</th>
                 <th>Actions</th>
             </tr>
@@ -39,7 +86,7 @@ Files<small></small>
                 <tr>
                 <!--<td><?php echo $file->ipaddress; ?></td>-->
                     <td><?php echo $file->path; ?></td>
-                    <!--<td><?php echo $filestatus; ?></td>-->
+                    <td><?php echo $filestatus; ?></td>
                     <td><?php echo $file->created_at; ?></td>
                     <td> 
                         <button class="btn btn-secondary btn-detail edit_package" value="{{$file->id}}" title="Download Processed File"><i class="fa fa-download" ></i></button>
