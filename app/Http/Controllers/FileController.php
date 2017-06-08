@@ -51,4 +51,9 @@ public function index(){
 	public function format() {
 		return view('files.format');
 	}
+
+	public function meta()
+    {
+        return view('meta.create');
+    }
 }

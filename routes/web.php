@@ -32,7 +32,7 @@ Route::get('/file/list', 'FileController@index')->name('fileList');
 Route::get('/file/create', 'FileController@create')->middleware('auth');
 Route::post('/file/create', 'FileController@store')->middleware('auth');
 Route::get('/file/format', 'FileController@format')->middleware('auth');
-Route::get('/meta/create', 'MetaController@create')->middleware('auth');
+Route::get('/meta/create', 'FileController@meta')->middleware('auth');
 
 Route::group(['prefix' => 'profile','middleware' => 'auth'], function () {
     Route::get('/', 'ProfileController@index');
@@ -43,3 +43,5 @@ Route::group(['prefix' => 'profile','middleware' => 'auth'], function () {
     Route::delete('{user_id}','ProfileController@destroy');
     Route::get('/linked_clients/{user_id}','ProfileController@showLinkedClients');
 });
+
+Route::get('/users', 'HomeController@users')->name('users');

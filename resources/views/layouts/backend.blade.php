@@ -296,7 +296,7 @@
                                 <a href="{{url("analysis/")}}"><i class="fa fa-diamond fa-fw"></i> Analysis</a>
                             </li>
                             <li>
-                                <a href="{{url("user/")}}"><i class="fa fa-users fa-fw"></i> Users</a>
+                                <a href="{{url("/users")}}"><i class="fa fa-users fa-fw"></i> Users</a>
                             </li>
                             
 <!--                            <li>

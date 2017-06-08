@@ -56,4 +56,24 @@ class User extends Authenticatable
         }
         return !! $role->intersect($this->roles)->count();
     }
+
+    /**
+    *   Gets the files of the user
+    */
+    public function files()
+    {
+        return $this->hasMany('App\File');
+    }
+
+    public function filesCount()
+    {
+        return $this->hasOne('App\File')
+            ->selectRaw('user_id, count(*) as count')
+            ->groupBy('user_id');
+    }
+
+    /*public function getFilesCountAttribute()
+    {
+        return $this->filesCount->count();
+    }*/
 }
