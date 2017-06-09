@@ -19,7 +19,7 @@ Users
 @endsection
 
 @section('heading')
-Users<small></small>
+Users <small>management</small>
 @endsection
 
 @section('content')

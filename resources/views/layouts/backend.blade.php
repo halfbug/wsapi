@@ -295,9 +295,39 @@
                             <li>
                                 <a href="{{url("analysis/")}}"><i class="fa fa-diamond fa-fw"></i> Analysis</a>
                             </li>
+                            
+                            
                             <li>
-                                <a href="{{url("/users")}}"><i class="fa fa-users fa-fw"></i> Users</a>
-                            </li>
+                            <a href="#"><i class="fa fa-users fa-fw"></i> Users<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="{{url("/users")}}"><i class="fa fa-list fa-fw"></i> View all </a>
+                                </li>
+                                <li>
+                                    <a href="{{url("/adminuser")}}"><i class="fa fa-plus fa-fw"></i> Add Admin </a>
+                                </li>
+                                <li>
+                                    <a href="{{url("/register")}}"><i class="fa fa-plus-circle fa-fw"></i> Add Site User</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        
+                        <li>
+                            <a href="#"><i class="fa fa-database fa-fw"></i> Packages<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="{{url("/users")}}"><i class="fa fa-list fa-fw"></i> View all </a>
+                                </li>
+                                <li>
+                                    <a href="{{url("/adminuser")}}"><i class="fa fa-plus fa-fw"></i> Add New </a>
+                                </li>
+                                <li>
+                                    <a href="{{url("/register")}}"><i class="fa fa-star fa-fw"></i> Assign User</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
                             
 <!--                            <li>
                                 <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
