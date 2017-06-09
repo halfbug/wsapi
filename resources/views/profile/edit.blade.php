@@ -1,4 +1,12 @@
-@extends('layouts.app')
+@php 
+if(\Auth::user()->hasRole('siteuser'))
+    $view = "dashboard";
+else
+    $view = "backend";
+@endphp
+
+
+@extends('layouts.'.$view)
 
 @section('content')
 <div class="">
