@@ -45,3 +45,9 @@ Route::group(['prefix' => 'profile','middleware' => 'auth'], function () {
 });
 
 Route::get('/users', 'HomeController@users')->name('users');
+
+Route::get('/packages', 'PackageController@index')->middleware('auth')->name('packageslist');
+Route::get('/packages/add', 'PackageController@create')->middleware('auth');
+Route::post('/packages/add', 'PackageController@store')->middleware('auth');
+
+
