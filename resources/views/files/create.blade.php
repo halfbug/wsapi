@@ -137,7 +137,12 @@ Upload File
                             <div class="col-sm-4">
                                 <input type="file" id="photo[]" name="photo[]" class="input-file">
                             </div>
-                            <div class="col-sm-2"><input type="button" value="-&nbsp;" class="btn btn-danger btn-sm " onclick="delete_child(this); return false;"></div>
+                            <div class="col-sm-1">
+                                <input type="button" value="-&nbsp;" class="btn btn-danger btn-sm " onclick="delete_child(this); return false;">
+                            </div>
+                            <div class="col-sm-1">
+                                <input type="button" value="+" class="btn btn-primary btn-sm" onclick="append_child('main_box');">
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="file"  class="col-sm-3 control-label">File</label>
