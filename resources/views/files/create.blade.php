@@ -1,14 +1,21 @@
-@extends('layouts.frontend')
+@php 
+if(\Auth::user()->hasRole('siteuser'))
+    $view = "dashboard";
+else
+    $view = "backend";
+@endphp
+
+
+@extends('layouts.'.$view)
+
 @section('title')
 Upload File
 @endsection
-@section('css')
-
-@endsection
 
 @section('heading')
-Upload File
+Upload Files<small></small>
 @endsection
+
 @section('content')
 	<div class="container">
     <div class="row">

@@ -5,7 +5,6 @@ else
 $view = "backend";
 @endphp
 
-
 @extends('layouts.'.$view)
 
 @section('title')
@@ -18,49 +17,15 @@ Users
 <link href="{{ asset('css/grid.css') }}" rel="stylesheet">
 @endsection
 
+@section('script')
+
+@endsection
+
 @section('heading')
 Users <small>management</small>
 @endsection
 
 @section('content')
-<!--    <div class="row form-group">
-        <div class="col-sm-3">
-            <label for="ddlCompany">Status</label>
-            <select id="ddlCompany" class="form-control">
-                <option value="0">Select Status</option>
-            </select>
-        </div>
-        <div class="col-sm-3">
-            <label for="ddlDepartment">User</label>
-            <select id="ddlDepartment" class="form-control">
-                <option value="0">Select User</option>
-            </select>
-        </div>
-        <div class="col-sm-3">
-            <label for="ddlBranch">Upload time</label>
-            <select id="ddlBranch" class="form-control" >
-                <option value="0">Select period</option>
-                <option value="0">Today</option>
-                <option value="0">Last Week</option>
-                <option value="0">Last Month</option>
-            </select>
-        </div>
-    </div>
-
-    <div class="row form-group">
-        <div class="col-sm-6">
-            <button class="btn btn-info btn-detail">Search&nbsp;&nbsp; <span class="glyphicon glyphicon-search"></span>
-
-            </button>
-            
-            <button class="btn btn-warning btn-detail">Reset&nbsp;&nbsp; <span class="glyphicon glyphicon-refresh"></span>
-
-            </button>
-        </div>
-        <div class="col-sm-6">
-            
-        </div>
-    </div>-->
 
 <div class="">
     <div class="col-md-12 ">
@@ -72,14 +37,15 @@ Users <small>management</small>
                     </div>
                     <div class="col col-xs-6 text-right">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-success btn-filter" data-target="pagado">Site Users</button>
-                            <button type="button" class="btn btn-warning btn-filter" data-target="pendiente">Admin Users</button>
-                            <button type="button" class="btn btn-danger btn-filter" data-target="cancelado">Super Admin</button>
+                            <button type="button" class="btn btn-success btn-filter" onClick="window.location = '{{url("users/filter/siteuser")}}'">Site Users</button>
+                            <button type="button" class="btn btn-warning btn-filter" onClick="window.location = '{{url("users/filter/admin")}}'">Admin Users</button>
+                            <button type="button" class="btn btn-danger btn-filter" onClick="window.location = '{{url("users/filter/sadmin")}}'">Super Admin</button>
                             <!--<button type="button" class="btn btn-default btn-filter" data-target="all">Todos</button>-->
                         </div>
                     </div>
                 </div>
             </div>
+            {{ csrf_field() }}
             <div class="panel-body">
                 <table class="table table-striped table-bordered table-list">
                     <tr>
@@ -90,20 +56,31 @@ Users <small>management</small>
                         <th>Files Uploaded</th>
                     </tr>
                     @foreach ($users as $user)
+                    @php 
+                        $id = $user['id'];
+                        $show = 1;
+                        $role = (session()->has('role'))? \Session::get('role'): 'all';
+                        if($role != 'all')                   
+                            $show = ($role == $user['roles'][0]['name'])? 1 : 0;
+                        
+                    @endphp
+                    @if($show)
                     <tr>
                         <td align="center">
-                            <a class="btn btn-default"><em class="fa fa-pencil"></em></a>
-                            <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
+                            <a class="btn btn-default" onclick="window.location = '{{url("users/edit/".$id)}}'"><em class="fa fa-pencil"></em></a>
+                            <a class="btn btn-danger" onclick="window.location = '{{url("users/delete/".$id."/".$role)}}'"><em class="fa fa-trash"></em></a>
                         </td>
                         <td>{{ $user['name'] }}</td>
                         <td>{{ $user['email'] }}</td>
                         <td>{{ date("d-M-Y h:i:s",strtotime($user['created_at'])) }}</td>
-                        <td>{{ $user['files_count']['count'] }}</td>
+                        <td>{{ is_null($user['files_count']['count'])?0:$user['files_count']['count'] }}</td>
 
                     </tr>
+                    @endif
                     @endforeach
                 </table>
             </div>
+
             <div class="panel-footer">
                 <div class="row">
                     <div class="col col-xs-4">Page 1 of 5

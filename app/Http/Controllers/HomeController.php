@@ -30,9 +30,4 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function users()
-    {
-        $users = User::with('filesCount')->get()->toArray();
-        return view('userlist', compact('users'));
-    }
 }
