@@ -3,14 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use \Auth;
 use App\Package;
 
 class PackageController extends Controller
 {
     public function index() {
-	echo "klsadhad";
+		$packages=Package::all();
+        return view('packages.index', compact('packages'));
 	
 	}
     public function create() {
@@ -19,7 +18,7 @@ class PackageController extends Controller
     }
 
 	    public function store(Request $request) {
-		 // Package::create($request->all());
+		 echo "in store method";// Package::create($request->all());
 		 // echo $request->name;
 		//  echo $request->description;
 		 // echo $request->createdate;

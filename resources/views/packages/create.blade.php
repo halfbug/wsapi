@@ -7,7 +7,6 @@
             if ($state == 'add')
               {
               $package = new \App\package();
-              $discount= new \App\discount();
 			  $disabled = "disabled";
               }
               else{
@@ -73,9 +72,8 @@
 						<label for="discount" class="col-sm-3 control-label">discount</label>
 						<div class="col-sm-9">
 						<select id="discount" name="discount" class="form-control">
-						 @foreach($discount as $disc)
-							<option value="{{ $disc->id }}">{{$disc->duration }}</option>
-							@endforeach
+							<option value="0">select discount 1</option>
+							<option value="1">select discount 2</option>
 						</select>
 						</div>
                     </div>
@@ -141,7 +139,6 @@ tinymce.init({
     toolbar: 'undo redo | insert | styleselect | fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
     content_css: '//www.tinymce.com/css/codepen.min.css'
 });
-
 tinymce.init({
     selector: '#discount',
     height: 100,
@@ -154,6 +151,5 @@ tinymce.init({
     toolbar: 'undo redo | insert | styleselect | fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
     content_css: '//www.tinymce.com/css/codepen.min.css'
 });
-
 </script>
 @endsection
