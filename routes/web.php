@@ -53,3 +53,7 @@ Route::group(['prefix' => 'users','middleware' => 'auth'], function () {
     Route::get('/delete/{user_id}/{user_role}','UserController@destroy');
     Route::get('/filter/{user_role}','UserController@filtergrid');
 });
+
+Route::get('/packages', 'PackageController@index')->name('packageslist');
+Route::get('/packages/add', 'PackageController@create')->middleware('auth');
+Route::post('/packages/add', 'PackageController@store')->middleware('auth');

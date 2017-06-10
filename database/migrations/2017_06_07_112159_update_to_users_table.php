@@ -16,7 +16,7 @@ class UpdateToUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
              $table->string('avatar')->default('default.jpg');
              $table->text('description')->nullable();
-             $table->boolean('status')->defaule(true);
+             $table->boolean('status')->default(true);
         });
     }
 
