@@ -68,7 +68,12 @@ Users <small>management</small>
                     <tr>
                         <td align="center">
                             <a class="btn btn-default" onclick="window.location = '{{url("users/edit/".$id)}}'"><em class="fa fa-pencil"></em></a>
-                            <a class="btn btn-danger" onclick="window.location = '{{url("users/delete/".$id."/".$role)}}'"><em class="fa fa-trash"></em></a>
+
+                            <form enctype='multipart/form-data' class="form-inline" style="display:inline" role="form" method="POST"  id="deleteForm" action="{{url("users/".$id."/".$role)}}">
+                                    {{ csrf_field() }}
+                                    {{ method_field('DELETE') }}
+                                <a class="btn btn-danger" onclick="$(this).closest('form').submit();"><em class="fa fa-trash"></em></a>
+                            </form>
                         </td>
                         <td>{{ $user['name'] }}</td>
                         <td>{{ $user['email'] }}</td>
