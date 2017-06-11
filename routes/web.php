@@ -46,12 +46,13 @@ Route::group(['prefix' => 'profile','middleware' => 'auth'], function () {
 
 Route::group(['prefix' => 'users','middleware' => 'auth'], function () {
     Route::get('/', 'UserController@index')->name('users');
-    //Route::post('/','UserController@store');
+    Route::post('/create','UserController@store');
     Route::put('/update/{user_id}','UserController@update');
     //Route::get('/{user_id}','UserController@show');
     Route::get('/edit/{user_id}','UserController@edit');
     Route::get('/delete/{user_id}/{user_role}','UserController@destroy');
     Route::get('/filter/{user_role}','UserController@filtergrid');
+    Route::get('/create/{role}','UserController@create');
 });
 
 Route::get('/packages', 'PackageController@index')->name('packageslist');

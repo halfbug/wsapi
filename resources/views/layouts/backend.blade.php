@@ -304,10 +304,10 @@
                                     <a href="{{url("/users")}}"><i class="fa fa-list fa-fw"></i> View all </a>
                                 </li>
                                 <li>
-                                    <a href="{{url("/adminuser")}}"><i class="fa fa-plus fa-fw"></i> Add Admin </a>
+                                    <a href="{{url("/users/create/admin")}}"><i class="fa fa-plus fa-fw"></i> Add Admin </a>
                                 </li>
                                 <li>
-                                    <a href="{{url("/register")}}"><i class="fa fa-plus-circle fa-fw"></i> Add Site User</a>
+                                    <a href="{{url("/users/create/siteuser")}}"><i class="fa fa-plus-circle fa-fw"></i> Add Site User</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

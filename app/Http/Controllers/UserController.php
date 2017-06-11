@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
@@ -23,11 +26,12 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param  string $role
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($role)
     {
-        //
+        return view('user.create')->with('role',$role);
     }
 
     /**
@@ -36,11 +40,45 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    use RegistersUsers;
+
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+        ]);
+        try
+        {
+            event(new Registered($user = $this->add($request->all())));
+        }
+        catch (\Exception $e) {
+            abort(500, 'User Already Exist.');
+        }
+
+        return redirect()->route('users');
     }
 
+     /**
+     * Create a new user instance.
+     *
+     * @param  array  $data
+     * @return User
+     */
+    protected function add(array $data)
+    {
+        $user=  User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password']),
+            
+        ]);
+        
+        $user->roles()->attach($data['role']);
+        
+        return $user;
+    }
     /**
      * Display the specified resource.
      *
