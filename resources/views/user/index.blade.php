@@ -1,11 +1,5 @@
-@php 
-if(\Auth::user()->hasRole('siteuser'))
-$view = "dashboard";
-else
-$view = "backend";
-@endphp
-
-@extends('layouts.'.$view)
+<!--its only admin page the site user will not use it-->
+@extends('layouts.backend')  
 
 @section('title')
 Users
