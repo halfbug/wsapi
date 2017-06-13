@@ -25,13 +25,12 @@ public function index(){
 		if ($request->hasFile('photo')) {
 			$user_id = Auth::id();
 			foreach ($request->photo as $file) {
-				$filePath = 'public/upload/'.$user_id.'/'.$file->getClientOriginalName();
-				$file->storeAs('public/upload/'.$user_id, $file->getClientOriginalName());
 				$fileModel = new file;
+				$fileModel->name = $file->getClientOriginalName();
 				$fileModel->user_id = $user_id;
 				$fileModel->ipaddress = $request->ip();
-				$fileModel->path = $filePath;
 				$fileModel->status = 1;
+				$fileModel->path = $file->store('public/upload/'.$user_id);
 				$fileModel->save();
 			}
 		}

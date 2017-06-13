@@ -65,7 +65,7 @@ Files<small></small>
         <table class="table">
             <tr>
             <!--<th>File ip address</th>-->
-                <th>File path</th>
+                <th>File Name</th>
                 <th>Status</th>
                 <th>Upload Time</th>
                 <th>Actions</th>
@@ -73,8 +73,8 @@ Files<small></small>
             <?php
             foreach ($files as $file) {
 				//// storing filename from  fullpath
-				$filepath=$file->path;
-                $filepath=basename($filepath);
+				$filepath=(empty($file->name))? basename($file->path): $file->name;
+                //$filepath=basename($filepath);
 				////user friendly date time format
 				$createddate=date("d-M-Y h:i:s",strtotime($file->created_at));
 				if ($file->status == 1) {
