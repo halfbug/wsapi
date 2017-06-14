@@ -50,9 +50,17 @@ public function index(){
 	public function format() {
 		return view('files.format');
 	}
-
+	
 	public function meta()
     {
         return view('meta.create');
+    }
+	
+	public function startprocessing($fileid)
+    {
+    	$file = File::find($fileid);
+    	$file->status = 2;
+    	$file->save();
+        return view('files.startprocessing')->with('file',$file);
     }
 }

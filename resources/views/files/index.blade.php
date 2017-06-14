@@ -69,6 +69,9 @@ Files<small></small>
                 <th>Status</th>
                 <th>Upload Time</th>
                 <th>Actions</th>
+                @can('startprocessing', \App\File::class)
+                    <th>Start Processing</th>
+                @endcan
             </tr>
             <?php
             foreach ($files as $file) {
@@ -77,8 +80,10 @@ Files<small></small>
                 //$filepath=basename($filepath);
 				////user friendly date time format
 				$createddate=date("d-M-Y h:i:s",strtotime($file->created_at));
+                $startprocess = false;
 				if ($file->status == 1) {
                     $filestatus = "Uploaded";
+                    $startprocess = true;
                 } elseif ($file->status == 2) {
                     $filestatus = "In Progress";
                 } elseif ($file->status == 3) {
@@ -104,10 +109,18 @@ Files<small></small>
                             <input type="hidden" name="package_id" value="{{$file->id}}" />
 
                         </form>
-                    
-                    
-                    
                     </td>
+                    @can('startprocessing', \App\File::class)
+                    <td>
+                        @if($startprocess)
+                            <a href="{{ url("/file/startprocessing/".$file->id) }}">
+                                <i class="fa fa-check-circle-o fa-2x"></i>
+                            </a>
+                        @else
+                            Already Processed
+                        @endif
+                    </td>
+                    @endcan
                 </tr>
 <?php } //endforeach  ?>
         </table>
