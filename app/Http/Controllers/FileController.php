@@ -11,7 +11,7 @@ class FileController extends Controller
 {
     //
 public function index(){
-		$files=File::all();
+		$files = File::with('user')->get();
 		return view('files.index', compact('files'));
 	
 	}
@@ -62,5 +62,24 @@ public function index(){
     	$file->status = 2;
     	$file->save();
         return view('files.startprocessing')->with('file',$file);
+    }
+
+    /**
+    *   Filters Files list w.r.t user role
+    *   @param  string $role
+    */
+    public function filtergrid($role)
+    {
+        return back()->with('role', $role);
+    }
+
+    /**
+    *   Filters Files list w.r.t user role
+    *   @param  string $role
+    */
+    public function search(Request $request, $role)
+    {
+    	$file = File::where("name", "LIKE","%".$request->search."%")->with('user')->get();
+    	return back()->with(['role'=> $role, 'searchfile'=>$file]);
     }
 }

@@ -11,6 +11,7 @@ else
 @section('title')
 Files
 @endsection
+
 @section('css')
 <link href="{{ asset('css/grid.css') }}" rel="stylesheet">
 @endsection
@@ -47,11 +48,21 @@ Files<small></small>
         </div>
 
     </div> -->
+        @php
+        $role = (session()->has('role'))? \Session::get('role'): 'all';
+        if(session()->has('searchfile'))
+            $files = \Session::get('searchfile');
+        @endphp
         <div class="panel-heading">
                 <div class="row">
                     <div class="col col-xs-6">
-                        <button class="btn btn-info btn-detail">Search&nbsp;&nbsp; <span class="glyphicon glyphicon-search"></span>
-
+                        <form id="search_form" enctype="multipart/form-data" method="POST" action="{{url("/file/search/".$role)}}" style="display:inline">
+                            {{ csrf_field() }}
+                            <input type="text" style="display:none;" id="search" name="search" autofocus
+                                onKeyDown="function(event) {if ((event.keyCode || event.which) == 13) $('#search_form').submit();}">
+                        </form>
+                        <button class="btn btn-info btn-detail" onClick="$('#search').show(); $(this).hide();">
+                            Search&nbsp;&nbsp; <span class="glyphicon glyphicon-search"></span>
                         </button>
                         
                         <button class="btn btn-warning btn-detail">Reset&nbsp;&nbsp; <span class="glyphicon glyphicon-refresh"></span>
@@ -60,9 +71,10 @@ Files<small></small>
                     </div>
                     <div class="col col-xs-6 text-right">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-success btn-filter" onClick="window.location = '{{url("users/filter/siteuser")}}'">Site Users</button>
-                            <button type="button" class="btn btn-warning btn-filter" onClick="window.location = '{{url("users/filter/admin")}}'">Admin Users</button>
-                            <button type="button" class="btn btn-danger btn-filter" onClick="window.location = '{{url("users/filter/sadmin")}}'">Super Admin</button>
+                            <button type="button" class="btn btn-default btn-filter" onClick="window.location = '{{url("file/filter/all")}}'">All Users</button>
+                            <button type="button" class="btn btn-success btn-filter" onClick="window.location = '{{url("file/filter/siteuser")}}'">Site Users</button>
+                            <button type="button" class="btn btn-warning btn-filter" onClick="window.location = '{{url("file/filter/admin")}}'">Admin Users</button>
+                            <button type="button" class="btn btn-danger btn-filter" onClick="window.location = '{{url("file/filter/sadmin")}}'">Super Admin</button>
                             <!--<button type="button" class="btn btn-default btn-filter" data-target="all">Todos</button>-->
                         </div>
                     </div>
@@ -83,8 +95,13 @@ Files<small></small>
                         <th>Start Processing</th>
                     @endcan
                 </tr>
-                <?php
-                foreach ($files as $file) {
+                
+                @foreach ($files as $file) 
+                    @php
+                    $show = 1;
+                    if($role != 'all')                   
+                       $show = ($file->user->hasRole($role))? 1 : 0;
+                        
                     //// storing filename from  fullpath
                     $filepath=(empty($file->name))? basename($file->path): $file->name;
                     //$filepath=basename($filepath);
@@ -101,8 +118,8 @@ Files<small></small>
                     } else {
                         $filestatus = "Not Defined";
                     }
-                    ?>
-
+                    @endphp
+                    @if($show)
                     <tr>
                     <!--<td><?php echo $file->ipaddress; ?></td>-->
                         <td>{{ $filepath }}</td>
@@ -132,7 +149,8 @@ Files<small></small>
                         </td>
                         @endcan
                     </tr>
-    <?php } //endforeach  ?>
+                    @endif
+            @endforeach 
             </table>
         </div>
             <div class="panel-footer">
