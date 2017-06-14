@@ -51,9 +51,9 @@ Packages <small>management</small>
                         <th>created On</th>
                         <th>End date</th>
                         <th>Price</th>
-                        <th>Files count</th>
-                        <th>reset count</th>
-                        <th>discount in this package</th>
+                        <th>Max Files</th>
+                        <th>Reset count</th>
+                        <th>discount</th>
                          <th>Status</th>
                    </tr>
                     @foreach ($packages as $package)
@@ -63,10 +63,14 @@ Packages <small>management</small>
                             <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
                         </td>
                         <td>{{ $package['name'] }}</td>
-                        <td>{{ $package['description'] }}</td>
+                        <td>{!! $package['description'] !!}</td>
                         <td>{{ date("d-M-Y h:i:s",strtotime($package['start_date'])) }}</td>
                         <td>{{ date("d-M-Y h:i:s",strtotime($package['end_date'])) }}</td>
-                        <td> </td>
+                        <td>{{ $package['price'] }}</td>
+                        <td>{{ $package['files_count'] }} </td>
+                        <td>{{ $package['reset_count'] }} </td>
+                        <td>{{ $package['discount_id'] }} </td>
+                        <td>{{ $package['status'] }} </td>
 
                     </tr>
                     @endforeach

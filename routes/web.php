@@ -55,6 +55,8 @@ Route::group(['prefix' => 'users','middleware' => 'auth'], function () {
     Route::get('/create/{role}','UserController@create');
 });
 
-Route::get('/packages', 'PackageController@index')->name('packageslist');
-Route::get('/packages/add', 'PackageController@create')->middleware('auth');
-Route::post('/packages/add', 'PackageController@store')->middleware('auth');
+Route::group(['prefix' => 'packages','middleware' => 'auth'], function () {
+Route::get('/', 'PackageController@index')->name('packageslist');
+Route::get('/add', 'PackageController@create')->middleware('auth');
+Route::post('/add', 'PackageController@store')->middleware('auth');
+});
