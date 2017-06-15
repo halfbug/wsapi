@@ -1,12 +1,5 @@
-@php 
-if(\Auth::user()->hasRole('siteuser'))
-$view = "dashboard";
-else
-$view = "backend";
-@endphp
-
-
-@extends('layouts.'.$view)
+<!--its only admin page the site user will not use it-->
+@extends('layouts.backend') 
 
 @section('title')
 Packages
@@ -27,21 +20,16 @@ Packages <small>management</small>
 <div class="">
     <div class="col-md-12 ">
         <div class="panel panel-default panel-table">
-        <!--    <div class="panel-heading">
+           <div class="panel-heading">
                 <div class="row">
                     <div class="col col-xs-6">
-                        <!--<h3 class="panel-title">Panel Heading</h3>-->
-                   <!-- </div>
+                        <!--<h3 class="panel-title">Panel Heading</h3> -->
+                    </div>
                     <div class="col col-xs-6 text-right">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-success btn-filter" data-target="pagado">Site Users</button>
-                            <button type="button" class="btn btn-warning btn-filter" data-target="pendiente">Admin Users</button>
-                            <button type="button" class="btn btn-danger btn-filter" data-target="cancelado">Super Admin</button>
-                            <!--<button type="button" class="btn btn-default btn-filter" data-target="all">Todos</button>-->
-                        <!--</div>
+                        <a href="{{url('packages/add')}}"  class="btn btn-primary"> <i class="fa fa-plus"></i> Add New</a> 
                     </div>
                 </div>
-            </div> -->
+            </div> 
             <div class="panel-body">
                 <table class="table table-striped table-bordered table-list">
                     <tr>
