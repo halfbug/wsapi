@@ -13,7 +13,7 @@
               $disabled ="";
               }
         @endphp
-        <div class="panel panel-primary">
+        <div class="panel panel-default">
             <div class="panel-heading">
                 Add New Package
             </div>
@@ -24,7 +24,7 @@
 
                     <div class="form-group error">
                         <label for="inputName" class="col-sm-3 control-label">Name</label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-4">
                             <input type="text" class="form-control has-error" id="name" name="name" placeholder="Package name" value="{{$package->name}}">
                         </div>
                     </div>
@@ -37,50 +37,66 @@
 
                     <div class="form-group">
                         <label for="inputDetail" class="col-sm-3 control-label">Start Date</label>
-                        <div class="col-sm-9">
-						    <input type="datetime" name="createdate" value="<?php echo date("Y-m-d h:i:s",time()); ?>">
+                        <div class="col-sm-4">
+						    <input type="datetime" name="createdate" value="<?php echo date("Y-m-d h:i:s",time()); ?>" class="form-control">
 						 </div>
                     </div>
 
                     <div class="form-group">
                         <label for="inputDetail" class="col-sm-3 control-label">End Date</label>
-                        <div class="col-sm-9">
-						    <input type="datetime" name="enddate" value="<?php echo date("Y-m-d h:i:s",time()); ?>">
+                        <div class="col-sm-4">
+						    <input type="datetime" name="enddate" value="<?php echo date("Y-m-d h:i:s",time()); ?>" class="form-control">
 						 </div>
                     </div>
 
                     <div class="form-group">
                         <label for="inputDetail" class="col-sm-3 control-label">File Count</label>
-                        <div class="col-sm-9">
-						    <input type="text" name="filecount">
+                        <div class="col-sm-4">
+						    <input type="text" name="filecount" class="form-control">
 						 </div>
                     </div>
                     <div class="form-group">
                         <label for="inputDetail" class="col-sm-3 control-label">Reset Count</label>
-                        <div class="col-sm-9">
-						    <input type="text" name="resetcount">
+                        <div class="col-sm-4">
+						    <input type="text" name="resetcount" class="form-control">
 						 </div>
                     </div>
                     <div class="form-group">
                         <label for="inputDetail" class="col-sm-3 control-label">Price</label>
-                        <div class="col-sm-9">
-						    <input type="text" name="price">
+                        <div class="col-sm-4">
+						    <input type="text" name="price" class="form-control">
 						 </div>
                     </div>
 
                     <div class="form-group">
 						<label for="discount" class="col-sm-3 control-label">discount</label>
-						<div class="col-sm-9">
+						<div class="col-sm-4">
 						<select id="discount" name="discount" class="form-control">
 							<option value="0">select discount 1</option>
 							<option value="1">select discount 2</option>
 						</select>
 						</div>
+                        <a href="#dissc" data-toggle="collapse" class="btn btn-info">Add New Discount</a>
                     </div>
+                   <div id="dissc" class="collapse" >
+                       <div class="form-group">
+                       <label for="Field1" class="col-sm-3 control-label">Name</label>
+                       <div class="col-sm-4">
+                           <input type="text" name="Field1" class="form-control">
+                       </div>
+                       </div>
+                       <div class="form-group">
+                       <label for="Field2" class="col-sm-3 control-label">Description</label>
+                       <div class="col-sm-4">
+                           <textarea class="form-control" rows="5" id="Field2"></textarea>
+                       </div>
+                       </div>
+
+                   </div>
 
                     <div class="form-group">
 						<label for="status" class="col-sm-3 control-label">Status</label>
-						<div class="col-sm-9">
+						<div class="col-sm-4">
 						<select id="status" name="status" class="form-control">
 							<option value="0">Disabled</option>
 							<option value="1" selected>Enabled</option>
