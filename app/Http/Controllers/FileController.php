@@ -11,7 +11,7 @@ class FileController extends Controller
 {
     //
 public function index(){
-		$files=File::all();
+		$files = File::with('user')->get();
 		return view('files.index', compact('files'));
 	
 	}
@@ -23,15 +23,14 @@ public function index(){
 	public function store(Request $request) {
 		
 		if ($request->hasFile('photo')) {
-			//$uploadedFiles = $request->file('photo');
+			$user_id = Auth::id();
 			foreach ($request->photo as $file) {
-				$filePath = 'public/upload/'.$file->getClientOriginalName();
-				$file->storeAs('public/upload',$file->getClientOriginalName());
 				$fileModel = new file;
-				$fileModel->user_id = Auth::id();
+				$fileModel->name = $file->getClientOriginalName();
+				$fileModel->user_id = $user_id;
 				$fileModel->ipaddress = $request->ip();
-				$fileModel->path = $filePath;
 				$fileModel->status = 1;
+				$fileModel->path = $file->store('public/upload/'.$user_id);
 				$fileModel->save();
 			}
 		}
@@ -51,9 +50,36 @@ public function index(){
 	public function format() {
 		return view('files.format');
 	}
-
+	
 	public function meta()
     {
         return view('meta.create');
+    }
+	
+	public function startprocessing($fileid)
+    {
+    	$file = File::find($fileid);
+    	$file->status = 2;
+    	$file->save();
+        return view('files.startprocessing')->with('file',$file);
+    }
+
+    /**
+    *   Filters Files list w.r.t user role
+    *   @param  string $role
+    */
+    public function filtergrid($role)
+    {
+        return back()->with('role', $role);
+    }
+
+    /**
+    *   Filters Files list w.r.t user role
+    *   @param  string $role
+    */
+    public function search(Request $request, $role)
+    {
+    	$file = File::where("name", "LIKE","%".$request->search."%")->with('user')->get();
+    	return back()->with(['role'=> $role, 'searchfile'=>$file]);
     }
 }

@@ -28,11 +28,17 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/file/list', 'FileController@index')->name('fileList');
-Route::get('/file/create', 'FileController@create')->middleware('auth');
-Route::post('/file/create', 'FileController@store')->middleware('auth');
-Route::get('/file/format', 'FileController@format')->middleware('auth');
-Route::get('/meta/create', 'FileController@meta')->middleware('auth');
+
+Route::group(['prefix' => 'file','middleware' => 'auth'], function () {
+    Route::get('/list', 'FileController@index')->name('fileList');
+    Route::get('/create', 'FileController@create');
+    Route::post('/create', 'FileController@store');
+    Route::get('/format', 'FileController@format');
+    Route::get('/meta/create', 'FileController@meta');
+    Route::get('/startprocessing/{file_id}', 'FileController@startprocessing');
+    Route::get('/filter/{user_role}','FileController@filtergrid');
+    Route::post('/search/{user_role}','FileController@search');
+});
 
 Route::group(['prefix' => 'profile','middleware' => 'auth'], function () {
     Route::get('/', 'ProfileController@index');
@@ -44,4 +50,21 @@ Route::group(['prefix' => 'profile','middleware' => 'auth'], function () {
     Route::get('/linked_clients/{user_id}','ProfileController@showLinkedClients');
 });
 
-Route::get('/users', 'HomeController@users')->name('users');
+Route::group(['prefix' => 'users','middleware' => 'auth'], function () {
+    Route::get('/', 'UserController@index')->name('users');
+    Route::post('/create','UserController@store');
+    Route::put('/update/{user_id}','UserController@update');
+    //Route::get('/{user_id}','UserController@show');
+    Route::get('/edit/{user_id}','UserController@edit');
+    Route::delete('/{user_id}/{user_role}','UserController@destroy');
+    Route::get('/filter/{user_role}','UserController@filtergrid');
+    Route::get('/create/{role}','UserController@create');
+});
+
+Route::group(['prefix' => 'packages','middleware' => 'auth'], function () {
+Route::get('/', 'PackageController@index')->name('packageslist');
+Route::get('/add', 'PackageController@create');
+Route::post('/add', 'PackageController@store');
+Route::get('/assign', 'PackageController@assign');
+Route::post('/assign', 'PackageController@assignpackage');
+});

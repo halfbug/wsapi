@@ -304,10 +304,10 @@
                                     <a href="{{url("/users")}}"><i class="fa fa-list fa-fw"></i> View all </a>
                                 </li>
                                 <li>
-                                    <a href="{{url("/adminuser")}}"><i class="fa fa-plus fa-fw"></i> Add Admin </a>
+                                    <a href="{{url("/users/create/admin")}}"><i class="fa fa-plus fa-fw"></i> Add Admin </a>
                                 </li>
                                 <li>
-                                    <a href="{{url("/register")}}"><i class="fa fa-plus-circle fa-fw"></i> Add Site User</a>
+                                    <a href="{{url("/users/create/siteuser")}}"><i class="fa fa-plus-circle fa-fw"></i> Add Site User</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -317,13 +317,13 @@
                             <a href="#"><i class="fa fa-database fa-fw"></i> Packages<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="{{url("/users")}}"><i class="fa fa-list fa-fw"></i> View all </a>
+                                    <a href="{{url("/packages")}}"><i class="fa fa-list fa-fw"></i> View all </a>
                                 </li>
                                 <li>
-                                    <a href="{{url("/adminuser")}}"><i class="fa fa-plus fa-fw"></i> Add New </a>
+                                    <a href="{{url("/packages/add")}}"><i class="fa fa-plus fa-fw"></i> Add New </a>
                                 </li>
                                 <li>
-                                    <a href="{{url("/register")}}"><i class="fa fa-star fa-fw"></i> Assign User</a>
+                                    <a href="{{url("/packages/assign")}}"><i class="fa fa-star fa-fw"></i> Assign User</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
