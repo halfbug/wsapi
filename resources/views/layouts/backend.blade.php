@@ -323,7 +323,7 @@
                                     <a href="{{url("/packages/add")}}"><i class="fa fa-plus fa-fw"></i> Add New </a>
                                 </li>
                                 <li>
-                                    <a href="{{url("/register")}}"><i class="fa fa-star fa-fw"></i> Assign User</a>
+                                    <a href="{{url("/packages/assign")}}"><i class="fa fa-star fa-fw"></i> Assign User</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

@@ -33,5 +33,15 @@ class PackageController extends Controller
 		  $package->save();
          return redirect()->route('packageslist')->with('success','Package created successfully');
     }
+	    public function assign() {
+        return view('packages.assign');
+			
+		}
+
+	    public function assignpackage() {
+        echo "assigned";
+		//return view('packages.assign');
+			
+		}
 
 }
