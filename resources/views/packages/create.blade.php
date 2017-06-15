@@ -72,8 +72,9 @@
 						<label for="discount" class="col-sm-3 control-label">discount</label>
 						<div class="col-sm-9">
 						<select id="discount" name="discount" class="form-control">
-							<option value="0">select discount 1</option>
-							<option value="1">select discount 2</option>
+							@foreach ($discounts as $discount) 
+							<option value="{{ $discount->id }}">{{ $discount->name }}</option>
+							@endforeach 
 						</select>
 						</div>
                     </div>
