@@ -83,7 +83,7 @@
 						<div class="col-sm-9">
 						<select id="status" name="status" class="form-control">
 							<option value="0">Disabled</option>
-							<option value="1">Enabled</option>
+							<option value="1" selected>Enabled</option>
 						</select>
 						</div>
                     </div>

@@ -13,7 +13,8 @@ class PackageController extends Controller
 	
 	}
     public function create() {
-         // $package= new Package();
+		//$discount= Discount::all();
+		
         return view('packages.create')->with('state','add');
     }
 

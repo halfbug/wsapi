@@ -36,7 +36,7 @@ Packages <small>management</small>
                         <th class="text-center"><em class="fa fa-cog"></em></th>
                         <th>Name</th>
                         <th>description</th>
-                        <th>created On</th>
+                        <th>Start Date</th>
                         <th>End date</th>
                         <th>Price</th>
                         <th>Max Files</th>
