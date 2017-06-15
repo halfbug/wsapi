@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Package;
+use Illuminate\Http\Request;
 
 class PackageController extends Controller
 {
@@ -18,17 +18,19 @@ class PackageController extends Controller
     }
 
 	    public function store(Request $request) {
-		 echo "in store method";// Package::create($request->all());
-		 // echo $request->name;
-		//  echo $request->description;
-		 // echo $request->createdate;
-		  //  echo $request->enddate;
-		//  echo $request->filecount;
-		//  echo $request->resetcount;
-		//  echo $request->price;
-		  //echo $request->get('discount');
-		 // echo $request->get('status');
-         //return redirect()->route('packageslist')->with('success','Package created successfully');//return view('packages.create')->with('state','add');
+		 $package= new Package;
+		 
+		  $package->name=$request->name;
+		  $package->description= $request->description;
+		  $package->start_date= $request->createdate;
+		  $package->end_date= $request->enddate;
+		  $package->files_count= $request->filecount;
+		  $package->reset_count= $request->resetcount;
+		  $package->price= $request->price;
+		  $package->discount_id= $request->get('discount');
+		  $package->status= $request->get('status');
+		  $package->save();
+         return redirect()->route('packageslist')->with('success','Package created successfully');
     }
 
 }

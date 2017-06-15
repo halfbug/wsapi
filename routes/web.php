@@ -28,11 +28,17 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/file/list', 'FileController@index')->name('fileList');
-Route::get('/file/create', 'FileController@create')->middleware('auth');
-Route::post('/file/create', 'FileController@store')->middleware('auth');
-Route::get('/file/format', 'FileController@format')->middleware('auth');
-Route::get('/meta/create', 'FileController@meta')->middleware('auth');
+
+Route::group(['prefix' => 'file','middleware' => 'auth'], function () {
+    Route::get('/list', 'FileController@index')->name('fileList');
+    Route::get('/create', 'FileController@create');
+    Route::post('/create', 'FileController@store');
+    Route::get('/format', 'FileController@format');
+    Route::get('/meta/create', 'FileController@meta');
+    Route::get('/startprocessing/{file_id}', 'FileController@startprocessing');
+    Route::get('/filter/{user_role}','FileController@filtergrid');
+    Route::post('/search/{user_role}','FileController@search');
+});
 
 Route::group(['prefix' => 'profile','middleware' => 'auth'], function () {
     Route::get('/', 'ProfileController@index');
@@ -55,6 +61,8 @@ Route::group(['prefix' => 'users','middleware' => 'auth'], function () {
     Route::get('/create/{role}','UserController@create');
 });
 
-Route::get('/packages', 'PackageController@index')->name('packageslist');
-Route::get('/packages/add', 'PackageController@create')->middleware('auth');
-Route::post('/packages/add', 'PackageController@store')->middleware('auth');
+Route::group(['prefix' => 'packages','middleware' => 'auth'], function () {
+Route::get('/', 'PackageController@index')->name('packageslist');
+Route::get('/add', 'PackageController@create')->middleware('auth');
+Route::post('/add', 'PackageController@store')->middleware('auth');
+});
