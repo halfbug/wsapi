@@ -45,3 +45,8 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+/nbproject/private/
+vendor/composer/LICENSE
+vendor/composer/ClassLoader.php
+vendor/composer/autoload_static.php
+vendor/composer/autoload_psr4.php

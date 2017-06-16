@@ -68,3 +68,8 @@ Route::post('/add', 'PackageController@store');
 Route::get('/assign', 'PackageController@assign');
 Route::post('/assign', 'PackageController@assignpackage');
 });
+
+Route::group(['prefix' => 'api'], function () {
+    Route::get('/', 'ApiController@index');
+   
+});
