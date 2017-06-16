@@ -15,8 +15,6 @@
     }
 </style>
 
-
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -53,39 +51,7 @@
 
 <body>
 
-<script>
-    function append_child(main_box)
-    {
-        //save the root element (the <table> element)
-        var root = jQuery("#" + main_box);
-        //find the template (denoted by the fact that it's hidden unlike the clones) and clone it
-        var clonedRow = root.find(".inputRow:hidden").clone(true);
-        //insert the cloned row right before the last row (which is the "Add Video" button)
-        root.find("#addRow").before(clonedRow);
-        //make the cloned row visible
-        clonedRow.show();
-        //then make all "Remove" buttons visible because there must be at least two input rows now
-        root.find(".removeInputButton:hidden").show();
-    }
-    function delete_child(hideAppChildSender)
-    {
-        var thisElement = jQuery(hideAppChildSender);
 
-        //save the root element
-        var root = thisElement.parents("#main_box");
-
-        //find the ancestor <tr> element and remove it from the DOM
-        thisElement.parent().parent().remove();
-        //find all remaining "Remove" buttons in this table that are still visible
-        var removeButtonsRemaining = root.find(".removeInputButton:visible");
-        //if the number of visible "Remove" buttons is (less than or equal to) one, then hide it
-        //because that means there's only one input row left, which means that you can't remove it
-        if (removeButtonsRemaining.size() <= 1) {
-            removeButtonsRemaining.hide();
-        }
-    }
-
-</script>
 <!-- Navigation -->
 @include('frontend.navbar')
 @if (\Request::is('/'))

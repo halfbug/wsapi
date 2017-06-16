@@ -10,10 +10,9 @@ use App\File;
 class FileController extends Controller
 {
     //
-public function index(){
-		$files = File::with('user')->get();
-		return view('files.index', compact('files'));
-	
+	public function index($status = null){
+		$files = File::all();
+		return view('files.index', compact('files','status'));
 	}
 	
 	public function create() {
@@ -64,22 +63,4 @@ public function index(){
         return view('files.startprocessing')->with('file',$file);
     }
 
-    /**
-    *   Filters Files list w.r.t user role
-    *   @param  string $role
-    */
-    public function filtergrid($role)
-    {
-        return back()->with('role', $role);
-    }
-
-    /**
-    *   Filters Files list w.r.t user role
-    *   @param  string $role
-    */
-    public function search(Request $request, $role)
-    {
-    	$file = File::where("name", "LIKE","%".$request->search."%")->with('user')->get();
-    	return back()->with(['role'=> $role, 'searchfile'=>$file]);
-    }
 }
