@@ -17,8 +17,9 @@
 						<label for="discount" class="col-sm-3 control-label">Packages</label>
 						<div class="col-sm-9">
 						<select id="pkg" name="pkg" class="form-control">
-							<option value="0">select pkge 1</option>
-							<option value="1">select pkge 2</option>
+							@foreach ($packages as $package) 
+							<option value="{{ $package->id }}">{{ $package->name }}</option>
+							@endforeach 
 						</select>
 						</div>
                     </div>
@@ -26,9 +27,10 @@
                     <div class="form-group">
 						<label for="status" class="col-sm-3 control-label">User</label>
 						<div class="col-sm-9">
-						<select id="status" name="status" class="form-control">
-							<option value="0">user1 </option>
-							<option value="1" selected>user2 </option>
+						<select id="user" name="user" class="form-control">
+							@foreach ($users as $user) 
+							<option value="{{ $user->id }}">{{ $user->name }}</option>
+							@endforeach 
 						</select>
 						</div>
                     </div>
