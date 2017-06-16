@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-File
+    File Format
 @endsection
 
 
