@@ -48,33 +48,19 @@ Files<small></small>
         </div>
 
     </div> -->
-        @php
-        $role = (session()->has('role'))? \Session::get('role'): 'all';
-        if(session()->has('searchfile'))
-            $files = \Session::get('searchfile');
-        @endphp
+       
         <div class="panel-heading">
                 <div class="row">
                     <div class="col col-xs-6">
-                        <form id="search_form" enctype="multipart/form-data" method="POST" action="{{url("/file/search/".$role)}}" style="display:inline">
-                            {{ csrf_field() }}
-                            <input type="text" style="display:none;" id="search" name="search" autofocus
-                                onKeyDown="function(event) {if ((event.keyCode || event.which) == 13) $('#search_form').submit();}">
-                        </form>
-                        <button class="btn btn-info btn-detail" onClick="$('#search').show(); $(this).hide();">
-                            Search&nbsp;&nbsp; <span class="glyphicon glyphicon-search"></span>
-                        </button>
-                        
-                        <button class="btn btn-warning btn-detail">Reset&nbsp;&nbsp; <span class="glyphicon glyphicon-refresh"></span>
-
-                        </button>
+                        <!-- <button class="btn btn-info btn-detail">Search&nbsp;&nbsp; <span class="glyphicon glyphicon-search"></span></button> -->
+                        <button class="btn btn-warning btn-detail" onclick="window.location='{{ route('fileList') }}'">Reset&nbsp;&nbsp; <span class="glyphicon glyphicon-refresh"></span></button>
                     </div>
                     <div class="col col-xs-6 text-right">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-default btn-filter" onClick="window.location = '{{url("file/filter/all")}}'">All Users</button>
-                            <button type="button" class="btn btn-success btn-filter" onClick="window.location = '{{url("file/filter/siteuser")}}'">Site Users</button>
-                            <button type="button" class="btn btn-warning btn-filter" onClick="window.location = '{{url("file/filter/admin")}}'">Admin Users</button>
-                            <button type="button" class="btn btn-danger btn-filter" onClick="window.location = '{{url("file/filter/sadmin")}}'">Super Admin</button>
+                            <button type="button" class="btn btn-default btn-filter" onClick="window.location = '{{url("file/list/uploaded")}}'">Uploaded</button>
+                            <button type="button" class="btn btn-success btn-filter" onClick="window.location = '{{url("file/list/in-progress")}}'">In progress</button>
+                            <button type="button" class="btn btn-warning btn-filter" onClick="window.location = '{{url("file/list/processed")}}'">Processed</button>
+                            <button type="button" class="btn btn-danger btn-filter" onClick="window.location = '{{url("file/list/downloaded")}}'">Downloaded</button>
                             <!--<button type="button" class="btn btn-default btn-filter" data-target="all">Todos</button>-->
                         </div>
                     </div>
@@ -98,28 +84,23 @@ Files<small></small>
                 
                 @foreach ($files as $file) 
                     @php
-                    $show = 1;
-                    if($role != 'all')                   
-                       $show = ($file->user->hasRole($role))? 1 : 0;
-                        
-                    //// storing filename from  fullpath
+                    //// storing filename from fullpath if name field empty
                     $filepath=(empty($file->name))? basename($file->path): $file->name;
-                    //$filepath=basename($filepath);
                     ////user friendly date time format
                     $createddate=date("d-M-Y h:i:s",strtotime($file->created_at));
-                    $startprocess = false;
                     if ($file->status == 1) {
                         $filestatus = "Uploaded";
-                        $startprocess = true;
                     } elseif ($file->status == 2) {
                         $filestatus = "In Progress";
                     } elseif ($file->status == 3) {
+                        $filestatus = "Processed";
+                    } elseif ($file->status == 4) {
                         $filestatus = "Downloaded";
                     } else {
                         $filestatus = "Not Defined";
                     }
                     @endphp
-                    @if($show)
+                    @if(is_null($status) || strcasecmp(str_replace("-"," ",$status), $filestatus) == 0)
                     <tr>
                     <!--<td><?php echo $file->ipaddress; ?></td>-->
                         <td>{{ $filepath }}</td>
@@ -139,12 +120,12 @@ Files<small></small>
                         </td>
                         @can('startprocessing', \App\File::class)
                         <td>
-                            @if($startprocess)
+                            @if($file->status == 1)
                                 <a href="{{ url("/file/startprocessing/".$file->id) }}">
                                     <i class="fa fa-check-circle-o fa-2x"></i>
                                 </a>
                             @else
-                                Already Processed
+                                {{ $filestatus }}
                             @endif
                         </td>
                         @endcan

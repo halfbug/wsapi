@@ -30,14 +30,12 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'file','middleware' => 'auth'], function () {
-    Route::get('/list', 'FileController@index')->name('fileList');
+    Route::get('/list/{status?}', 'FileController@index')->name('fileList');
     Route::get('/create', 'FileController@create');
     Route::post('/create', 'FileController@store');
     Route::get('/format', 'FileController@format');
     Route::get('/meta/create', 'FileController@meta');
     Route::get('/startprocessing/{file_id}', 'FileController@startprocessing');
-    Route::get('/filter/{user_role}','FileController@filtergrid');
-    Route::post('/search/{user_role}','FileController@search');
 });
 
 Route::group(['prefix' => 'profile','middleware' => 'auth'], function () {

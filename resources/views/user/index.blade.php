@@ -31,6 +31,7 @@ Users <small>management</small>
                     </div>
                     <div class="col col-xs-6 text-right">
                         <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-filter" onClick="window.location = '{{url("users")}}'">All Users</button>
                             <button type="button" class="btn btn-success btn-filter" onClick="window.location = '{{url("users/filter/siteuser")}}'">Site Users</button>
                             <button type="button" class="btn btn-warning btn-filter" onClick="window.location = '{{url("users/filter/admin")}}'">Admin Users</button>
                             <button type="button" class="btn btn-danger btn-filter" onClick="window.location = '{{url("users/filter/sadmin")}}'">Super Admin</button>
