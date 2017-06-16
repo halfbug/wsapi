@@ -145,7 +145,7 @@ Upload File
                                    <fieldset>
 
                                        <p>
-                                           Accordian button
+                                           button
                                        </p>
                                        <div class="checkbox checkbox-primary">
                                            <input id="checkbox5" type="checkbox">

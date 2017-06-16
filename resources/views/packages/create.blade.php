@@ -77,7 +77,7 @@
 							@endforeach 
 						</select>
 						</div>
-                        <a href="#dissc" data-toggle="collapse" class="btn btn-info">Add New Discount</a>
+                        <a href="#dissc" data-toggle="collapse" class="btn btn-info">New Discount</a>
                     </div>
                    <div id="dissc" class="collapse" >
                        <div class="form-group">
