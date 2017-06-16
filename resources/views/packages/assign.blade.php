@@ -27,7 +27,7 @@
                     <div class="form-group">
 						<label for="status" class="col-sm-3 control-label">User</label>
 						<div class="col-sm-9">
-						<select id="status" name="status" class="form-control">
+						<select id="user" name="user" class="form-control">
 							@foreach ($users as $user) 
 							<option value="{{ $user->id }}">{{ $user->name }}</option>
 							@endforeach 

@@ -42,10 +42,15 @@ class PackageController extends Controller
 			
 		}
 
-	public function assignpackage() {
-        echo "assigned";
-		//return view('packages.assign');
-			
+	public function assignpackage(Request $request) {
+        //echo "assigned";
+		$package_id=$request->pkg;
+		$user_id=$request->user;
+        $user = \App\User::find($user_id);
+		$user->package_id=$package_id;
+		$user->save();
+        return back()->with('success', '$user->name is assigned package.');
+		
 		}
 
 }
