@@ -317,13 +317,13 @@
                             <a href="#"><i class="fa fa-database fa-fw"></i> Packages<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="{{url("/packages")}}"><i class="fa fa-list fa-fw"></i> View all </a>
+                                    <a href="{{url("/packages")}}"><i class="fa fa-list fa-fw"></i> Packages List </a>
                                 </li>
                                 <li>
                                     <a href="{{url("/packages/add")}}"><i class="fa fa-plus fa-fw"></i> Add New </a>
                                 </li>
                                 <li>
-                                    <a href="{{url("/packages/assign")}}"><i class="fa fa-star fa-fw"></i> Assign User</a>
+                                    <a href="{{url("/packages/assign")}}"><i class="fa fa-star fa-fw"></i> Assign User to Package</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
