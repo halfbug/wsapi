@@ -93,29 +93,13 @@ Files<small></small>
                     </tr>
 
                     @foreach ($files as $file) 
-                    @php
-                    //// storing filename from fullpath if name field empty
-                    $filepath=(empty($file->name))? basename($file->path): $file->name;
-                    ////user friendly date time format
-                    $createddate=date("d-M-Y h:i:s",strtotime($file->created_at));
-                    if ($file->status == 1) {
-                    $filestatus = "Uploaded";
-                    } elseif ($file->status == 2) {
-                    $filestatus = "In Progress";
-                    } elseif ($file->status == 3) {
-                    $filestatus = "Processed";
-                    } elseif ($file->status == 4) {
-                    $filestatus = "Downloaded";
-                    } else {
-                    $filestatus = "Not Defined";
-                    }
-                    @endphp
-                    @if(is_null($status) || strcasecmp(str_replace("-"," ",$status), $filestatus) == 0)
+                   
+                   
                     <tr>
                     <!--<td><?php echo $file->ipaddress; ?></td>-->
-                        <td>{{ $filepath }}</td>
-                        <td>{{ $filestatus }}</td>
-                        <td>{{ $createddate }}</td>
+                        <td>{{ $file->name }}</td>
+                        <td>{{ $file->getStatus() }}</td>
+                        <td>{{ $file->created_at }}</td>
                         <td> 
                             <button class="btn btn-secondary btn-detail edit_package" value="{{$file->id}}" title="Download Processed File"><i class="fa fa-download" ></i></button>
 
@@ -130,17 +114,17 @@ Files<small></small>
                         </td>
                         @can('startprocessing', \App\File::class)
                         <td>
-                            @if($file->status == 1)
+                            @if($file->getStatus == "Uploaded")
                             <a href="{{ url("/file/startprocessing/".$file->id) }}">
                                 <i class="fa fa-check-circle-o fa-2x"></i>
                             </a>
                             @else
-                            {{ $filestatus }}
+                            {{ $file->getStatus() }}
                             @endif
                         </td>
                         @endcan
                     </tr>
-                    @endif
+                   
                     @endforeach 
                 </table>
             </div>
