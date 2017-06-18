@@ -60,6 +60,23 @@ class PackageController extends Controller
         $discount = \App\Discount::find($package->discount_id);
       return view('packages.edit')->with(compact('package'))->with(compact('discount'))->with(compact('discounts'));
 	}
+	public function update(Request $request, $package_id) {
+ 		$discounts=\App\Discount::all();
+ 		  $package=Package::find($package_id);
+		  $package->name=$request->name;
+		  $package->description= $request->description;
+		  $package->start_date= $request->createdate;
+		  $package->end_date= $request->enddate;
+		  $package->files_count= $request->filecount;
+		  $package->reset_count= $request->resetcount;
+		  $package->price= $request->price;
+		  $package->status= $request->get('status');
+  		  $package->discount_id= $request->get('discount');
+		  $package->save();
+        $discount = \App\Discount::find($package->discount_id);
+      return view('packages.edit')->with(compact('package'))->with(compact('discount'))->with(compact('discounts'));
+		  
+	}
 	
 	public function assign() {
 		$packages=Package::all();
