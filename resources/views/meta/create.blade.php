@@ -25,14 +25,27 @@ Meta data
     <script>
         function append_child(main_box)
         {
+            var limit = (main_box == 'main_box') ? 11 : 7;
             //save the root element (the <table> element)
             var root = jQuery("#" + main_box);
+
+            var total_children = root.children().length;
+            if(total_children >= limit)
+            {
+                alert('Max limit reached');
+                return false;
+            }
             //find the template (denoted by the fact that it's hidden unlike the clones) and clone it
             var clonedRow = root.find(".inputRow:hidden").clone(true);
             //insert the cloned row right before the last row (which is the "Add Video" button)
             root.find("#addRow").before(clonedRow);
             //make the cloned row visible
             clonedRow.show();
+            if(main_box == 'main_box2')
+            {
+                total_children = total_children+9;
+            }
+            clonedRow.find('.counter').html('Field '+total_children);
             //then make all "Remove" buttons visible because there must be at least two input rows now
             root.find(".removeInputButton:hidden").show();
         }
@@ -75,7 +88,7 @@ Meta Data <small>settings</small>
                                 </div>
                                 <div id="main_box">
                                     <div class="form-group inputRow" style="display:none;">
-                                        <label for="field2"  class="col-sm-3 control-label"></label>
+                                        <label for="field2"  class="col-sm-3 control-label counter">Field 0</label>
                                         <div class="col-sm-4">
                                             <input type="number" class="form-control" id="field2[]" name="field2[]">
                                         </div>
@@ -87,7 +100,7 @@ Meta Data <small>settings</small>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="field2"  class="col-sm-3 control-label">File 2</label>
+                                        <label for="field2"  class="col-sm-3 control-label">Field 2</label>
                                         <div class="col-sm-4">
                                             <input type="number" class="form-control" id="field2[]" name="field2[]">
                                         </div>
@@ -102,7 +115,7 @@ Meta Data <small>settings</small>
                                 </div>
                                 <div id="main_box2">
                                     <div class="form-group inputRow" style="display:none;">
-                                        <label for="field3"  class="col-sm-3 control-label"></label>
+                                        <label for="field3"  class="col-sm-3 control-label counter">Field 0</label>
                                         <div class="col-sm-4">
                                             <input type="number" class="form-control" id="field3[]" name="field3[]">
                                         </div>
@@ -114,7 +127,7 @@ Meta Data <small>settings</small>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="field3"  class="col-sm-3 control-label">File 3</label>
+                                        <label for="field3"  class="col-sm-3 control-label">Field 11</label>
                                         <div class="col-sm-4">
                                             <input type="number" class="form-control" id="field3[]" name="field3[]">
                                         </div>
