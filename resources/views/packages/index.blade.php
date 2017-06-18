@@ -47,7 +47,7 @@ Packages <small>management</small>
                     @foreach ($packages as $package)
                     <tr>
                         <td align="center">
-                            <a class="btn btn-default"><em class="fa fa-pencil"></em></a>
+                            <a class="btn btn-default" href="{{url('packages/edit/'.$package['id'])}}"><em class="fa fa-pencil"></em></a>
                             <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
                         </td>
                         <td>{{ $package['name'] }}</td>

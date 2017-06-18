@@ -5,9 +5,9 @@
     <div class="col-xs-12 col-sm-12 col-md-12 ">
         <div class="panel panel-default">
             <div class="panel-heading">
-                Add New Package
+                Edit Package
             </div>
-            <form action="{{url('packages/add')}}" method="post" id="frmPackages" name="frmPackages" class="form-horizontal" novalidate="">
+            <form action="{{url('packages/edit/'.$package->id)}}" method="post" id="frmEditPackages" name="frmEditPackages" class="form-horizontal" novalidate="">
                 {{ csrf_field() }}
                
 			   <div class="panel-body">
@@ -15,20 +15,20 @@
                     <div class="form-group error">
                         <label for="inputName" class="col-sm-3 control-label">Name</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control has-error" id="name" name="name" placeholder="Package name">
+                            <input type="text" class="form-control has-error" id="name" name="name" placeholder="Package name" value="{{$package->name}}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputDetail" class="col-sm-3 control-label">Description</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="description" name="description" placeholder="description">
+                            <input type="text" class="form-control" id="description" name="description" placeholder="description" value="{{$package->description}}">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="inputDetail" class="col-sm-3 control-label">Start Date</label>
                         <div class="col-sm-4">
-						    <input type="datetime" name="createdate" value="<?php echo date("Y-m-d h:i:s",time()); ?>" class="form-control">
+						    <input type="datetime" name="createdate" value="{{$package->gettimeformat()}}" class="form-control">
 						 </div>
                     </div>
 
@@ -63,9 +63,13 @@
 						<div class="col-sm-4">
 						<select id="discount" name="discount" class="form-control">
 							<option value="0">Select discount for this package</option>
-							@foreach ($discounts as $discount) 
-							<option value="{{ $discount->id }}">{{ $discount->name }}</option>
+							@php $selected="";@endphp
+							@foreach ($discounts as $disc)
+							@php if($disc->id==$discount->id) {$selected="selected";}@endphp
+							<option value="{{ $disc->id }}" {{$selected}}>{{ $disc->name }}</option>
+							@php $selected="";@endphp
 							@endforeach 
+							
 						</select>
 						</div>
                         <a href="#dissc" data-toggle="collapse" class="btn btn-info">New Discount</a>
@@ -142,8 +146,8 @@
                 <div class="panel-footer ">
 
                     <span class="pull-right">
-                        <button type="submit" class="btn btn-primary " id="btn-save">Save changes</button>
-                        <input type="hidden" id="package_id" name="package_id" value="">
+                        <button type="submit" class="btn btn-primary " id="btn-save" value="Save">Save changes</button>
+                        <input type="hidden" id="package_id" name="package_id" value="{{$package->id}}">
                     </span>
                     <div class="clearfix"></div>
                 </div>

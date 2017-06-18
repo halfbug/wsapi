@@ -17,7 +17,7 @@ class PackageController extends Controller
     public function create() {
 		$discounts=\App\Discount::all();
 		
-        return view('packages.create')->with('state','add')->with(compact('discounts'));
+        return view('packages.create')->with(compact('discounts'));
     }
 
 	public function store(Request $request) {
@@ -54,6 +54,13 @@ class PackageController extends Controller
 		  $package->save();
          return redirect()->route('packageslist')->with('success','Package created successfully');
     }
+	public function edit($package_id) {
+ 		$package=Package::find($package_id);
+ 		$discounts=\App\Discount::all();
+        $discount = \App\Discount::find($package->discount_id);
+      return view('packages.edit')->with(compact('package'))->with(compact('discount'))->with(compact('discounts'));
+	}
+	
 	public function assign() {
 		$packages=Package::all();
 		$users=\App\User::all();
