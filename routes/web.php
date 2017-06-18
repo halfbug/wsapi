@@ -63,6 +63,7 @@ Route::group(['prefix' => 'packages','middleware' => 'auth'], function () {
 Route::get('/', 'PackageController@index')->name('packageslist');
 Route::get('/add', 'PackageController@create');
 Route::get('/edit/{package_id}', 'PackageController@edit');
+Route::post('/edit/{package_id}', 'PackageController@update');
 Route::post('/add', 'PackageController@store');
 Route::get('/assign', 'PackageController@assign');
 Route::post('/assign', 'PackageController@assignpackage');
