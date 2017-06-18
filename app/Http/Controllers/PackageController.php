@@ -22,7 +22,7 @@ class PackageController extends Controller
 
 	public function store(Request $request) {
 		 $package= new Package;
-		 
+		 $discount= new Discount;
 		  $package->name=$request->name;
 		  $package->description= $request->description;
 		  $package->start_date= $request->createdate;
@@ -30,8 +30,27 @@ class PackageController extends Controller
 		  $package->files_count= $request->filecount;
 		  $package->reset_count= $request->resetcount;
 		  $package->price= $request->price;
-		  $package->discount_id= $request->get('discount');
 		  $package->status= $request->get('status');
+		  
+			//if add new discount do this
+		  if($request->get('discount')==0){
+			 // echo "add new discount here";
+		  $discount->name=$request->discname;
+		  $discount->description= $request->discountdesc;
+		  $discount->start_date= $request->createdate;
+		  $discount->end_date= $request->enddate;
+		  $discount->amount= $request->amount;
+		  $discount->duration= $request->duration;
+		  $discount->type= $request->newtype;
+		  $discount->status= $request->get('discountstatus');		  
+		  $discount->save();
+		  $discount_id=$discount->id;
+  		  $package->discount_id= $discount_id;
+}
+		  else {
+  		  $package->discount_id= $request->get('discount');
+		  }
+
 		  $package->save();
          return redirect()->route('packageslist')->with('success','Package created successfully');
     }
