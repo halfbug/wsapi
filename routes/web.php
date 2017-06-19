@@ -36,6 +36,7 @@ Route::group(['prefix' => 'file','middleware' => 'auth'], function () {
     Route::get('/format', 'FileController@format');
     Route::get('/meta/create', 'FileController@meta');
     Route::get('/startprocessing/{file_id}', 'FileController@startprocessing');
+    Route::get('/download/{file_id}', 'FileController@downloadfile');
 });
 
 Route::group(['prefix' => 'profile','middleware' => 'auth'], function () {

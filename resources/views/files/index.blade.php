@@ -114,7 +114,7 @@ Files<small></small>
                         </td>
                         @can('startprocessing', \App\File::class)
                         <td>
-                            @if($file->getStatus == "Uploaded")
+                            @if($file->getStatus() == "Uploaded")
                             <a href="{{ url("/file/startprocessing/".$file->id) }}">
                                 <i class="fa fa-check-circle-o fa-2x"></i>
                             </a>

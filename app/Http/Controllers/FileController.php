@@ -63,4 +63,10 @@ class FileController extends Controller
         return view('files.startprocessing')->with('file',$file);
     }
 
+    public function downloadfile($fileid){
+    	$file = File::find($fileid);
+    	$path = str_replace('/', '\\', storage_path('app\\'.$file->path));
+    	return response()->download($path);
+    }
+
 }
