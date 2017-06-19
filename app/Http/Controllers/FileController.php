@@ -11,8 +11,15 @@ class FileController extends Controller
 {
     //
 	public function index($status = null){
-		$files = File::all();
-		return view('files.index', compact('files','status'));
+		if (is_null($status))
+			$files = File::all();
+		else{
+			$file = new file();
+			$value = array_search(str_replace('-',' ',$status), $file->getAllStatus());
+			$files = File::where('status', $value)->get();
+		}
+		
+		return view('files.index', compact('files'));
 	}
 	
 	public function create() {
@@ -66,7 +73,7 @@ class FileController extends Controller
     public function downloadfile($fileid){
     	$file = File::find($fileid);
     	$path = str_replace('/', '\\', storage_path('app\\'.$file->path));
-    	return response()->download($path);
+    	return response()->download($path, $file->name);
     }
 
 }

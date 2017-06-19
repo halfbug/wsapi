@@ -37,10 +37,6 @@ class File extends Model {
         return $this->belongsTo('App\User');
     }
     
-    public function getNameAttribute() {
-        return (empty($this->name))? basename($this->path): $this->name;
-    }
-    
     public function getCreated_AtAttribute() {
         return date("d-M-Y h:i:s",strtotime($this->created_at));
     }

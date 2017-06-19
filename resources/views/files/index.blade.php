@@ -67,10 +67,10 @@ Files<small></small>
                     <div class="col col-xs-10 text-right">
                         <div class="btn-group">
                            
-                            <button type="button" class="btn btn-info btn-filter" onClick="window.location = '{{url("file/list/uploaded")}}'">Uploaded</button>
-                            <button type="button" class="btn btn-success btn-filter" onClick="window.location = '{{url("file/list/in-progress")}}'">In progress</button>
-                            <button type="button" class="btn btn-warning btn-filter" onClick="window.location = '{{url("file/list/processed")}}'">Processed</button>
-                            <button type="button" class="btn btn-danger btn-filter" onClick="window.location = '{{url("file/list/downloaded")}}'">Downloaded</button>
+                            <button type="button" class="btn btn-info btn-filter" onClick="window.location = '{{url("file/list/Uploaded")}}'">Uploaded</button>
+                            <button type="button" class="btn btn-success btn-filter" onClick="window.location = '{{url("file/list/In-Progress")}}'">In progress</button>
+                            <button type="button" class="btn btn-warning btn-filter" onClick="window.location = '{{url("file/list/Processed")}}'">Processed</button>
+                            <button type="button" class="btn btn-danger btn-filter" onClick="window.location = '{{url("file/list/Downloaded")}}'">Downloaded</button>
                             <!--<button type="button" class="btn btn-default btn-filter" data-target="all">Todos</button>-->
                         </div>
                     </div>
