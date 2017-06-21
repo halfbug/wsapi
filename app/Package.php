@@ -13,11 +13,22 @@ class Package extends Model
         0 => 'Disabled',
         1 => 'Enabled',
 		];
+    protected $typez = [
+        1 => 'Monthly',
+        3 => 'One Time',
+		];
     public function getAllStatus() {
         return $this->statusz;
     }
     public function getStatus() {
         return $this->statusz[$this->status];
+    }
+	
+    public function getAllType() {
+        return $this->typez;
+    }
+    public function getType() {
+        return $this->typez[$this->type];
     }
     public function gettimeformat() {
         return date("d-M-Y h:i:s",strtotime($this->start_date));

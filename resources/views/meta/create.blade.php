@@ -49,23 +49,39 @@ Meta data
             //then make all "Remove" buttons visible because there must be at least two input rows now
             root.find(".removeInputButton:hidden").show();
         }
-        function delete_child(hideAppChildSender)
+
+        /*function  delete_child(hideAppChildSender)
         {
             var thisElement = jQuery(hideAppChildSender);
-
-            //save the root element
-            var root = thisElement.parents("#main_box");
-
-            //find the ancestor <tr> element and remove it from the DOM
             thisElement.parent().parent().remove();
-            //find all remaining "Remove" buttons in this table that are still visible
-            var removeButtonsRemaining = root.find(".removeInputButton:visible");
-            //if the number of visible "Remove" buttons is (less than or equal to) one, then hide it
-            //because that means there's only one input row left, which means that you can't remove it
-            if (removeButtonsRemaining.size() <= 1) {
-                removeButtonsRemaining.hide();
+        }*/
+        function disable_child(hideAppChildSender,main_box)
+        {
+            var thisElement = jQuery(hideAppChildSender);
+            var elementClass = (main_box == 'main_box2') ? 'numeric_only' : 'alpha_numeric';
+            //console.log(thisElement.parent().parent().find('.numeric_only').attr('disabled',true));
+
+            attribute_value = thisElement.parent().parent().find('.'+elementClass).attr('disabled');
+            if(attribute_value == undefined)
+            {
+                thisElement.parent().parent().find('.'+elementClass).attr('disabled',true);
+                thisElement.removeClass('btn-danger');
+                thisElement.addClass('btn-success');
+                thisElement.val('+');
             }
+            else
+            {
+                thisElement.parent().parent().find('.'+elementClass).attr('disabled',false);
+                thisElement.removeClass('btn-success');
+                thisElement.addClass('btn-danger');
+                thisElement.val('- ');
+            }
+
+            //thisElement.parent().parent().remove();
         }
+        $(function() {
+            $('.staticParent').on('keydown', '.numeric_only', function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});
+        })
 
     </script>
 @endsection
@@ -90,10 +106,10 @@ Meta Data <small>settings</small>
                                     <div class="form-group inputRow" style="display:none;">
                                         <label for="field2"  class="col-sm-3 control-label counter">Field 0</label>
                                         <div class="col-sm-4">
-                                            <input type="number" class="form-control" id="field2[]" name="field2[]">
+                                            <input  type="text" class="form-control alpha_numeric" id="field2[]" name="field2[]">
                                         </div>
                                         <div class="col-sm-1">
-                                            <input type="button" value="-&nbsp;" class="btn btn-danger btn-sm " onclick="delete_child(this); return false;">
+                                            <input type="button" value="-&nbsp;" class="btn btn-danger btn-sm " onclick="disable_child(this,'main_box'); return false;">
                                         </div>
                                         <div class="col-sm-1">
                                             <input type="button" value="+" class="btn btn-primary btn-sm" onclick="append_child('main_box');">
@@ -102,13 +118,11 @@ Meta Data <small>settings</small>
                                     <div class="form-group">
                                         <label for="field2"  class="col-sm-3 control-label">Field 2</label>
                                         <div class="col-sm-4">
-                                            <input type="number" class="form-control" id="field2[]" name="field2[]">
+                                            <input type="text" class="form-control alpha_numeric" id="field2[]" name="field2[]">
                                         </div>
                                         <div class="col-sm-2">
                                             <input type="button" value="+" class="btn btn-primary btn-sm" onclick="append_child('main_box');">
                                         </div>
-
-
                                     </div>
                                     <div id="addRow">
                                     </div>
@@ -116,11 +130,11 @@ Meta Data <small>settings</small>
                                 <div id="main_box2">
                                     <div class="form-group inputRow" style="display:none;">
                                         <label for="field3"  class="col-sm-3 control-label counter">Field 0</label>
-                                        <div class="col-sm-4">
-                                            <input type="number" class="form-control" id="field3[]" name="field3[]">
+                                        <div class="col-sm-4 staticParent" >
+                                            <input type="number" class="form-control numeric_only" id="field3[]" name="field3[]">
                                         </div>
                                         <div class="col-sm-1">
-                                            <input type="button" value="-&nbsp;" class="btn btn-danger btn-sm " onclick="delete_child(this); return false;">
+                                            <input type="button" value="-&nbsp;" class="btn btn-danger btn-sm " onclick="disable_child(this,'main_box2'); return false;">
                                         </div>
                                         <div class="col-sm-1">
                                             <input type="button" value="+" class="btn btn-primary btn-sm" onclick="append_child('main_box2');">
@@ -128,14 +142,12 @@ Meta Data <small>settings</small>
                                     </div>
                                     <div class="form-group">
                                         <label for="field3"  class="col-sm-3 control-label">Field 11</label>
-                                        <div class="col-sm-4">
-                                            <input type="number" class="form-control" id="field3[]" name="field3[]">
+                                        <div class="col-sm-4 staticParent" >
+                                            <input type="number" class="form-control numeric_only" id="field3[]" name="field3[]">
                                         </div>
                                         <div class="col-sm-2">
                                             <input type="button" value="+" class="btn btn-primary btn-sm" onclick="append_child('main_box2');">
                                         </div>
-
-
                                     </div>
                                     <div id="addRow">
                                     </div>
