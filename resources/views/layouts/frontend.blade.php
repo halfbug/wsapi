@@ -86,7 +86,7 @@
             </h1>
             @if (!(\Request::is('/')))
              <ol class="breadcrumb">
-                    <li><a href="index.html">Home</a>
+                    <li><a href="{{ route('home') }}">Home</a>
                     </li>
                     <li class="active"><i class="fa fa-file"></i></li>
                 </ol>

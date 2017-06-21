@@ -41,6 +41,9 @@ Users <small>management</small>
                 </div>
             </div>
             {{ csrf_field() }}
+            @php
+                $role = (session()->has('role'))? \Session::get('role'): 'all';
+            @endphp
             <div class="panel-body">
                 <table class="table table-striped table-bordered table-list">
                     <tr>
@@ -54,7 +57,6 @@ Users <small>management</small>
                     @php 
                         $id = $user['id'];
                         $show = 1;
-                        $role = (session()->has('role'))? \Session::get('role'): 'all';
                         if($role != 'all')                   
                             $show = ($role == $user['roles'][0]['name'])? 1 : 0;
                         
@@ -62,6 +64,7 @@ Users <small>management</small>
                     @if($show)
                     <tr>
                         <td align="center">
+                            @if($user['roles'][0]['name'] != 'sadmin')
                             <a class="btn btn-default" onclick="window.location = '{{url("users/edit/".$id)}}'"><em class="fa fa-pencil"></em></a>
 
                             <form enctype='multipart/form-data' class="form-inline" style="display:inline" role="form" method="POST"  id="deleteForm" action="{{url("users/".$id."/".$role)}}">
@@ -69,6 +72,7 @@ Users <small>management</small>
                                     {{ method_field('DELETE') }}
                                 <a class="btn btn-danger" onclick="$(this).closest('form').submit();"><em class="fa fa-trash"></em></a>
                             </form>
+                            @endif
                         </td>
                         <td>{{ $user['name'] }}</td>
                         <td>{{ $user['email'] }}</td>

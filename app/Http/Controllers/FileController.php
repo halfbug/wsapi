@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use \Auth;
 use App\File;
+use Carbon\Carbon;
 
 class FileController extends Controller
 {
@@ -44,6 +45,7 @@ class FileController extends Controller
 		return redirect()->route('fileList');
 		
 	}
+
 	public function show($fileid) {
 		//$file=File::find($fileid);
 		//return view(fileshowfile, $file =>$file );
@@ -70,10 +72,48 @@ class FileController extends Controller
         return view('files.startprocessing')->with('file',$file);
     }
 
-    public function downloadfile($fileid){
+    public function downloadfile($fileid)
+    {
     	$file = File::find($fileid);
     	$path = str_replace('/', '\\', storage_path('app\\'.$file->path));
     	return response()->download($path, $file->name);
+    }
+
+    public function search(Request $request)
+    {
+    	$conditions = array();
+    	if ($request->status) {
+    		array_push($conditions, ['status','=',$request->status]);
+    	}
+
+    	if ($request->uploadtime) {
+    		if ($request->uploadtime == 1) {
+    			array_push($conditions, ['created_at', '>=', Carbon::today()->toDateString()]);
+    		} elseif ($request->uploadtime == 2) {
+    			array_push($conditions, ['created_at', '>=', Carbon::now()->subWeek()->startOfWeek()]);
+    			array_push($conditions, ['created_at', '<=', Carbon::now()->subWeek()->endOfWeek()]);
+    		} elseif ($request->uploadtime == 3) {
+    			array_push($conditions, ['created_at', '>=', Carbon::now()->subMonth()->startOfMonth()]);
+    			array_push($conditions, ['created_at', '<', Carbon::now()->startOfMonth()]);
+    		}
+    	}
+
+    	if(isset($conditions))
+    		$files = File::where($conditions)->get();
+    	else
+    		$files = File::all();
+
+    	if($request->user) {
+    	  //if ($request->user == 3) {
+		    foreach ($files as $key => $file) {
+		    	$user = $file->user()->get();
+		    	if (!$user[0]->hasRole('siteuser')) 
+		    		unset($files[$key]);
+		    }
+    	  //}
+	    }
+
+	    return back()->with('files',$files);
     }
 
 }

@@ -30,4 +30,9 @@ class FilesPolicy
     {
         return $user->hasRole('admin');
     }
+
+    public function searchfile(User $user)
+    {
+        return $user->hasRole('admin');
+    }
 }

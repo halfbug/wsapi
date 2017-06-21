@@ -23,39 +23,47 @@ Files<small></small>
 @section('content')
 <div class="">
     <div class="col-md-12 ">
+        @can('searchfile', \App\File::class)
         <div class="panel">
-        <form name="search-file">
-            <h2> Search </h2>
-            <hr>
-        <div class="row form-group">
-            <div class="col-sm-3">
-                <label for="ddlCompany">Status</label>
-                <select id="ddlCompany" class="form-control">
-                    <option value="0">Select Status</option>
-                </select>
-            </div>
-            <div class="col-sm-3">
-                <label for="ddlDepartment">User</label>
-                <select id="ddlDepartment" class="form-control">
-                    <option value="0">Select User</option>
-                </select>
-            </div>
-            <div class="col-sm-3">
-                <label for="ddlBranch">Upload time</label>
-                <select id="ddlBranch" class="form-control" >
-                    <option value="0">Select period</option>
-                    <option value="0">Today</option>
-                    <option value="0">Last Week</option>
-                    <option value="0">Last Month</option>
-                </select>
-            </div>
+            <form name="search-file" enctype='multipart/form-data' method="POST"  id="search-file" action="{{url("file/search")}}">
+                {{ csrf_field() }}
+                <h2> Search </h2>
+                <hr>
+            <div class="row form-group">
+                <div class="col-sm-3">
+                    <label for="status">Status</label>
+                    <select id="status" name="status" class="form-control">
+                        <option value="0">Select Status</option>
+                        <option value="1">Uploaded</option>
+                        <option value="2">In Progress</option>
+                        <option value="3">Processed</option>
+                        <option value="4">Downloaded</option>
+                    </select>
+                </div>
+                <div class="col-sm-3">
+                    <label for="user">User</label>
+                    <select id="user" name="user" class="form-control">
+                        <option value="0">Select User</option>
+                        <option value="3">Site User</option>
+                    </select>
+                </div>
+                <div class="col-sm-3">
+                    <label for="uploadtime">Upload time</label>
+                    <select id="uploadtime" name="uploadtime" class="form-control" >
+                        <option value="0">Select period</option>
+                        <option value="1">Today</option>
+                        <option value="2">Last Week</option>
+                        <option value="3">Last Month</option>
+                    </select>
+                </div>
 
-        </div> 
-             <button class="btn btn-info btn-detail">Search&nbsp;&nbsp; <span class="glyphicon glyphicon-search"></span></button> 
-                                            <button class="btn btn-warning btn-detail" >Reset&nbsp;&nbsp; <span class="glyphicon glyphicon-refresh"></span></button>
-                                            
-        </form><br>
-    </div>
+            </div> 
+                 <button class="btn btn-info btn-detail" onClick="$(#search-file).submit();">Search&nbsp;&nbsp; <span class="glyphicon glyphicon-search"></span></button> 
+                 <button class="btn btn-warning btn-detail" >Reset&nbsp;&nbsp; <span class="glyphicon glyphicon-refresh"></span></button>
+                                                
+            </form><br>
+        </div>
+        @endcan
         <div class="panel panel-default panel-table">
 
 
@@ -91,7 +99,10 @@ Files<small></small>
                         <th>Start Processing</th>
                         @endcan
                     </tr>
-
+                    @php
+                    if(session()->has('files'))
+                        $files = \Session::get('files');
+                    @endphp
                     @foreach ($files as $file) 
                    
                    
