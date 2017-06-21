@@ -75,3 +75,8 @@ Route::group(['prefix' => 'api'], function () {
     Route::get('/', 'ApiController@index');
    
 });
+
+Route::group(['prefix' => 'analytics','middleware' => 'auth'], function () {
+    Route::get('/', 'AnalyticController@index');
+   
+});
