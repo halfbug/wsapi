@@ -111,8 +111,11 @@
                         <div class="form-group">
                        <label for="newtype" class="col-sm-3 control-label">Type</label>
                        <div class="col-sm-4">
-                           <input type="text" name="newtype" class="form-control">
-                       </div>
+							<select name="newtype" class="form-control">
+							<option value="1">1</option>
+							<option value="3">3</option>
+							</select>
+						   </div>
                        </div>
                         <div class="form-group">
                        <label for="discountstatus" class="col-sm-3 control-label">Discount Status</label>

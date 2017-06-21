@@ -41,7 +41,7 @@ class PackageController extends Controller
 		  $discount->end_date= $request->enddate;
 		  $discount->amount= $request->amount;
 		  $discount->duration= $request->duration;
-		  $discount->type= $request->newtype;
+		  $discount->type= $request->get('newtype');
 		  $discount->status= $request->get('discountstatus');		  
 		  $discount->save();
 		  $discount_id=$discount->id;
