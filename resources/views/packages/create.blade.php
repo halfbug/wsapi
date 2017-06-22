@@ -71,7 +71,7 @@
                         <a href="#dissc" data-toggle="collapse" class="btn btn-info">New Discount</a>
                     </div>
                    <div id="dissc" class="collapse">
-                       <table border="1" width="75%"><tr><td>
+
 					   <div class="form-group">
                        <label for="discname" class="col-sm-3 control-label">Name</label>
                        <div class="col-sm-4">
@@ -126,7 +126,7 @@
 						</select>
                        </div>
                        </div>
-                </td></tr></table>
+
 				</div>
 
                     <div class="form-group">
