@@ -107,8 +107,9 @@ Files<small></small>
                    
                    
                     <tr>
-                    <!--<td><?php echo $file->ipaddress; ?></td>-->
-                        <td>{{ $file->name }}</td>
+                        <td>
+                            <a href="{{ url("/file/".$file->id) }}">{{ $file->name }}</a>
+                        </td>
                         <td>{{ $file->getStatus() }}</td>
                         <td>{{ $file->created_at }}</td>
                         <td> 

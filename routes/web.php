@@ -38,6 +38,8 @@ Route::group(['prefix' => 'file','middleware' => 'auth'], function () {
     Route::get('/startprocessing/{file_id}', 'FileController@startprocessing');
     Route::get('/download/{file_id}', 'FileController@downloadfile');
     Route::post('/search', 'FileController@search');
+    Route::get('/{file_id}', 'FileController@show');
+    Route::post('/{file_id}', 'FileController@uploadprocessed');
 });
 
 Route::group(['prefix' => 'profile','middleware' => 'auth'], function () {

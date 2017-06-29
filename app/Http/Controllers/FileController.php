@@ -11,15 +11,18 @@ use Carbon\Carbon;
 class FileController extends Controller
 {
     //
-	public function index($status = null){
-		if (is_null($status))
-			$files = File::all();
-		else{
+	public function index($status = null)
+	{
+		$conditions = array(['parent_id', null]);
+		
+		if(!is_null($status))
+		{
 			$file = new file();
 			$value = array_search(str_replace('-',' ',$status), $file->getAllStatus());
-			$files = File::where('status', $value)->get();
+			array_push($conditions, ['status', $value]);
 		}
 		
+		$files = File::where($conditions)->get();
 		return view('files.index', compact('files'));
 	}
 	
@@ -46,9 +49,10 @@ class FileController extends Controller
 		
 	}
 
-	public function show($fileid) {
-		//$file=File::find($fileid);
-		//return view(fileshowfile, $file =>$file );
+	public function show($fileid) 
+	{
+		$file = File::find($fileid);
+		return view('files.show')->with('file', $file);
 	}
 	
 	public function destroy($id) {
@@ -81,7 +85,7 @@ class FileController extends Controller
 
     public function search(Request $request)
     {
-    	$conditions = array();
+    	$conditions = array(['parent_id', null]);
     	if ($request->status) {
     		array_push($conditions, ['status','=',$request->status]);
     	}
@@ -98,11 +102,8 @@ class FileController extends Controller
     		}
     	}
 
-    	if(isset($conditions))
-    		$files = File::where($conditions)->get();
-    	else
-    		$files = File::all();
-
+    	$files = File::where($conditions)->get();
+    	
     	if($request->user) {
     	  //if ($request->user == 3) {
 		    foreach ($files as $key => $file) {
@@ -114,6 +115,29 @@ class FileController extends Controller
 	    }
 
 	    return back()->with('files',$files);
+    }
+
+    public function uploadprocessed($fileid, Request $request)
+    {
+    	if ($request->hasFile('file')) {
+			$user_id = Auth::id();
+			$file = $request->file;
+			
+			$fileModel = new file;
+			$fileModel->name = $file->getClientOriginalName();
+			$fileModel->user_id = $user_id;
+			$fileModel->ipaddress = $request->ip();
+			$fileModel->status = 3;
+			$fileModel->parent_id = $fileid;
+			$fileModel->path = $file->store('public/processed/'.$user_id);
+			$fileModel->save();
+			
+			$uploadedfile = File::find($fileid);
+			$uploadedfile->status = 3;
+			$uploadedfile->save();
+		}
+		
+		return redirect()->route('fileList');
     }
 
 }
