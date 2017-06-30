@@ -50,3 +50,6 @@ vendor/composer/LICENSE
 vendor/composer/ClassLoader.php
 vendor/composer/autoload_static.php
 vendor/composer/autoload_psr4.php
+nbproject/project.properties
+nbproject/project.xml
+/node_modules

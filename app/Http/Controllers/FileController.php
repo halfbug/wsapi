@@ -32,20 +32,31 @@ class FileController extends Controller
 	
 	public function store(Request $request) {
 		
-		if ($request->hasFile('photo')) {
+		if ($request->hasFile('photos')) {
 			$user_id = Auth::id();
-			foreach ($request->photo as $file) {
+                        $photos = [];
+			foreach ($request->photos as $photo) {
 				$fileModel = new file;
-				$fileModel->name = $file->getClientOriginalName();
+//                                var_dump($file);
+				$fileModel->name = $photo->getClientOriginalName();
 				$fileModel->user_id = $user_id;
 				$fileModel->ipaddress = $request->ip();
 				$fileModel->status = 1;
-				$fileModel->path = $file->store('public/upload/'.$user_id);
+				$fileModel->path = $photo->store('public/upload/'.$user_id);
 				$fileModel->save();
+                                
+                                $photo_object = new \stdClass();
+        $photo_object->name = str_replace('photos/', '',$photo->getClientOriginalName());
+        $photo_object->size = round(\Storage::size($fileModel->path) / 1024, 2);
+        $photo_object->fileID = $fileModel->id;
+        $photo_object->url = url("../storage/app/".$fileModel->path);
+        $photo_object->deleteType = "DELETE";
+        $photos[] = $photo_object;
 			}
 		}
 		
-		return redirect()->route('fileList');
+//		return redirect()->route('fileList');
+                return response()->json(array('files' => $photos), 200);
 		
 	}
 

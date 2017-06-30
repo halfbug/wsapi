@@ -29,10 +29,13 @@ Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/file/create', 'FileController@create');
+Route::post('/file/create', 'FileController@store');
+
 Route::group(['prefix' => 'file','middleware' => 'auth'], function () {
     Route::get('/list/{status?}', 'FileController@index')->name('fileList');
-    Route::get('/create', 'FileController@create');
-    Route::post('/create', 'FileController@store');
+//    Route::get('/create', 'FileController@create');
+//    Route::post('/create', 'FileController@store');
     Route::get('/format', 'FileController@format');
     Route::get('/meta/create', 'FileController@meta');
     Route::get('/startprocessing/{file_id}', 'FileController@startprocessing');

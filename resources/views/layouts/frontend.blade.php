@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   
 <style>
     .entry:not(:first-of-type)
     {
@@ -62,7 +62,7 @@
         <p>You can upload a single or multiple files at once</p>
         
         <button type="button" class="btn btn-info btn-lg" onclick="window.location = '{{ url("file/create") }}'" ><i class="fa fa-upload"></i> Upload Now</button>
-        <p>you can even use our <a href="{{url('api_doc')}}" >Api</a> service.</p>
+        <p>you can even use our <a href="{{url('api/')}}" >Api</a> service.</p>
         
         
     </div>
@@ -114,6 +114,8 @@
 
 <!-- Bootstrap Core JavaScript -->
 <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+ <!-- Scripts -->
+    <!--<script src="{{ asset('js/app.js') }}"></script>-->
 
 <!-- Script to Activate the Carousel -->
 @yield('script')
