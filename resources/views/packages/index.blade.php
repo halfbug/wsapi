@@ -1,5 +1,11 @@
-<!--its only admin page the site user will not use it-->
-@extends('layouts.backend') 
+@php
+if(\Auth::user()->hasRole('siteuser'))
+$view = "dashboard";
+else
+$view = "backend";
+@endphp
+
+@extends('layouts.'.$view)
 
 @section('title')
 Packages
@@ -20,16 +26,22 @@ Packages <small>management</small>
 <div class="">
     <div class="col-md-12 ">
         <div class="panel panel-default panel-table">
+             @can('performAdmin', $packages[0])
            <div class="panel-heading">
+               
                 <div class="row">
                     <div class="col col-xs-6">
                         <!--<h3 class="panel-title">Panel Heading</h3> -->
                     </div>
+                    
                     <div class="col col-xs-6 text-right">
+                       
                         <a href="{{url('packages/add')}}"  class="btn btn-primary"> <i class="fa fa-plus"></i> Add New</a> 
+                       
                     </div>
                 </div>
-            </div> 
+            </div>
+              @endcan
             <div class="panel-body">
                 <table class="table table-striped table-bordered table-list">
                     <tr>
@@ -42,13 +54,22 @@ Packages <small>management</small>
                         <th>Max Files</th>
                         <th>Reset count</th>
                         <th>discount</th>
-                         <th>Status</th>
+                        @can('performAdmin', $packages[0])
+                           <th>Status</th>
+                        @endcan
                    </tr>
                     @foreach ($packages as $package)
                     <tr>
                         <td align="center">
+                        @can('performAdmin', $package)
                             <a class="btn btn-default" href="{{url('packages/edit/'.$package['id'])}}"><em class="fa fa-pencil"></em></a>
                             <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
+                           
+                        @elsecan('performSiteuser',$package)
+                        <!--/** @TODO check if the user is already subscribe then display unsubscripbe button */-->
+                         <a class="btn btn-success"><em class="fa fa-angle-double-right"></em>Subscribe</a>
+                         @endcan  
+                         
                         </td>
                         <td>{{ $package['name'] }}</td>
                         <td>{!! $package['description'] !!}</td>
@@ -57,8 +78,10 @@ Packages <small>management</small>
                         <td>{{ $package['price'] }}</td>
                         <td>{{ $package['files_count'] }} </td>
                         <td>{{ $package['reset_count'] }} </td>
-                        <td>{{ $package['discount_id'] }} </td>
+                        <td>{{ $package->discount->name }} </td>
+                         @can('performAdmin', $package)
                         <td>{{ $package['status'] }} </td>
+                        @endcan
 
                     </tr>
                     @endforeach
