@@ -28,14 +28,14 @@
                     <div class="form-group">
                         <label for="inputDetail" class="col-sm-3 control-label">Start Date</label>
                         <div class="col-sm-4">
-						    <input type="datetime" name="createdate" value="<?php echo date("Y-m-d h:i:s",time()); ?>" class="form-control">
+						    <input type="datetime" name="createdate" id="createdate" value="" class="form-control">
 						 </div>
                     </div>
 
                     <div class="form-group">
                         <label for="inputDetail" class="col-sm-3 control-label">End Date</label>
                         <div class="col-sm-4">
-						    <input type="datetime" name="enddate" value="<?php echo date("Y-m-d h:i:s",time()); ?>" class="form-control">
+						    <input type="datetime" name="enddate" id="enddate" value="" class="form-control">
 						 </div>
                     </div>
 
@@ -99,13 +99,13 @@
                         <div class="form-group">
                        <label for="newstartdate" class="col-sm-3 control-label">start date</label>
                        <div class="col-sm-4">
-                           <input type="datetime" value="<?php echo date("Y-m-d h:i:s",time()); ?>" name="newstartdate" class="form-control">
+                           <input type="datetime" value="" name="newstartdate" id="newstartdate" class="form-control">
                        </div>
                        </div>
                         <div class="form-group">
                        <label for="newenddate" class="col-sm-3 control-label">End Date</label>
                        <div class="col-sm-4">
-                           <input type="datetime" value="<?php echo date("Y-m-d h:i:s",time()); ?>" name="newenddate" class="form-control">
+                           <input type="datetime" value="" name="newenddate" id="newenddate" class="form-control">
                        </div>
                        </div>
                         <div class="form-group">
@@ -177,7 +177,24 @@ Packages
 <script src="{{asset('js/discount.js')}}"></script>
 <script src="{{asset('js/document.js')}}"></script>
 <script src="//cloud.tinymce.com/stable/tinymce.min.js"></script>
+
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
+$( function() {
+    $( "#createdate" ).datepicker();
+  } );
+$( function() {
+    $( "#enddate" ).datepicker();
+  } );
+$( function() {
+    $( "#newstartdate" ).datepicker();
+  } );
+$( function() {
+    $( "#newenddate" ).datepicker();
+  } );
 tinymce.init({
     selector: '#description',
     height: 300,

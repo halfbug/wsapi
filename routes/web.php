@@ -79,7 +79,7 @@ Route::group(['prefix' => 'api'], function () {
    
 });
 
-Route::group(['prefix' => 'analytics','middleware' => 'auth'], function () {
+Route::group(['prefix' => 'analysis','middleware' => 'auth'], function () {
     Route::get('/', 'AnalyticController@index');
    
 });
