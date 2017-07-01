@@ -43,6 +43,7 @@ Route::group(['prefix' => 'file','middleware' => 'auth'], function () {
     Route::post('/search', 'FileController@search');
     Route::get('/{file_id}', 'FileController@show');
     Route::post('/{file_id}', 'FileController@uploadprocessed');
+    Route::get('/startdownloading/{file_id}', 'FileController@startdownloading');
 });
 
 Route::group(['prefix' => 'profile','middleware' => 'auth'], function () {
@@ -81,7 +82,7 @@ Route::group(['prefix' => 'api'], function () {
    
 });
 
-Route::group(['prefix' => 'analytics','middleware' => 'auth'], function () {
+Route::group(['prefix' => 'analysis','middleware' => 'auth'], function () {
     Route::get('/', 'AnalyticController@index');
    
 });

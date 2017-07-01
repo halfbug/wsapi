@@ -98,6 +98,7 @@ Files<small></small>
                         @can('startprocessing', \App\File::class)
                         <th>Start Processing</th>
                         @endcan
+                        <th>Processed</th>
                     </tr>
                     @php
                     if(session()->has('files'))
@@ -135,6 +136,15 @@ Files<small></small>
                             @endif
                         </td>
                         @endcan
+                        <td>
+                            @if($file->getStatus() == "Processed")
+                            <a href="{{ url("/file/startdownloading/".$file->id) }}">
+                                Download file
+                            </a>
+                            @else
+                                ---
+                            @endif
+                        </td>
                     </tr>
                    
                     @endforeach 
