@@ -76,6 +76,17 @@ class FileController extends Controller
         return view('files.startprocessing')->with('file',$file);
     }
 
+	public function startdownloading($fileid)
+    {
+    	$processedfile = File::where('parent_id', $fileid)->first();
+    	$processedfile->status = 4;
+    	$processedfile->save();
+    	$file = File::find($fileid);
+    	$file->status = 4;
+    	$file->save();
+        return view('files.startprocessing')->with('file',$processedfile);
+    }
+
     public function downloadfile($fileid)
     {
     	$file = File::find($fileid);
