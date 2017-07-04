@@ -18,9 +18,8 @@ Route::get('/about', function () {
 Route::get('/services', function () {
     return view('frontend.services');
 });
-Route::get('/pricing', function () {
-    return view('frontend.pricetable');
-});
+Route::get('/pricing', 'PackageController@pricetable');
+
 Route::get('/contact', function () {
     return view('frontend.contact');
 });

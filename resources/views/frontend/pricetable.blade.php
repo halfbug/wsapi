@@ -12,7 +12,30 @@ Packages
 @section('content')
 <!-- Content Row -->
         <div class="row">
-            <div class="col-md-4">
+        @foreach ($enabledpackages as $epackage)
+			<div class="col-md-4">
+                <div class="panel panel-primary text-center">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{ $epackage->name }}</h3>
+                    </div>
+                    <div class="panel-body">
+                        <span class="price"><sup>$</sup>{{ $epackage->price }}</span>
+                        <span class="period">{{ $epackage->start_date }}</span>
+                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item"><strong>{{ $epackage->files_count }}</strong> Total Files</li>
+                        <li class="list-group-item"><strong>{{ $epackage->price }}</strong> Price</li>
+                        <li class="list-group-item"><strong>Unlimited</strong> Email Accounts</li>
+                        <li class="list-group-item"><strong>100GB</strong> Monthly Bandwidth</li>
+                        <li class="list-group-item"><a href="#" class="btn btn-primary">Sign Up!</a>
+                        </li>
+                    </ul>
+                </div>
+			</div>
+        @endforeach 
+
+
+			<div class="col-md-4">
                 <div class="panel panel-default text-center">
                     <div class="panel-heading">
                         <h3 class="panel-title">Basic</h3>
