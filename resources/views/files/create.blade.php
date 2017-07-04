@@ -166,6 +166,11 @@ Upload Files
 
 @section('script')
 <script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+});
 //        function append_child(main_box)
 //        {
 //            //save the root element (the <table> element)
@@ -302,6 +307,7 @@ Upload Files
                                 </span>
                             </a>
                         </li>
+                        @if (Auth::guest())
                         <li role="presentation" class="disabled">
                             <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="Register with us">
                                 <span class="round-tab">
@@ -309,6 +315,15 @@ Upload Files
                                 </span>
                             </a>
                         </li>
+                        @else
+                        <li role="presentation" class="disabled">
+                            <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="Upgrade Membership">
+                                <span class="round-tab">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                </span>
+                            </a>
+                        </li>
+                        @endif
 
                         <li role="presentation" class="disabled">
                             <a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="Complete">
@@ -514,25 +529,111 @@ Upload Files
                                     <div id="addRow">
 
                                     </div>-->
+                        
                                 </div>
+                        
                             </div>
                             <ul class="list-inline pull-right">
                                 <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
                                 <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
                             </ul>
+                            </form>
+                    
                     </div>
+                    @if (Auth::guest())
                     <div class="tab-pane" role="tabpanel" id="step3">
-                        <h3>Step 3</h3>
-                        <p>This is step 3</p>
+                        <h3>Step 3 : Stay Connected!!</h3>
+                        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Register</div>
+                <div class="panel-body">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ route('register') }}">
+                        {{ csrf_field() }}
+
+                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                            <label for="name" class="col-md-4 control-label">Name</label>
+
+                            <div class="col-md-6">
+                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
+
+                                @if ($errors->has('name'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+
+                            <div class="col-md-6">
+                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+
+                                @if ($errors->has('email'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                            <label for="password" class="col-md-4 control-label">Password</label>
+
+                            <div class="col-md-6">
+                                <input id="password" type="password" class="form-control" name="password" required>
+
+                                @if ($errors->has('password'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
+
+                            <div class="col-md-6">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                            </div>
+                        </div>
+                        <input type="hidden" name="role" value="{{\App\Role::siteuser()}}">
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                <button type="submit" class="btn btn-primary">
+                                    Register
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
                         <ul class="list-inline pull-right">
                             <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
                             <li><button type="button" class="btn btn-default next-step">Skip</button></li>
                             <li><button type="button" class="btn btn-primary btn-info-full next-step">Save and continue</button></li>
                         </ul>
                     </div>
+                    @else
+                     <div class="tab-pane" role="tabpanel" id="step3">
+                        <h3>Step 3 : Upgrade Membership!!</h3>
+                        <p> You can upgrade membership by select our package. <br>
+                            <a href="{{url("pricing")}}">Click here</a> to see latest offered packages. </p>
+                        <ul class="list-inline pull-right">
+                            <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
+                            <li><button type="button" class="btn btn-default next-step">Skip</button></li>
+                            <li><button type="button" class="btn btn-primary btn-info-full next-step">Save and continue</button></li>
+                        </ul>
+                    </div>
+                    @endif
                     <div class="tab-pane" role="tabpanel" id="complete">
                         <h3>Complete</h3>
                         <p>You have successfully completed all steps.</p>
+                        <p> Wait for about 24hours.</p>
+                        <p>you will see yours processed file in notification area.</p>
                     </div>
                     <div class="clearfix"></div>
                 </div>

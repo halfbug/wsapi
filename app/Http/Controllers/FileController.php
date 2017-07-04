@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use \Auth;
 use App\File;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
+
 
 class FileController extends Controller
 {
@@ -51,6 +53,7 @@ class FileController extends Controller
         $photo_object->fileID = $fileModel->id;
         $photo_object->url = url("../storage/app/".$fileModel->path);
         $photo_object->deleteType = "DELETE";
+         $photo_object->deleteUrl = url('file/destroy/'.$fileModel->id);
         $photos[] = $photo_object;
 			}
 		}
@@ -67,7 +70,11 @@ class FileController extends Controller
 	}
 	
 	public function destroy($id) {
-		
+            $file=File::find($id);
+		Storage::delete($file->path);
+                $file->delete();
+                
+                 return response()->json(array($file->path => true), 200);
 	}
 
 	public function format() {

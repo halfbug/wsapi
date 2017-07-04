@@ -31,7 +31,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/file/create', 'FileController@create');
 Route::post('/file/create', 'FileController@store');
-
+Route::delete('file/destroy/{id}','FileController@destroy');
 Route::group(['prefix' => 'file','middleware' => 'auth'], function () {
     Route::get('/list/{status?}', 'FileController@index')->name('fileList');
 //    Route::get('/create', 'FileController@create');
@@ -44,6 +44,7 @@ Route::group(['prefix' => 'file','middleware' => 'auth'], function () {
     Route::get('/{file_id}', 'FileController@show');
     Route::post('/{file_id}', 'FileController@uploadprocessed');
     Route::get('/startdownloading/{file_id}', 'FileController@startdownloading');
+    
 });
 
 Route::group(['prefix' => 'profile','middleware' => 'auth'], function () {

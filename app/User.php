@@ -27,6 +27,18 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    // execute on every action
+     public static function boot() {
+        parent::boot();
+
+
+        // create a event to happen on saving
+        static::creating(function($table) {
+            $table->ip = \Request::ip();
+        });
+
+        
+    }
     
      /**
      * The roles that belong to the user.

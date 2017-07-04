@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateToFileTable extends Migration
+class IpFieldToUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class UpdateToFileTable extends Migration
      */
     public function up()
     {
-//        Schema::table('files', function (Blueprint $table) {
-//            
-//            $table->integer("user_id")->nullable()->change();
-//            
-//        });
+        Schema::table('users', function (Blueprint $table) {
+            
+            $table->ipAddress('ip');
+            
+        });
     }
 
     /**
@@ -27,8 +27,10 @@ class UpdateToFileTable extends Migration
      */
     public function down()
     {
-         Schema::table('files', function (Blueprint $table) {
-            $table->dropColumn('user_id');
+         Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('ip');
         });
     }
+
+   
 }
