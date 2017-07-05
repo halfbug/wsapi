@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Package;
+use App\Subscription;
 use App\User;
 use App\Discount;
 use Illuminate\Http\Request;
@@ -87,11 +88,22 @@ class PackageController extends Controller
 
 	public function assignpackage(Request $request) {
         //echo "assigned";
-		$package_id=$request->pkg;
-		$user_id=$request->user;
-        $user = \App\User::find($user_id);
-		$user->package_id=$package_id;
-		$user->save();
+		$package = Package::find($request->pkg);
+		$user_id = $request->user;
+//        $user = \App\User::find($user_id);
+//		$user->package_id=$package_id;
+//		$user->save();
+
+        if(\App\Subscription::where('user_id',$request->user)->where("status",'1')->count()<1) {
+            $subscribe = \App\Subscription::create(
+                [
+                    'package_id' => $package->id,
+                    'user_id' => $request->user,
+                    'files_upload_balance'=>$package->file_count,
+                    'start_date'
+                ]
+            );
+        }
         return back()->with('success', '$user->name is assigned package.');
 		
 		}
