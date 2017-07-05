@@ -21,6 +21,14 @@ class PackageController extends Controller
         return view('packages.create')->with(compact('discounts'));
     }
 
+	public function pricetable() {
+		$enabledpackages=Package::all() ->where('status', '=', 1);
+        return view('frontend.pricetable')->with(compact('enabledpackages'));
+	
+		
+		
+		
+	}
 	public function store(Request $request) {
 		 $package= new Package;
 		 $discount= new Discount;
