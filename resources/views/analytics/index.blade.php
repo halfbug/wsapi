@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
     <div class="row top-buffer">
-        <div class="col-xs-6"><i class="fa fa-area-chart" style="font-size:24px;">&nbsp;<a href="#"> Total amount of files uploaded</a></i></div>
+        <div class="col-xs-6"><i class="fa fa-area-chart" style="font-size:24px;">&nbsp;<a href="#"> Total amount of files upload</a></i></div>
     </div>
     <div class="row top-buffer">
         <div class="col-xs-6"><i class="fa fa-bar-chart" style="font-size:24px;">&nbsp;<a href="#"> Average time between availble for download and when was uploaded</a></i></div>
