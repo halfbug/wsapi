@@ -34,13 +34,21 @@ class PackageController extends Controller
 		 $discount= new Discount;
 		  $package->name=$request->name;
 		  $package->description= $request->description;
-		  $package->start_date= date("Y-m-d 00:00:00",strtotime($request->createdate));
-		  $package->end_date= date("Y-m-d 00:00:00",strtotime($request->enddate));
+		  //$package->start_date= date("Y-m-d 00:00:00",strtotime($request->createdate));
+		  //$package->end_date= date("Y-m-d 00:00:00",strtotime($request->enddate));
 		  $package->files_count= $request->filecount;
 		  $package->reset_count= $request->resetcount;
 		  $package->price= $request->price;
 		  $package->status= $request->get('status');
-		  
+		  //$package->type= $request->get('ptype');
+		  $package->type= $request->ptype;
+		  if($package->type==1){
+			 $package->duration="months";
+ 			 $package->duration_count=$request->pmonth;
+
+		  }else {
+			 $package->duration="Unlimited";
+		  }
 			//if add new discount do this
 		  if($request->get('discount')==0){
 			 // echo "add new discount here";

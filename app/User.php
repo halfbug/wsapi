@@ -89,4 +89,12 @@ class User extends Authenticatable
     {
         return $this->filesCount->count();
     }*/
+
+    /**
+     * Get the custom meta data saved by the user.
+     */
+    public function metadata()
+    {
+        return $this->hasMany('App\UserMeta');
+    }
 }
