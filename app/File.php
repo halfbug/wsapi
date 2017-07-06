@@ -40,4 +40,12 @@ class File extends Model {
     public function getCreated_AtAttribute() {
         return date("d-M-Y h:i:s",strtotime($this->created_at));
     }
+
+    /**
+     * Get the meta data saved for the file.
+     */
+    public function metadata()
+    {
+        return $this->hasMany('App\FileMeta');
+    }
 }
