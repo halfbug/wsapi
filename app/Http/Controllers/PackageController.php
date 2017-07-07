@@ -30,43 +30,55 @@ class PackageController extends Controller
         $enabledpackages = Package::all()->where('status', '=', 1);
         return view('frontend.pricetable')->with(compact('enabledpackages'));
 
+		
+		
+		
+	}
+	public function store(Request $request) {
+		 $package= new Package;
+		 $discount= new Discount;
+		  $package->name=$request->name;
+		  $package->description= $request->description;
+		  //$package->start_date= date("Y-m-d 00:00:00",strtotime($request->createdate));
+		  //$package->end_date= date("Y-m-d 00:00:00",strtotime($request->enddate));
+		  $package->files_count= $request->filecount;
+		  $package->reset_count= $request->resetcount;
+		  $package->price= $request->price;
+		  $package->status= $request->get('status');
+		  //$package->type= $request->get('ptype');
+		  $package->type= $request->ptype;
+		  if($package->type==1){
+			 $package->duration="months";
+ 			 $package->duration_count=$request->pmonth;
 
-    }
-
-    public function store(Request $request)
-    {
-        $package = new Package;
-        $discount = new Discount;
-        $package->name = $request->name;
-        $package->description = $request->description;
-        $package->start_date = date("Y-m-d 00:00:00", strtotime($request->createdate));
-        $package->end_date = date("Y-m-d 00:00:00", strtotime($request->enddate));
-        $package->files_count = $request->filecount;
-        $package->reset_count = $request->resetcount;
-        $package->price = $request->price;
-        $package->status = $request->get('status');
-
-        //if add new discount do this
-        if ($request->get('discount') == 0) {
-            // echo "add new discount here";
-            $discount->name = $request->discname;
-            $discount->description = $request->discountdesc;
-            $discount->start_date = date("Y-m-d 00:00:00", strtotime($request->newstartdate));
-            $discount->end_date = date("Y-m-d 00:00:00", strtotime($request->newenddate));
-            $discount->amount = $request->amount;
-            $discount->duration = $request->duration;
-            $discount->type = $request->get('newtype');
-            $discount->status = $request->get('discountstatus');
-            $discount->save();
-            $discount_id = $discount->id;
-            $package->discount_id = $discount_id;
-        } else {
-            $package->discount_id = $request->get('discount');
-        }
-
+		  }else {
+			 $package->duration="Unlimited";
+		  }
+			//if add new discount do this
+		  if($request->get('discount')==0){
+			 // echo "add new discount here";
+		  $discount->name=$request->discname;
+		  $discount->description= $request->discountdesc;
+		  $discount->start_date= date("Y-m-d 00:00:00",strtotime($request->newstartdate));
+		  $discount->end_date= date("Y-m-d 00:00:00",strtotime($request->newenddate));
+		  $discount->amount= $request->amount;
+		  $discount->duration= $request->duration;
+		  $discount->type= $request->get('newtype');
+		  $discount->status= $request->get('discountstatus');		  
+		  $discount->save();
+		  $discount_id=$discount->id;
+  		  $package->discount_id= $discount_id;
+}
+		  else {
+  		  $package->discount_id= $request->get('discount');
+		  }
         $package->save();
-        return redirect()->route('packageslist')->with('success', 'Package created successfully');
+        return redirect()->route('packageslist')->with('success','Package created successfully');
+
+
     }
+
+
 
     public function edit($package_id)
     {

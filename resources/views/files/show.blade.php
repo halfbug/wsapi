@@ -1,5 +1,7 @@
 @php 
-if(\Auth::user()->hasRole('siteuser'))
+if(\Auth::guest())
+    $view = 'frontend';
+elseif(\Auth::user()->hasRole('siteuser'))
     $view = "dashboard";
 else
     $view = "backend";
@@ -42,10 +44,12 @@ File
                             <td>File Name:</td>
                             <td>{{$file->name}}</td>
                         </tr>
+                        @if($file->user)
                         <tr>
                             <td>Uploaded by:</td>
                             <td>{{$file->user->name}}</td>
                         </tr>
+                        @endif
                         <tr>
                             <td>Uploaded on:</td>
                             <td>{{$file->created_at}}</td>

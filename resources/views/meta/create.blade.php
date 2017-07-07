@@ -90,7 +90,7 @@ Meta data
 Meta Data <small>settings</small>
 @endsection
 @section('content')
-        <div class="row">
+  <!--       <div class="row">
                 <div class="panel panel-default">
                     <div class="panel-heading">Meta Data Form</div>
                     <div class="panel-body">
@@ -156,6 +156,172 @@ Meta Data <small>settings</small>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary">Submit</button>
                                 <button type="button" class="btn btn-default " data-dismiss="modal">Close</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+        </div> -->
+        <div class="row">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Meta Data Form</div>
+                    <div class="panel-body">
+                        <form  method="post" action="" class="form-horizontal" enctype="multipart/form-data">
+                            <div class="modal-body">
+                                <div class="form-group ">
+                                    <label for="field1 " class="col-sm-3 control-label"></label>
+                                    <div class="col-sm-2 text-center">
+                                        <strong><u>NAME</u></strong>
+                                    </div>
+                                    <div class="col-sm-2 text-center">
+                                        <strong><u>VALUES</u></strong>
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label for="field1 " class="col-sm-3 control-label">Field 1</label>
+                                    <div class="col-sm-2">
+                                        Deletion Period
+                                    </div>
+                                    <div class="col-sm-4">
+                                        24 Hours
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                   <label class="col-sm-6 control-label"><u>Text Fields</u></label>
+                                </div>
+                                <div class="form-group">
+                                        <label for="field2"  class="col-sm-3 control-label">Field 2</label>
+                                        <div class="col-sm-2">
+                                            <input type="text" class="form-control alpha_numeric" id="field2[]" name="field2[]">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control alpha_numeric" id="field2[]" name="field2[]">
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <label for="field2"  class="col-sm-3 control-label">Field 3</label>
+                                        <div class="col-sm-2">
+                                            <input type="text" class="form-control alpha_numeric" id="field2[]" name="field2[]">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control alpha_numeric" id="field2[]" name="field2[]">
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <label for="field2"  class="col-sm-3 control-label">Field 4</label>
+                                        <div class="col-sm-2">
+                                            <input type="text" class="form-control alpha_numeric" id="field2[]" name="field2[]">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control alpha_numeric" id="field2[]" name="field2[]">
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <label for="field2"  class="col-sm-3 control-label">Field 5</label>
+                                        <div class="col-sm-2">
+                                            <input type="text" class="form-control alpha_numeric" id="field2[]" name="field2[]">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control alpha_numeric" id="field2[]" name="field2[]">
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <label for="field2"  class="col-sm-3 control-label">Field 6</label>
+                                        <div class="col-sm-2">
+                                            <input type="text" class="form-control alpha_numeric" id="field2[]" name="field2[]">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control alpha_numeric" id="field2[]" name="field2[]">
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <label for="field2"  class="col-sm-3 control-label">Field 7</label>
+                                        <div class="col-sm-2">
+                                            <input type="text" class="form-control alpha_numeric" id="field2[]" name="field2[]">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control alpha_numeric" id="field2[]" name="field2[]">
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <label for="field2"  class="col-sm-3 control-label">Field 8</label>
+                                        <div class="col-sm-2">
+                                            <input type="text" class="form-control alpha_numeric" id="field2[]" name="field2[]">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control alpha_numeric" id="field2[]" name="field2[]">
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <label for="field2"  class="col-sm-3 control-label">Field 9</label>
+                                        <div class="col-sm-2">
+                                            <input type="text" class="form-control alpha_numeric" id="field2[]" name="field2[]">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control alpha_numeric" id="field2[]" name="field2[]">
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <label for="field2"  class="col-sm-3 control-label">Field 10</label>
+                                        <div class="col-sm-2">
+                                            <input type="text" class="form-control alpha_numeric" id="field2[]" name="field2[]">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control alpha_numeric" id="field2[]" name="field2[]">
+                                        </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                   <label class="col-sm-6 control-label"><u>Numeric Fields</u></label>
+                                </div>
+                                <div class="form-group">
+                                        <label for="field2"  class="col-sm-3 control-label">Field 11</label>
+                                        <div class="col-sm-2">
+                                            <input type="text" class="form-control alpha_numeric" id="field2[]" name="field2[]">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control alpha_numeric" id="field2[]" name="field2[]">
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <label for="field2"  class="col-sm-3 control-label">Field 12</label>
+                                        <div class="col-sm-2">
+                                            <input type="text" class="form-control alpha_numeric" id="field2[]" name="field2[]">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control alpha_numeric" id="field2[]" name="field2[]">
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <label for="field2"  class="col-sm-3 control-label">Field 13</label>
+                                        <div class="col-sm-2">
+                                            <input type="text" class="form-control alpha_numeric" id="field2[]" name="field2[]">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control alpha_numeric" id="field2[]" name="field2[]">
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <label for="field2"  class="col-sm-3 control-label">Field 14</label>
+                                        <div class="col-sm-2">
+                                            <input type="text" class="form-control alpha_numeric" id="field2[]" name="field2[]">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control alpha_numeric" id="field2[]" name="field2[]">
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <label for="field2"  class="col-sm-3 control-label">Field 15</label>
+                                        <div class="col-sm-2">
+                                            <input type="text" class="form-control alpha_numeric" id="field2[]" name="field2[]">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control alpha_numeric" id="field2[]" name="field2[]">
+                                        </div>
+                                </div>
+                                
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
                         </form>
                     </div>

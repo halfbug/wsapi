@@ -427,6 +427,8 @@ class ComposerStaticInitc36b1a65c7508907b4782ff9edc8019a
         'Collective\\Html\\HtmlServiceProvider' => __DIR__ . '/..' . '/laravelcollective/html/src/HtmlServiceProvider.php',
         'CreateDiscountsTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_10_041413_create_discounts_table.php',
         'CreateFilesTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_02_115957_create_files_table.php',
+        'CreateMetaDataSettingTable' => __DIR__ . '/../..' . '/database/migrations/2017_07_06_113315_create_meta_data_setting_table.php',
+        'CreateMetaDataTable' => __DIR__ . '/../..' . '/database/migrations/2017_07_06_112526_create_meta_data_table.php',
         'CreatePackagesTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_10_091616_create_packages_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
         'CreatePermissionTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_01_110108_create_permission_table.php',

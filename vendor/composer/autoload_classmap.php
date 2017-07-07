@@ -58,6 +58,8 @@ return array(
     'Collective\\Html\\HtmlServiceProvider' => $vendorDir . '/laravelcollective/html/src/HtmlServiceProvider.php',
     'CreateDiscountsTable' => $baseDir . '/database/migrations/2017_06_10_041413_create_discounts_table.php',
     'CreateFilesTable' => $baseDir . '/database/migrations/2017_06_02_115957_create_files_table.php',
+    'CreateMetaDataSettingTable' => $baseDir . '/database/migrations/2017_07_06_113315_create_meta_data_setting_table.php',
+    'CreateMetaDataTable' => $baseDir . '/database/migrations/2017_07_06_112526_create_meta_data_table.php',
     'CreatePackagesTable' => $baseDir . '/database/migrations/2017_06_10_091616_create_packages_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
     'CreatePermissionTable' => $baseDir . '/database/migrations/2017_06_01_110108_create_permission_table.php',

@@ -36,7 +36,7 @@ class FileController extends Controller
 		
 		if ($request->hasFile('photos')) {
 			$user_id = Auth::id();
-                        $photos = [];
+            $photos = [];
 			foreach ($request->photos as $photo) {
 				$fileModel = new file;
 //                                var_dump($file);
@@ -44,17 +44,20 @@ class FileController extends Controller
 				$fileModel->user_id = $user_id;
 				$fileModel->ipaddress = $request->ip();
 				$fileModel->status = 1;
-				$fileModel->path = $photo->store('public/upload/'.$user_id);
+				if (Auth::guest())
+					$fileModel->path = $photo->store('public/upload/'.$request->ip());
+				else
+					$fileModel->path = $photo->store('public/upload/'.$user_id);
 				$fileModel->save();
                                 
-                                $photo_object = new \stdClass();
-        $photo_object->name = str_replace('photos/', '',$photo->getClientOriginalName());
-        $photo_object->size = round(\Storage::size($fileModel->path) / 1024, 2);
-        $photo_object->fileID = $fileModel->id;
-        $photo_object->url = url("../storage/app/".$fileModel->path);
-        $photo_object->deleteType = "DELETE";
-         $photo_object->deleteUrl = url('file/destroy/'.$fileModel->id);
-        $photos[] = $photo_object;
+                $photo_object = new \stdClass();
+        		$photo_object->name = str_replace('photos/', '',$photo->getClientOriginalName());
+		        $photo_object->size = round(\Storage::size($fileModel->path) / 1024, 2);
+		        $photo_object->fileID = $fileModel->id;
+		        $photo_object->url = url("../storage/app/".$fileModel->path);
+		        $photo_object->deleteType = "DELETE";
+		        $photo_object->deleteUrl = url('file/destroy/'.$fileModel->id);
+		        $photos[] = $photo_object;
 			}
 		}
 		
@@ -102,7 +105,7 @@ class FileController extends Controller
     	$file = File::find($fileid);
     	$file->status = 4;
     	$file->save();
-        return view('files.startprocessing')->with('file',$processedfile);
+        return view('files.downloadfile')->with('file',$processedfile);
     }
 
     public function downloadfile($fileid)

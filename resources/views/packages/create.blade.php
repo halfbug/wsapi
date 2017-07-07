@@ -25,7 +25,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                   <!-- <div class="form-group">
                         <label for="inputDetail" class="col-sm-3 control-label">Start Date</label>
                         <div class="col-sm-4">
 						    <input type="datetime" name="createdate" id="createdate" value="" class="form-control">
@@ -37,9 +37,22 @@
                         <div class="col-sm-4">
 						    <input type="datetime" name="enddate" id="enddate" value="" class="form-control">
 						 </div>
+                    </div> -->
+                    <div class="form-group">
+                        <label for="inputDetail" class="col-sm-3 control-label">Package Type</label>
+                        <div class="col-sm-4">
+						    <input type="radio" name="ptype" id="pfixed" value="0" class="radio-inline">Fixed
+						    <input type="radio" name="ptype" id="pmonth" value="1" class="radio-inline">Per Month
+						 </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" id="divpkgemonth">
+                        <label for="inputDetail" class="col-sm-3 control-label">Number of Month</label>
+                        <div class="col-sm-4">
+						    <input type="text" name="pmonth" class="form-control">
+						 </div>
+                    </div>
+                    <div class="form-group desc">
                         <label for="inputDetail" class="col-sm-3 control-label">File Count</label>
                         <div class="col-sm-4">
 						    <input type="text" name="filecount" class="form-control">
@@ -178,7 +191,7 @@ Packages
 <script src="{{asset('js/discount.js')}}"></script>
 <script src="{{asset('js/document.js')}}"></script>
 <script src="//cloud.tinymce.com/stable/tinymce.min.js"></script>
-
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="/resources/demos/style.css">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -196,6 +209,16 @@ $( function() {
 $( function() {
     $( "#newenddate" ).datepicker();
   } );
+$(function () {
+                $("#divpkgemonth").hide();
+        $("input[name='ptype']").click(function () {
+            if ($("#pmonth").is(":checked")) {
+                $("#divpkgemonth").show();
+            } else {
+                $("#divpkgemonth").hide();
+            }
+        });
+    });
 tinymce.init({
     selector: '#description',
     height: 300,

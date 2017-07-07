@@ -1,7 +1,27 @@
 @extends('layouts.backend')
 
 @section('content')
-your text here
+    <div class="container">
+    <div class="row top-buffer">
+        <div class="col-xs-6"><i class="fa fa-area-chart" style="font-size:24px;">&nbsp;<a href="#"> Total amount of files upload</a></i></div>
+    </div>
+    <div class="row top-buffer">
+        <div class="col-xs-6"><i class="fa fa-bar-chart" style="font-size:24px;">&nbsp;<a href="#"> Average time between availble for download and when was uploaded</a></i></div>
+    </div>
+    <div class="row top-buffer">
+        <div class="col-xs-6"><i class="fa fa-line-chart" style="font-size:24px;">&nbsp;<a href="#"> Count files uploaded and downloaded by guest/free and registered users in the last 31 days</a> </i></div>
+    </div>
+    <div class="row top-buffer">
+        <div class="col-xs-6"><i class="fa fa-pie-chart" style="font-size:24px;">&nbsp;<a href="#"> Upload and download file counts per Website and the API in the last 31 days</a> </i></div>
+    </div>
+
+    </div>
+@endsection
+
+@section('css')
+    <style>
+    .top-buffer { margin-top:20px; }
+    </style>
 @endsection
 
 @section('heading')
