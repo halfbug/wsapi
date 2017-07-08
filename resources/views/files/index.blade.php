@@ -1,7 +1,5 @@
 @php 
-if(\Auth::guest())
-    $view = 'frontend';
-elseif(\Auth::user()->hasRole('siteuser'))
+if(\Auth::user()->hasRole('siteuser'))
 $view = "dashboard";
 else
 $view = "backend";

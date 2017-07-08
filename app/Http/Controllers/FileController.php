@@ -44,9 +44,10 @@ class FileController extends Controller
 				$fileModel->user_id = $user_id;
 				$fileModel->ipaddress = $request->ip();
 				$fileModel->status = 1;
-				if (Auth::guest())
-					$fileModel->path = $photo->store('public/upload/'.$request->ip());
-				else
+				if (Auth::guest()) {
+					$ip = strstr($request->ip(),':',true);
+					$fileModel->path = $photo->store('public/upload/'.$ip);
+				} else
 					$fileModel->path = $photo->store('public/upload/'.$user_id);
 				$fileModel->save();
                                 
