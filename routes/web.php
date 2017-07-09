@@ -19,6 +19,7 @@ Route::get('/services', function () {
     return view('frontend.services');
 });
 Route::get('/pricing', 'PackageController@pricetable');
+Route::post('/pricing', 'PackageController@pricetablesignup');
 
 Route::get('/contact', function () {
     return view('frontend.contact');

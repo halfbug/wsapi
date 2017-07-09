@@ -13,6 +13,8 @@ Packages
 <!-- Content Row -->
         <div class="row">
         @foreach ($enabledpackages as $epackage)
+		<form action="{{url('pricing' )}}" method="post" id="frmPrice{{ $epackage->id }}" name="frmPrice{{ $epackage->id }}" class="form-horizontal">
+           {{ csrf_field() }}
 			<div class="col-md-4">
                 <div class="panel panel-primary text-center">
                     <div class="panel-heading">
@@ -29,12 +31,16 @@ Packages
 							<li class="list-group-item"><strong>{{ $epackage->duration_count .' / '. $epackage->duration}}</strong></li>
 						@endif
                         <li class="list-group-item"><strong>{{ $epackage->duration.' package' }}</strong></li>
-                       <li class="list-group-item"><a href="#" class="btn btn-primary">Sign Up!</a>
-                        </li>
                     </ul>
-                </div>
+                        <button type="submit" class="btn btn-primary " id="btn-save">Sign Up!</button>
+                        <input type="hidden" id="usrpricetable" name="usrpricetable" value="{{ $epackage->id }}">
+						<input type="hidden" name="_token" value="{{ csrf_token() }}">
+						<div class="clearfix"></div>
+
+					</div>
 			</div>
-        @endforeach 
+        </form>
+		@endforeach 
 
 
 			<!-- <div class="col-md-4">
@@ -97,7 +103,7 @@ Packages
                     </ul>
                 </div>
             </div>-->
-        </div>
+		</div>
         <!-- /.row -->
 @endsection  
 

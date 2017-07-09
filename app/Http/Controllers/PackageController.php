@@ -8,7 +8,7 @@ use App\User;
 use App\Discount;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-
+use Auth;
 class PackageController extends Controller
 {
     public function index()
@@ -29,10 +29,13 @@ class PackageController extends Controller
     {
         $enabledpackages = Package::all()->where('status', '=', 1);
         return view('frontend.pricetable')->with(compact('enabledpackages'));
-
-		
-		
-		
+	
+	}
+    public function pricetablesignup(Request $request)
+    {
+		  $signupid=$request->usrpricetable;
+          $userid=Auth::user()->id;
+//		  $userid=
 	}
 	public function store(Request $request) {
 		 $this->validate($request, [
