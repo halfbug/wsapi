@@ -25,9 +25,11 @@ Packages
                     <ul class="list-group">
                         <li class="list-group-item"><strong>{{ $epackage->files_count }}</strong> Total Files</li>
                         <li class="list-group-item"><strong>{{ $epackage->price }}</strong> Price</li>
-                        <li class="list-group-item"><strong>Unlimited</strong> Email Accounts</li>
-                        <li class="list-group-item"><strong>100GB</strong> Monthly Bandwidth</li>
-                        <li class="list-group-item"><a href="#" class="btn btn-primary">Sign Up!</a>
+                        @if($epackage->duration_count)
+							<li class="list-group-item"><strong>{{ $epackage->duration_count .' / '. $epackage->duration}}</strong></li>
+						@endif
+                        <li class="list-group-item"><strong>{{ $epackage->duration.' package' }}</strong></li>
+                       <li class="list-group-item"><a href="#" class="btn btn-primary">Sign Up!</a>
                         </li>
                     </ul>
                 </div>
@@ -35,7 +37,7 @@ Packages
         @endforeach 
 
 
-			<div class="col-md-4">
+			<!-- <div class="col-md-4">
                 <div class="panel panel-default text-center">
                     <div class="panel-heading">
                         <h3 class="panel-title">Basic</h3>
@@ -94,7 +96,7 @@ Packages
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div>-->
         </div>
         <!-- /.row -->
 @endsection  
