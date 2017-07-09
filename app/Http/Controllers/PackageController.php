@@ -33,9 +33,24 @@ class PackageController extends Controller
 	}
     public function pricetablesignup(Request $request)
     {
-		  $signupid=$request->usrpricetable;
-          $userid=Auth::user()->id;
-//		  $userid=
+		  $signup_package_id=$request->usrpricetable;
+          $user_id=Auth::user()->id;
+        $package = Package::find($signup_package_id);
+        if (\App\Subscription::where('user_id', $user_id)->where("status", '1')->count() < 1) {
+            \App\Subscription::where('user_id', $user_id)->where("status", '1')->update(["status" => '0']);
+        }
+        $subscribe = new \App\Subscription();
+
+        $subscribe->package_id = $signup_package_id;
+        $subscribe->user_id = $user_id;
+        $subscribe->files_upload_balance = $package->files_count;
+        $subscribe->start_date = Carbon::now();
+        if ($package->getType() == "Monthly")
+            $subscribe->end_date = $subscribe->start_date->addMonths($package->duration_count);
+        $subscribe->save();
+
+
+        return back()->with('success', 'You are succesfully subscribed to package.');
 	}
 	public function store(Request $request) {
 		 $this->validate($request, [
