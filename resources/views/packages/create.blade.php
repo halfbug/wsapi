@@ -12,11 +12,15 @@
                
 			   <div class="panel-body">
 
-                    <div class="form-group error">
+                    <div class="form-group {{$errors->has('name') ? 'has-error' : ''}}">
                         <label for="inputName" class="col-sm-3 control-label">Name</label>
                         <div class="col-sm-4">
                             <input type="text" class="form-control has-error" id="name" name="name" placeholder="Package name">
-                        </div>
+							@if($errors->has('name'))
+								<span class="help-block">{{$errors->first('name')}}</span>
+							@endif
+                        
+						</div>
                     </div>
                     <div class="form-group">
                         <label for="inputDetail" class="col-sm-3 control-label">Description</label>
@@ -38,12 +42,15 @@
 						    <input type="datetime" name="enddate" id="enddate" value="" class="form-control">
 						 </div>
                     </div> -->
-                    <div class="form-group">
+                    <div class="form-group {{$errors->has('ptype') ? 'has-error' : ''}}">
                         <label for="inputDetail" class="col-sm-3 control-label">Package Type</label>
                         <div class="col-sm-4">
 						    <input type="radio" name="ptype" id="pfixed" value="0" class="radio-inline">Fixed
 						    <input type="radio" name="ptype" id="pmonth" value="1" class="radio-inline">Per Month
-						 </div>
+						 	@if($errors->has('name'))
+								<span class="help-block">{{$errors->first('name')}}</span>
+							@endif
+</div>
                     </div>
 
                     <div class="form-group" id="divpkgemonth">
@@ -64,10 +71,13 @@
 						    <input type="text" name="resetcount" class="form-control">
 						 </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group {{$errors->has('price') ? 'has-error' : ''}}">
                         <label for="inputDetail" class="col-sm-3 control-label">Price</label>
                         <div class="col-sm-4">
 						    <input type="text" name="price" class="form-control">
+							@if($errors->has('price'))
+								<span class="help-block">{{$errors->first('price')}}</span>
+							@endif
 						 </div>
                     </div>
 

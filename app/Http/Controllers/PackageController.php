@@ -35,7 +35,12 @@ class PackageController extends Controller
 		
 	}
 	public function store(Request $request) {
-		 $package= new Package;
+		 $this->validate($request, [
+        'name' => 'required',
+        'ptype' => 'required',
+        'price' => 'required|numeric',
+        ]);
+        $package= new Package;
 		 $discount= new Discount;
 		  $package->name=$request->name;
 		  $package->description= $request->description;
