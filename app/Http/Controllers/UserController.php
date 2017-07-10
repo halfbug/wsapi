@@ -139,7 +139,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
         User::destroy($id);
-        return back()->with('role', $role)->with('success', $user->name . ' has been deleted successfully.');
+        return back()->with('role', $role)->with('success', 'User has been deleted successfully.');
     }
 
     /**

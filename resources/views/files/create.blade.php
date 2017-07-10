@@ -621,7 +621,7 @@ Upload Files
                         </ul>
                     </div>
                     @else
-                     <div class="tab-pane" role="tabpanel" id="step1">
+                     <div class="tab-pane active" role="tabpanel" id="step1">
                         <h3>Step 1 : Upgrade Membership!!</h3>
                         <p> You can upgrade membership by select our package. <br>
                             <a href="{{url("pricing")}}">Click here</a> to see latest offered packages. </p>

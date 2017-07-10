@@ -38,14 +38,18 @@ class FileController extends Controller
 			$user_id = Auth::id();
             $photos = [];
 			foreach ($request->photos as $photo) {
+				if (strpos($request->ip(), ':')) {
+					$ip = strstr($request->ip(),':',true);
+				}
+				else 
+					$ip = $request->ip();
 				$fileModel = new file;
 //                                var_dump($file);
 				$fileModel->name = $photo->getClientOriginalName();
 				$fileModel->user_id = $user_id;
-				$fileModel->ipaddress = $request->ip();
+				$fileModel->ipaddress = $ip;
 				$fileModel->status = 1;
 				if (Auth::guest()) {
-					$ip = strstr($request->ip(),':',true);
 					$fileModel->path = $photo->store('public/upload/'.$ip);
 				} else
 					$fileModel->path = $photo->store('public/upload/'.$user_id);
