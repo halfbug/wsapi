@@ -87,3 +87,7 @@ Route::group(['prefix' => 'analysis','middleware' => 'auth'], function () {
     Route::get('/', 'AnalyticController@index');
    
 });
+
+Route::get('paywithpaypal/{package_id?}/{user_id?}', array('as' => 'subscribe.paywithpaypal','uses' => 'SubscribeController@payWithPaypal',));
+Route::post('paypal', array('as' => 'subscribe.paypal','uses' => 'SubscribeController@postPaymentWithpaypal',));
+Route::get('paypal', array('as' => 'payment.status','uses' => 'SubscribeController@getPaymentStatus',));
