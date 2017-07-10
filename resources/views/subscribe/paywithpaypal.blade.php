@@ -20,12 +20,24 @@
                     @endif
                     <div class="panel-heading">Paywith Paypal</div>
                     <div class="panel-body">
+                        <h2 class="">{{ ucfirst($package->name) }}</h2>
+                        <ul class="list-group">
+                            <li class="list-group-item"><strong>{{ $package->files_count }}</strong> Files Upload</li>
+                            <li class="list-group-item"><strong>${{ $package->price }}</strong> Price</li>
+                            @if($package->duration_count)
+                                <li class="list-group-item"><strong>{{ $package->duration_count .' / '. $package->duration}}</strong></li>
+                            @else
+                                <li class="list-group-item"><strong>Unlimited Months</strong></li>
+                            @endif
+                            <li class="list-group-item"><strong>{{ $package->getDuration().' package' }}</strong></li>
+                        </ul>
+
                         <form class="form-horizontal" method="POST" id="payment-form" role="form" action="{!! URL::route('subscribe.paypal') !!}" >
                             {{ csrf_field() }}
                             <div class="form-group{{ $errors->has('amount') ? ' has-error' : '' }}">
-                                <label for="amount" class="col-md-4 control-label">Amount</label>
+                                {{--<label for="amount" class="col-md-4 control-label">Amount</label>--}}
                                 <div class="col-md-6">
-                                    <input id="amount" type="text" class="form-control" name="amount" value="{{ old('amount') }}" autofocus>
+                                    <input id="amount" type="hidden" class="form-control" name="amount" value="{{ $package->price }}" autofocus>
                                     @if ($errors->has('amount'))
                                         <span class="help-block">
                                         <strong>{{ $errors->first('amount') }}</strong>

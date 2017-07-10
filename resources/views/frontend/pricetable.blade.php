@@ -22,20 +22,25 @@ Packages
                     </div>
                     <div class="panel-body">
                         <span class="price"><sup>$</sup>{{ $epackage->price }}</span>
-                        <span class="period">{{ $epackage->start_date }}</span>
+                        <span class="period"></span>
                     </div>
                     <ul class="list-group">
-                        <li class="list-group-item"><strong>{{ $epackage->files_count }}</strong> Total Files</li>
-                        <li class="list-group-item"><strong>{{ $epackage->price }}</strong> Price</li>
+                        <li class="list-group-item"><strong>{{ $epackage->files_count }}</strong> Files Upload</li>
+                        <li class="list-group-item"><strong>${{ $epackage->price }}</strong> Price</li>
                         @if($epackage->duration_count)
 							<li class="list-group-item"><strong>{{ $epackage->duration_count .' / '. $epackage->duration}}</strong></li>
+                            @else
+                            <li class="list-group-item"><strong>Unlimited Months</strong></li>
 						@endif
-                        <li class="list-group-item"><strong>{{ $epackage->duration.' package' }}</strong></li>
+                                <li class="list-group-item"><strong>{{ $epackage->getDuration().' package' }}</strong></li>
                     </ul>
-                        <button type="submit" class="btn btn-primary " id="btn-save">Sign Up!</button>
-                        <input type="hidden" id="usrpricetable" name="usrpricetable" value="{{ $epackage->id }}">
+                    <div class="">&nbsp;</div>
+
+                        <a href="{{url("paywithpaypal"."/".$epackage->id)}}" type="submit" class="btn btn-success " id="btn-save">Subscribe</a>
+                        <input type="hidden" id="package_id" name="package_id" value="{{ $epackage->id }}">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
-						<div class="clearfix"></div>
+
+						<div class="clearfix">&nbsp;</div>
 
 					</div>
 			</div>

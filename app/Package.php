@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Package extends Model
 {
     protected $fillable = [
-        'name', 'description', 'start_date', 'end_date','files_count','reset_count','price', 'status','created_at'
+        'name', 'description', 'start_date', 'end_date','files_count','reset_count','price', 'status','created_at','duration'
     ];
     protected $statusz = [
         0 => 'Disabled',
@@ -17,6 +17,15 @@ class Package extends Model
         1 => 'Monthly',
         3 => 'One Time',
 		];
+    protected $duration_lang = [
+        "months" => 'Monthly',
+        "days" => 'days',
+        "years" => 'Yearly',
+        "Unlimited" => "Life time"
+    ];
+    public function getDuration() {
+        return $this->duration_lang[$this->duration];
+    }
     public function getAllStatus() {
         return $this->statusz;
     }

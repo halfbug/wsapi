@@ -290,8 +290,26 @@ Upload Files
                     <div class="connecting-line"></div>
                     <ul class="nav nav-tabs" role="tablist">
 
-                        <li role="presentation" class="active">
-                            <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Upload Files">
+                        @if (Auth::guest())
+                            <li role="presentation" class="active">
+                                <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Register with us">
+                                <span class="round-tab">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                </span>
+                                </a>
+                            </li>
+                        @else
+                            <li role="presentation" class="active">
+                                <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Upgrade Membership">
+                                <span class="round-tab">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                </span>
+                                </a>
+                            </li>
+                        @endif
+
+                        <li role="presentation" class=" disabled">
+                            <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Upload Files">
 
                                 <span class="round-tab">
 
@@ -301,29 +319,13 @@ Upload Files
                         </li>
 
                         <li role="presentation" class="disabled">
-                            <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Set Meta Data">
+                            <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="Set Meta Data">
                                 <span class="round-tab">
                                     <i class="glyphicon glyphicon-list-alt"></i>
                                 </span>
                             </a>
                         </li>
-                        @if (Auth::guest())
-                        <li role="presentation" class="disabled">
-                            <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="Register with us">
-                                <span class="round-tab">
-                                    <i class="glyphicon glyphicon-user"></i>
-                                </span>
-                            </a>
-                        </li>
-                        @else
-                        <li role="presentation" class="disabled">
-                            <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="Upgrade Membership">
-                                <span class="round-tab">
-                                    <i class="glyphicon glyphicon-user"></i>
-                                </span>
-                            </a>
-                        </li>
-                        @endif
+
 
                         <li role="presentation" class="disabled">
                             <a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="Complete">
@@ -337,8 +339,8 @@ Upload Files
 
                 <!--<form role="form">-->
                 <div class="tab-content">
-                    <div class="tab-pane active" role="tabpanel" id="step1">
-                        <h3>Step 1 : Select and Upload files</h3>
+                    <div class="tab-pane " role="tabpanel" id="step2">
+                        <h3>Step 2 : Select and Upload files</h3>
 
                        <!-- The file upload form used as target for the file upload widget -->
     <form id="fileupload" action="//jquery-file-upload.appspot.com/" method="POST" enctype="multipart/form-data">
@@ -385,12 +387,13 @@ Upload Files
     </form>
 
                         <ul class="list-inline pull-right">
+                            <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
                             <!--<li><button type="button" class="btn btn-warning next-step">Upload</button></li>-->
                             <li><button type="button" id="step1btn"  disabled="true" class="btn btn-primary next-step">Save and continue</button></li>
                         </ul>
                     </div>
-                    <div class="tab-pane" role="tabpanel" id="step2">
-                        <h3>Step 2 : Set Meta Data</h3>
+                    <div class="tab-pane" role="tabpanel" id="step3">
+                        <h3>Step 3 : Set Meta Data</h3>
                         <form  method="post" action="{{url('/file/create')}}" class="form-horizontal" enctype="multipart/form-data">
                             {{ csrf_field() }}
 
@@ -541,8 +544,8 @@ Upload Files
                     
                     </div>
                     @if (Auth::guest())
-                    <div class="tab-pane" role="tabpanel" id="step3">
-                        <h3>Step 3 : Stay Connected!!</h3>
+                    <div class="tab-pane active" role="tabpanel" id="step1">
+                        <h3>Step 1 : Stay Connected!!</h3>
                         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">Register</div>
@@ -612,18 +615,18 @@ Upload Files
             </div>
         </div>
                         <ul class="list-inline pull-right">
-                            <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
+                            {{--<li><button type="button" class="btn btn-default prev-step">Previous</button></li>--}}
                             <li><button type="button" class="btn btn-default next-step">Skip</button></li>
                             <li><button type="button" class="btn btn-primary btn-info-full next-step">Save and continue</button></li>
                         </ul>
                     </div>
                     @else
-                     <div class="tab-pane" role="tabpanel" id="step3">
-                        <h3>Step 3 : Upgrade Membership!!</h3>
+                     <div class="tab-pane" role="tabpanel" id="step1">
+                        <h3>Step 1 : Upgrade Membership!!</h3>
                         <p> You can upgrade membership by select our package. <br>
                             <a href="{{url("pricing")}}">Click here</a> to see latest offered packages. </p>
                         <ul class="list-inline pull-right">
-                            <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
+
                             <li><button type="button" class="btn btn-default next-step">Skip</button></li>
                             <li><button type="button" class="btn btn-primary btn-info-full next-step">Save and continue</button></li>
                         </ul>

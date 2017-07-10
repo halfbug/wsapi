@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Validator;
@@ -8,6 +9,7 @@ use URL;
 use Session;
 use Redirect;
 use Input;
+use Carbon\Carbon;
 
 /** All Paypal Details class **/
 use PayPal\Rest\ApiContext;
@@ -24,10 +26,10 @@ use PayPal\Api\PaymentExecution;
 use PayPal\Api\Transaction;
 
 
-
 class SubscribeController extends Controller
 {
     private $_api_context;
+
     /**
      * Create a new controller instance.
      *
@@ -42,19 +44,30 @@ class SubscribeController extends Controller
         $this->_api_context = new ApiContext(new OAuthTokenCredential($paypal_conf['client_id'], $paypal_conf['secret']));
         $this->_api_context->setConfig($paypal_conf['settings']);
     }
+
     /**
      * Show the application paywith paypalpage.
      *
      * @return \Illuminate\Http\Response
      */
-    public function payWithPaypal()
+    public function payWithPaypal($package_id = 0, $user_id = 0)
     {
-        return view('subscribe.paywithpaypal');
+
+        if ($package_id != 0) {
+            $package = \App\Package::find($package_id);
+            \Session::put('package_id', $package_id);
+            \Session::put('user_id', $user_id);
+        } else {
+            $package = \App\Package::find(\Session::get("package_id"));
+        }
+        return view('subscribe.paywithpaypal')->with(compact('package'));
+
     }
+
     /**
      * Store a details of payment with paypal.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function postPaymentWithpaypal(Request $request)
@@ -65,7 +78,8 @@ class SubscribeController extends Controller
         $item_1->setName('Item 1')//($request->package_Id) /** item name **/
         ->setCurrency('USD')
             ->setQuantity(1)
-            ->setPrice($request->get('amount')); /** unit price **/
+            ->setPrice($request->get('amount'));
+        /** unit price **/
         $item_list = new ItemList();
         $item_list->setItems(array($item_1));
         $amount = new Amount();
@@ -74,9 +88,9 @@ class SubscribeController extends Controller
         $transaction = new Transaction();
         $transaction->setAmount($amount)
             ->setItemList($item_list)
-                ->setDescription('user_id=2&package_id=36')->setCustom("user_id=2&package_id=36");
+            ->setDescription('user_id=2&package_id=36')->setCustom("user_id=2&package_id=36");
         $redirect_urls = new RedirectUrls();
-        $redirect_urls->setReturnUrl(\URL::route('payment.status')) /** Specify return URL **/
+        $redirect_urls->setReturnUrl(\URL::route('payment.status'))/** Specify return URL **/
         ->setCancelUrl(\URL::route('payment.status'));
         $payment = new Payment();
         $payment->setIntent('Sale')
@@ -88,32 +102,33 @@ class SubscribeController extends Controller
             $payment->create($this->_api_context);
         } catch (\PayPal\Exception\PPConnectionException $ex) {
             if (\Config::get('app.debug')) {
-                \Session::put('error','Connection timeout');
+                \Session::put('error', 'Connection timeout');
                 return Redirect::route('subscribe.paywithpaypal');
                 /** echo "Exception: " . $ex->getMessage() . PHP_EOL; **/
                 /** $err_data = json_decode($ex->getData(), true); **/
                 /** exit; **/
             } else {
-                \Session::put('error','Some error occur, sorry for inconvenient');
+                \Session::put('error', 'Some error occur, sorry for inconvenient');
                 return Redirect::route('subscribe.paywithpaypal');
                 /** die('Some error occur, sorry for inconvenient'); **/
             }
         }
-        foreach($payment->getLinks() as $link) {
-            if($link->getRel() == 'approval_url') {
+        foreach ($payment->getLinks() as $link) {
+            if ($link->getRel() == 'approval_url') {
                 $redirect_url = $link->getHref();
                 break;
             }
         }
         /** add payment ID to session **/
         Session::put('paypal_payment_id', $payment->getId());
-        if(isset($redirect_url)) {
+        if (isset($redirect_url)) {
             /** redirect to paypal **/
             return Redirect::away($redirect_url);
         }
-        \Session::put('error','Unknown error occurred');
+        \Session::put('error', 'Unknown error occurred');
         return Redirect::route('subscribe.paywithpaypal');
     }
+
     public function getPaymentStatus(Request $request)
     {
         /** Get the payment ID before session clear **/
@@ -123,7 +138,7 @@ class SubscribeController extends Controller
 //        return $request->PayerID;
 
         if (empty($request->PayerID) || empty($request->token)) {
-            \Session::put('error','Payment failed');
+            \Session::put('error', 'Payment failed');
             return Redirect::route('subscribe.paywithpaypal');
         }
         $payment = Payment::get($payment_id, $this->_api_context);
@@ -137,15 +152,36 @@ class SubscribeController extends Controller
         $result = $payment->execute($execution, $this->_api_context);
         /** dd($result);exit; /** DEBUG RESULT, remove it later **/
         if ($result->getState() == 'approved') {
-            $transactions = $result->getTransactions();
-dd($transactions);var_dump($transactions[0]->getCustom());
+//            $transactions = $result->getTransactions();
+//            dd($transactions);
+//            var_dump($transactions[0]->getCustom());
             /** it's all right **/
             /** Here Write your database logic like that insert record or value in database if you want **/
-//            \Session::put('success','Payment success');
-//            return Redirect::route('subscribe.paywithpaypal');
+
+            $package = \App\Package::find(\Session::get('package_id'));
+            $user_id = \Auth::user()->id;
+
+
+            if (\App\Subscription::where('user_id', $request->user)->where("status", '1')->count() < 1) {
+                \App\Subscription::where('user_id', $request->user)->where("status", '1')->update(["status" => '0']);
+            }
+            $subscribe = new \App\Subscription();
+
+            $subscribe->package_id = $package->id;
+            $subscribe->user_id = $user_id;
+            $subscribe->files_upload_balance = $package->file_count;
+            $subscribe->start_date = Carbon::now();
+            if ($package->duration == "Months")
+                $subscribe->end_date = $subscribe->start_data->addMonths($package->duration_count);
+            $subscribe->save();
+
+
+
+            \Session::put('success','Payment successfully done');
+            return Redirect::route('subscribe.paywithpaypal');
         }
-//        \Session::put('error','Payment failed');
-//        return Redirect::route('subscribe.paywithpaypal');
+        \Session::put('error','Payment failed');
+        return Redirect::route('subscribe.paywithpaypal');
     }
 
 }

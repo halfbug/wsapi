@@ -143,7 +143,7 @@ class PackageController extends Controller
         //echo "assigned";
         $package = Package::find($request->pkg);
         $user_id = $request->user;
-//       TODO paypal payment
+
 
         if (\App\Subscription::where('user_id', $request->user)->where("status", '1')->count() < 1) {
             \App\Subscription::where('user_id', $request->user)->where("status", '1')->update(["status" => '0']);
@@ -154,7 +154,7 @@ class PackageController extends Controller
         $subscribe->user_id = $request->user;
         $subscribe->files_upload_balance = $package->file_count;
         $subscribe->start_date = Carbon::now();
-        if ($package->getType() == "Monthly")
+        if ($package->duration == "Months")
             $subscribe->end_date = $subscribe->start_data->addMonths($package->duration_count);
         $subscribe->save();
 
