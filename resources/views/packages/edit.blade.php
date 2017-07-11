@@ -190,13 +190,11 @@ Packages
 
 <script>
 $(function () {
-                //$("#divpkgemonth").hide();
-/*          if($('input[name='ptype']').is(':checked')) {
-			$('input[name='ptype']').val()==1;			
-		$("#divpkgemonth").show();} */	
-//var $radiovalue=$("input[name='ptype']").is(':checked').val();
-var $radiovalue=$("input[name='ptype']").val();
-if($radiovalue==1){$("#divpkgemonth").show();}else{$("#divpkgemonth").hide();}
+
+ var radiovalue=$("input[name='ptype']:checked").val();
+ 
+if(radiovalue==1){$("#divpkgemonth").show();}else{$("#divpkgemonth").hide();}
+
 		$("input[name='ptype']").click(function () {
             if ($("#pmonth").is(":checked")) {
                 $("#divpkgemonth").show();
@@ -204,7 +202,8 @@ if($radiovalue==1){$("#divpkgemonth").show();}else{$("#divpkgemonth").hide();}
                 $("#divpkgemonth").hide();
             }
         });
-    });
+
+   });
 
 tinymce.init({
     selector: '#description',
