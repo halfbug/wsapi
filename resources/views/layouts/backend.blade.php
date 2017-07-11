@@ -293,6 +293,9 @@
                                 <a href="{{url("file/list")}}"><i class="fa fa-files-o fa-fw"></i> Files</a>
                             </li>
                             <li>
+                                <a href="{{ url('file/meta/create') }}"><i class="fa fa-plus-square fa-fw"></i> Add Meta data</a>
+                            </li>
+                            <li>
                                 <a href="{{url("analysis/")}}"><i class="fa fa-diamond fa-fw"></i> Analysis</a>
                             </li>
                             

@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddFixedToMetaDataSetting' => $baseDir . '/database/migrations/2017_07_11_130100_add_fixed_to_meta_data_setting.php',
     'AddNameToDiscountTable' => $baseDir . '/database/migrations/2017_06_15_101658_add_name_to_discount_table.php',
     'AddNameToFilesTable' => $baseDir . '/database/migrations/2017_06_13_064630_add_name_to_files_table.php',
     'AddPakageIdToUsersTable' => $baseDir . '/database/migrations/2017_06_15_101200_add_pakage_id_to_users_table.php',
@@ -28,6 +29,7 @@ return array(
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
     'App\\Http\\Controllers\\PackageController' => $baseDir . '/app/Http/Controllers/PackageController.php',
     'App\\Http\\Controllers\\ProfileController' => $baseDir . '/app/Http/Controllers/ProfileController.php',
+    'App\\Http\\Controllers\\SubscribeController' => $baseDir . '/app/Http/Controllers/SubscribeController.php',
     'App\\Http\\Controllers\\UserController' => $baseDir . '/app/Http/Controllers/UserController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\EncryptCookies' => $baseDir . '/app/Http/Middleware/EncryptCookies.php',

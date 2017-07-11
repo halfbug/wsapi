@@ -384,6 +384,7 @@ class ComposerStaticInitc36b1a65c7508907b4782ff9edc8019a
     );
 
     public static $classMap = array (
+        'AddFixedToMetaDataSetting' => __DIR__ . '/../..' . '/database/migrations/2017_07_11_130100_add_fixed_to_meta_data_setting.php',
         'AddNameToDiscountTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_15_101658_add_name_to_discount_table.php',
         'AddNameToFilesTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_13_064630_add_name_to_files_table.php',
         'AddPakageIdToUsersTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_15_101200_add_pakage_id_to_users_table.php',
@@ -406,6 +407,7 @@ class ComposerStaticInitc36b1a65c7508907b4782ff9edc8019a
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\PackageController' => __DIR__ . '/../..' . '/app/Http/Controllers/PackageController.php',
         'App\\Http\\Controllers\\ProfileController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProfileController.php',
+        'App\\Http\\Controllers\\SubscribeController' => __DIR__ . '/../..' . '/app/Http/Controllers/SubscribeController.php',
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',

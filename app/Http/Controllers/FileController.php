@@ -8,12 +8,12 @@ use \Auth;
 use App\File;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
+use App\UserMeta;
 
 
 class FileController extends Controller
 {
-    //
-	public function index($status = null)
+    public function index($status = null)
 	{
 		$conditions = array(['parent_id', null]);
 		
@@ -29,7 +29,14 @@ class FileController extends Controller
 	}
 	
 	public function create() {
-		return view('files.create');
+		$admin_users = \App\User::whereHas('roles' ,function($q){
+				    		$q->whereIn('name', ['admin','sadmin']);
+						})->pluck('id')->toArray();
+		if (!Auth::guest()) {
+			array_push($admin_users, Auth::id());
+		}
+		$meta = UserMeta::whereIn('user_id', $admin_users)->get();
+		return view('files.create')->with('meta', $meta);
 	}
 	
 	public function store(Request $request) {
@@ -43,8 +50,8 @@ class FileController extends Controller
 				}
 				else 
 					$ip = $request->ip();
+				
 				$fileModel = new file;
-//                                var_dump($file);
 				$fileModel->name = $photo->getClientOriginalName();
 				$fileModel->user_id = $user_id;
 				$fileModel->ipaddress = $ip;
@@ -67,7 +74,7 @@ class FileController extends Controller
 		}
 		
 //		return redirect()->route('fileList');
-                return response()->json(array('files' => $photos), 200);
+        return response()->json(array('files' => $photos), 200);
 		
 	}
 
@@ -78,11 +85,11 @@ class FileController extends Controller
 	}
 	
 	public function destroy($id) {
-            $file=File::find($id);
+        $file=File::find($id);
 		Storage::delete($file->path);
-                $file->delete();
+        $file->delete();
                 
-                 return response()->json(array($file->path => true), 200);
+        return response()->json(array($file->path => true), 200);
 	}
 
 	public function format() {
@@ -175,6 +182,56 @@ class FileController extends Controller
 		}
 		
 		return redirect()->route('fileList');
+    }
+
+    public function storemeta(Request $request)
+    {
+    	$user_id = Auth::id();
+    	$values[] = $request->values;
+    	$err = array();
+    	$meta = array();
+    	$no_name = 0;
+    	foreach ($request->name as $key => $name) {
+	    	if (!is_null($name)) {
+	    		$field_number = $key + 2;
+	    		if (empty($values[0][$key])) {
+	    			$err['field'.$field_number] = "Value field cannot be empty";
+	    		} else {
+		   			$separate_values = explode(',', $values[0][$key]);
+		   			$check = array_filter($separate_values,'is_numeric');
+		   			if ($key < 9 && !empty($check)) {
+		   				$err['field'.$field_number] = "All values must be text";
+		   			}elseif ($key >= 9 && $check !== $separate_values) {
+		   				$err['field'.$field_number] = "All values must be numeric";
+		   			}
+		   			if (empty($err)) {
+		   				$meta_model = new UserMeta;
+		   				if ($request->has('fixed') && array_key_exists($field_number, $request->fixed)) 
+		   					$meta_model->fixed = ($request->fixed[$field_number] == "on")? 1: 0;
+			    		$meta_model->user_id = $user_id;
+			    		$meta_model->name = $name;
+			    		$meta_model->value = $values[0][$key];
+			    		array_push($meta, $meta_model);
+		   			}
+	    		}
+	    	} else {
+	    		$no_name++;
+	    	}
+	    }
+	    
+   		if ($no_name == 14)
+   			$err['failure'] = "Atlease ONE meta field must be provided";
+   		
+    	// if no error, then add meta to database
+    	if (empty($err)) {
+    		foreach ($meta as $value) {
+    			$value->save();
+    		}
+    		$err['success'] = "Meta Data has been saved successfully";
+    		return redirect()->back()->withErrors($err);
+    	}
+    	else
+  		  	return redirect()->back()->withErrors($err)->withInput();
     }
 
 }
