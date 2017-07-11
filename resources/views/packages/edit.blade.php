@@ -25,20 +25,24 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="inputDetail" class="col-sm-3 control-label">Start Date</label>
+                    <div class="form-group {{$errors->has('ptype') ? 'has-error' : ''}}">
+                        <label for="inputDetail" class="col-sm-3 control-label">Package Type</label>
                         <div class="col-sm-4">
-						    <input type="datetime" name="createdate" id="createdate" value="{{ date("Y-m-d", strtotime($package->start_date)) }}" class="form-control">
-						 </div>
+						    <input type="radio" name="ptype" id="pfixed" value="0" class="radio-inline" {{$package->type==0 ? 'checked' : ''}}>Fixed
+						    <input type="radio" name="ptype" id="pmonth" value="1" class="radio-inline" {{$package->type==0 ? '' : 'checked'}}>Per Month
+						 	@if($errors->has('name'))
+								<span class="help-block">{{$errors->first('name')}}</span>
+							@endif
+</div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="inputDetail" class="col-sm-3 control-label">End Date</label>
+                    <div class="form-group" id="divpkgemonth">
+                        <label for="inputDetail" class="col-sm-3 control-label">Number of Month</label>
                         <div class="col-sm-4">
-						    <input type="datetime" name="enddate" id="enddate" value="{{ date("Y-m-d", strtotime($package->end_date)) }}" class="form-control">
+						    <input type="text" name="pmonth" value="{{$package->duration_count}}" class="form-control">
 						 </div>
                     </div>
-
+					
                     <div class="form-group">
                         <label for="inputDetail" class="col-sm-3 control-label">Files Count</label>
                         <div class="col-sm-4">
@@ -185,12 +189,22 @@ Packages
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <script>
-$( function() {
-    $( "#createdate" ).datepicker();
-  } );
-$( function() {
-    $( "#enddate" ).datepicker();
-  } );
+$(function () {
+                //$("#divpkgemonth").hide();
+/*          if($('input[name='ptype']').is(':checked')) {
+			$('input[name='ptype']').val()==1;			
+		$("#divpkgemonth").show();} */	
+//var $radiovalue=$("input[name='ptype']").is(':checked').val();
+var $radiovalue=$("input[name='ptype']").val();
+if($radiovalue==1){$("#divpkgemonth").show();}else{$("#divpkgemonth").hide();}
+		$("input[name='ptype']").click(function () {
+            if ($("#pmonth").is(":checked")) {
+                $("#divpkgemonth").show();
+            } else {
+                $("#divpkgemonth").hide();
+            }
+        });
+    });
 
 tinymce.init({
     selector: '#description',
