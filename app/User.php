@@ -97,4 +97,14 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\UserMeta');
     }
+
+    /**
+     * Get the associated subscription
+     *
+     * @var array
+     */
+    public function Subscription() {
+
+        return $this->hasMany('App\Subscription');
+    }
 }

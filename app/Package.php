@@ -44,12 +44,22 @@ class Package extends Model
     }
 
 
-    public function user() {
-        return $this->belongsTo('App\User');
-    }
+//    public function user() {
+//        return $this->belongsTo('App\User');
+//    }
   	public function discount()
 	{
 		return $this->belongsTo('App\Discount');
 	}
+
+    /**
+     * Get the associated subscription
+     *
+     * @var array
+     */
+    public function Subscription() {
+
+        return $this->hasMany('App\Subscription');
+    }
 
 }

@@ -23,4 +23,11 @@ class Subscription extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function scopeActive($query) {
+
+
+            return $query->where('user_id', '=', \Auth::user()->id)->where('status',1);
+
+    }
 }
