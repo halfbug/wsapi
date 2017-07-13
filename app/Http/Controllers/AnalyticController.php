@@ -12,5 +12,10 @@ class AnalyticController extends Controller
 		return view('analytics.index');
 
 	}
+        public function totalfiles()
+    {
+		return view('analytics.totalfiles');
+
+	}
 
 }
