@@ -43,58 +43,17 @@
                                         <th>#</th>
                                         <th>Date</th>
                                         <th>Uploaded</th>
-                                        <th>Processed</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>3326</td>
-                                        <td>10/21/2013</td>
-                                        <td>3326</td>
-                                        <td>3326</td>
+                                 @foreach($total_files as $file)
+								 @php $sno=3326;@endphp
+								    <tr>
+                                        <td>{{ $sno }}</td>
+                                        <td>{{ $file->created_at }}</td>
+                                        <td>{{$file->file_count}}</td>
                                     </tr>
-                                    <tr>
-                                        <td>3325</td>
-                                        <td>10/21/2013</td>
-                                        <td>3326</td>
-                                        <td>3326</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3324</td>
-                                        <td>10/21/2013</td>
-                                        <td>3326</td>
-                                        <td>3326</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3323</td>
-                                        <td>10/21/2013</td>
-                                        <td>3326</td>
-                                        <td>3326</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3322</td>
-                                        <td>10/21/2013</td>
-                                        <td>3326</td>
-                                        <td>3326</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3321</td>
-                                        <td>10/21/2013</td>
-                                        <td>3326</td>
-                                        <td>3326</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3320</td>
-                                        <td>10/21/2013</td>
-                                        <td>3326</td>
-                                        <td>3326</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3319</td>
-                                        <td>10/21/2013</td>
-                                        <td>3326</td>
-                                        <td>3326</td>
-                                    </tr>
+                                 @endforeach
                                 </tbody>
                             </table>
                         </div>
