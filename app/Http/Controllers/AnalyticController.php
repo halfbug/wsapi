@@ -25,9 +25,10 @@ class AnalyticController extends Controller
 ])->groupBy('date')->get()->toArray();
  */	
 $total_files = DB::table('files')
-                     ->select(DB::raw('count(*) as file_count, created_at'))
-                     ->groupBy('created_at')
-                     ->get();
+                     ->select(DB::raw('COUNT(*) as file_count, created_at'))
+                     ->distinct()
+					 ->groupBy('created_at')
+                    ->get();
  //$total_files = DB::table('files')->groupBy('created_at')->get();
 // return view('analytics.totalfiles',['total_files' => $total_files]);
  return view('analytics.totalfiles')->with(compact('total_files'));

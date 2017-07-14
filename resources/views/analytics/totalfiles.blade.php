@@ -19,14 +19,14 @@
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu pull-right" role="menu">
-                            <li><a href="#">Last Week</a>
+                            <li><a href="lastweek">Last Week</a>
                             </li>
-                            <li><a href="#">Last 31 days</a>
+                            <li><a href="onemonth">Last 31 days</a>
                             </li>
-                            <li><a href="#">Last 6 months</a>
+                            <li><a href="lastsixmonths">Last 6 months</a>
                             </li>
                             <li class="divider"></li>
-                            <li><a href="#">Refresh</a>
+                            <li><a href="totalfiles">Refresh</a>
                             </li>
                         </ul>
                     </div>
@@ -47,7 +47,9 @@
                                 </thead>
                                 <tbody>
                                  @foreach($total_files as $file)
-								 @php $sno=3326;@endphp
+								 @php $sno=3326;
+								 
+								 @endphp
 								    <tr>
                                         <td>{{ $sno }}</td>
                                         <td>{{ $file->created_at }}</td>
