@@ -42,7 +42,7 @@ class FileController extends Controller
 	public function store(Request $request) {
 		
 		if ($request->hasFile('photos')) {
-			$user_id = Auth::id();
+			$user_id = Auth::user()->id;
             $photos = [];
 			foreach ($request->photos as $photo) {
 				if (strpos($request->ip(), ':')) {
@@ -50,26 +50,41 @@ class FileController extends Controller
 				}
 				else 
 					$ip = $request->ip();
-				
-				$fileModel = new file;
-				$fileModel->name = $photo->getClientOriginalName();
-				$fileModel->user_id = $user_id;
-				$fileModel->ipaddress = $ip;
-				$fileModel->status = 1;
-				if (Auth::guest()) {
-					$fileModel->path = $photo->store('public/upload/'.$ip);
-				} else
-					$fileModel->path = $photo->store('public/upload/'.$user_id);
-				$fileModel->save();
-                                
-                $photo_object = new \stdClass();
-        		$photo_object->name = str_replace('photos/', '',$photo->getClientOriginalName());
-		        $photo_object->size = round(\Storage::size($fileModel->path) / 1024, 2);
-		        $photo_object->fileID = $fileModel->id;
-		        $photo_object->url = url("../storage/app/".$fileModel->path);
-		        $photo_object->deleteType = "DELETE";
-		        $photo_object->deleteUrl = url('file/destroy/'.$fileModel->id);
-		        $photos[] = $photo_object;
+				if(\App\File::where("name",$photo->getClientOriginalName())->where("ipaddress",$ip)->count()<1)
+				{
+                    $fileModel = new file;
+                    $fileModel->name = $photo->getClientOriginalName();
+                    $fileModel->user_id = $user_id;
+                    $fileModel->ipaddress = $ip;
+                    $fileModel->status = 1;
+                    if (Auth::guest()) {
+                        $fileModel->path = $photo->store('public/upload/' . $ip);
+                        //Todo check for free user quota
+                    } else{
+                        $subsctioption=\Auth::user()->subscription()->active()->first();
+                        if($subsctioption->file_upload_balance > 0) {
+                            $fileModel->path = $photo->store('public/upload/' . $user_id);
+                            $subsctioption->file_upload_balance = $subsctioption->setUploadBalance();
+                            $subsctioption->save();
+                        }
+                        else
+                            return response()->json(array("error"=>"Package Expire"),501);
+                    }
+
+                    $fileModel->save();
+
+                    $photo_object = new \stdClass();
+                    $photo_object->name = str_replace('photos/', '', $photo->getClientOriginalName());
+                    $photo_object->size = round(\Storage::size($fileModel->path) / 1024, 2);
+                    $photo_object->fileID = $fileModel->id;
+                    $photo_object->url = url("../storage/app/" . $fileModel->path);
+                    $photo_object->deleteType = "DELETE";
+                    $photo_object->deleteUrl = url('file/destroy/' . $fileModel->id);
+                    $photos[] = $photo_object;
+                }
+                else{
+				    return response()->json("file already exist.",406);
+                }
 			}
 		}
 		

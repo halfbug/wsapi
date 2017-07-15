@@ -18,10 +18,28 @@ $(function () {
     $('#fileupload').fileupload({
         // Uncomment the following to send cross-domain cookies:
         //xhrFields: {withCredentials: true},
+        // The limit of files to be uploaded:
+        maxNumberOfFiles: 10,
         url: 'create'
+    }).on('fileuploadprocessalways', function (e, data) {
+        var currentFile = data.files[data.index];
+        // console.log(data.files);
+        // console.log(currentFile);
+        if (data.files.error && currentFile.error) {
+            // there was an error, do something about it
+            console.log(currentFile.error);
+        }
     }).on('fileuploaddone', function (e, data) {
              $('#step1btn').prop('disabled', false);
-        });
+
+        }).on('fileuploadfail', function (e,data) {
+            if(data.errorThrown == "Not Acceptable")
+        data.errorThrown="Already Exist"; //Not Acceptable
+        if(data.errorThrown == "Not Implemented")
+            data.errorThrown = "Package Ended";
+
+        console.log(data.errorThrown);
+    });;
 
     // Enable iframe cross-domain access via redirect option:
     $('#fileupload').fileupload(

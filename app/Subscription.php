@@ -30,4 +30,8 @@ class Subscription extends Model
             return $query->where('user_id', '=', \Auth::user()->id)->where('status',1);
 
     }
+
+    public  function setUploadBalance(){
+       return --$this->files_upload_balance ;
+    }
 }

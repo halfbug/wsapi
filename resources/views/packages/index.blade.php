@@ -73,7 +73,7 @@
                                     @php
                                         $subsctioption=(\Auth::user()->subscription()->active()->first() != null )? \Auth::user()->subscription()->active()->first() : new \App\Subscription()  ;
                                     @endphp
-                                    <!--/** @TODO check if the user is already subscribe then display unsubscripbe button */-->
+                                    <!--/** check if the user is already subscribe then display unsubscripbe button */-->
                                         @if($subsctioption->package_id == $package->id)
                                             <a  class="btn btn-success"><em class="fa fa-angle-double-right"></em>Running</a>
                                         @else
