@@ -40,6 +40,7 @@ Route::group(['prefix' => 'file','middleware' => 'auth'], function () {
     Route::get('/format', 'FileController@format');
     Route::get('/meta/create', 'FileController@meta');
     Route::post('/meta/create', 'FileController@storemeta');
+    Route::post('/filemeta', 'FileController@storeFileMeta');
     Route::get('/startprocessing/{file_id}', 'FileController@startprocessing');
     Route::post('/search', 'FileController@search');
     Route::get('/{file_id}', 'FileController@show');

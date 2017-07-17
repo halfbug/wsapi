@@ -29,13 +29,17 @@ class FileController extends Controller
 	}
 	
 	public function create() {
-		$admin_users = \App\User::whereHas('roles' ,function($q){
-				    		$q->whereIn('name', ['admin','sadmin']);
-						})->pluck('id')->toArray();
+		$admin_ids = $this->AllAdminIds();
 		if (!Auth::guest()) {
-			array_push($admin_users, Auth::id());
+			array_push($admin_ids, Auth::id());
 		}
-		$meta = UserMeta::whereIn('user_id', $admin_users)->get();
+		$meta = UserMeta::whereIn('user_id', $admin_ids)->get();
+        foreach ($meta as $value) {
+            $separate_values = explode(',', $value->value);
+            $check = array_filter($separate_values,'is_numeric');
+            $value->is_numeric = ($separate_values == $check)? true: false;
+            $value->separate_values = $separate_values;
+        }
 		return view('files.create')->with('meta', $meta);
 	}
 	
@@ -113,7 +117,19 @@ class FileController extends Controller
 	
 	public function meta()
     {
-        return view('meta.create');
+    	$usermeta = UserMeta::where([['user_id',Auth::id()],['fixed',0]])->get();
+    	$adminmeta = UserMeta::where('fixed',1)->get();
+    	foreach ($adminmeta as $value) {
+    		$separate_values = explode(',', $value->value);
+		   	$check = array_filter($separate_values,'is_numeric');
+		   	$value->is_numeric = ($separate_values == $check)? true: false;
+		}
+		foreach ($usermeta as $value) {
+    		$separate_values = explode(',', $value->value);
+		   	$check = array_filter($separate_values,'is_numeric');
+		   	$value->is_numeric = ($separate_values == $check)? true: false;
+		}
+        return view('meta.create', compact('usermeta','adminmeta'));
     }
 	
 	public function startprocessing($fileid)
@@ -208,21 +224,21 @@ class FileController extends Controller
     	$no_name = 0;
     	foreach ($request->name as $key => $name) {
 	    	if (!is_null($name)) {
-	    		$field_number = $key + 2;
+	    		//$field_number = $key + 2;
 	    		if (empty($values[0][$key])) {
-	    			$err['field'.$field_number] = "Value field cannot be empty";
+	    			$err['field'.$key] = "Value field cannot be empty";
 	    		} else {
 		   			$separate_values = explode(',', $values[0][$key]);
 		   			$check = array_filter($separate_values,'is_numeric');
-		   			if ($key < 9 && !empty($check)) {
-		   				$err['field'.$field_number] = "All values must be text";
-		   			}elseif ($key >= 9 && $check !== $separate_values) {
-		   				$err['field'.$field_number] = "All values must be numeric";
+		   			if ($key < 11 && !empty($check)) {
+		   				$err['field'.$key] = "All values must be text";
+		   			}elseif ($key >= 11 && $check !== $separate_values) {
+		   				$err['field'.$key] = "All values must be numeric";
 		   			}
 		   			if (empty($err)) {
 		   				$meta_model = new UserMeta;
-		   				if ($request->has('fixed') && array_key_exists($field_number, $request->fixed)) 
-		   					$meta_model->fixed = ($request->fixed[$field_number] == "on")? 1: 0;
+		   				if ($request->has('fixed') && array_key_exists($key, $request->fixed)) 
+		   					$meta_model->fixed = ($request->fixed[$key] == "on")? 1: 0;
 			    		$meta_model->user_id = $user_id;
 			    		$meta_model->name = $name;
 			    		$meta_model->value = $values[0][$key];
@@ -237,11 +253,16 @@ class FileController extends Controller
    		if ($no_name == 14)
    			$err['failure'] = "Atlease ONE meta field must be provided";
    		
-    	// if no error, then add meta to database
+    	// if no error, then save new meta and delete previous meta of the user
     	if (empty($err)) {
-    		foreach ($meta as $value) {
-    			$value->save();
-    		}
+            $admin_ids = $this->AllAdminIds();
+            if (in_array($user_id, $admin_ids))
+                $prev_meta = UserMeta::whereIn('user_id', $admin_ids)->delete();
+            else
+    		    $prev_meta = UserMeta::where('user_id', $user_id)->delete();
+            foreach ($meta as $value) {
+                $value->save();
+            }
     		$err['success'] = "Meta Data has been saved successfully";
     		return redirect()->back()->withErrors($err);
     	}
@@ -249,4 +270,35 @@ class FileController extends Controller
   		  	return redirect()->back()->withErrors($err)->withInput();
     }
 
+	/**
+	*	Return array of ids of super admin and all other admins
+	*/
+    public function AllAdminIds()
+    {
+    	$admin_ids = \App\User::whereHas('roles' ,function($q){
+				    		$q->whereIn('name', ['admin','sadmin']);
+						})->pluck('id')->toArray();
+    	return $admin_ids;
+    }
+
+    public function storeFileMeta(Request $request)
+    {
+       if (Auth::guest()) {
+            $files = File::where(['ipaddress',$request->ip()])->doesntHave('metadata')->get();
+        } else {
+            $files = File::where([['ipaddress',$request->ip()],['user_id',Auth::id()]])->doesntHave('metadata')->get();
+        }
+
+        foreach ($files as $file) {
+            foreach ($request->filemeta as $name => $value) {
+                $filemeta_model = new \App\FileMeta();
+                $filemeta_model->name = $name;
+                $filemeta_model->value = $value;
+                $filemeta_model->file_id = $file->id;
+                $filemeta_model->save();
+            }
+        }
+
+        return redirect()->back();
+    }
 }

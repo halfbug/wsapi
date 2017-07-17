@@ -413,13 +413,13 @@
                         </div>
                         <div class="tab-pane" role="tabpanel" id="step3">
                             <h3>Step 3 : Set Meta Data</h3>
-                            <form method="post" action="{{url('/file/create')}}" class="form-horizontal"
+                            <form id="meta-form" method="POST" action="{{url('/file/filemeta')}}" class="form-horizontal"
                                   enctype="multipart/form-data">
                                 {{ csrf_field() }}
 
 
                                 <div class="modal-body">
-                                    <div class="form-grop">
+                                    <div class="form-group">
                                         <label for="field1 " class="col-sm-3 control-label">Deletion period</label>
                                         <div class="col-sm-9">
                                             <label for="field1 " class="col-sm-3 control-label">24 hours</label>
@@ -427,135 +427,43 @@
 
                                     </div>
 
+                                    <div class="form-group">
+                                       <label class="col-sm-6 control-label"><u>Text Fields</u></label>
+                                    </div>
+                                    @foreach($meta as $metadata)
+                                    @if(!$metadata->is_numeric)
                                     <div class="form-group ">
-                                        <label for="field2 " class="col-sm-3 control-label">Field 2</label>
+                                        <label for="field3 " class="col-sm-3 control-label">{{$metadata->name}}</label>
                                         <div class="col-sm-6">
-                                            <select class="form-control " id="field1">
-                                                <option value="wood">wood</option>
-                                                <option value="grass">grass</option>
-                                                <option value="stone">stone</option>
-                                                <option value="water">water</option>
-                                                <option value="glass">glass</option>
-                                                <option value="grass2">grass2</option>
+                                            <select class="form-control " id="filemeta[{{$metadata->name}}]" name="filemeta[{{$metadata->name}}]">
+                                            @foreach($metadata->separate_values as $val)
+                                                <option value="{{$val}}">{{$val}}</option>
+                                             @endforeach
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group ">
-                                        <label for="field3 " class="col-sm-3 control-label">Field 3</label>
-                                        <div class="col-sm-6">
-                                            <select class="form-control " id="field1">
-                                                <option value="circle">circle</option>
-                                                <option value="rectangle">rectangle</option>
-                                                <option value="line">line</option>
-                                                <option value="oval">oval</option>
-                                                <option value="square">square</option>
-                                                <option value="cube">cube</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group ">
-                                        <label for="field4 " class="col-sm-3 control-label">Field 4</label>
-                                        <div class="col-sm-6">
-                                            <select class="form-control " id="field1">
-                                                <option value="handmade">handmade</option>
-                                                <option value="fine cut">fine cut</option>
-                                                <option value="machine general">machine general</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group ">
-                                        <label for="field5 " class="col-sm-3 control-label">Field 5</label>
-                                        <div class="col-sm-6">
-                                            <select class="form-control " id="field1">
-                                                <option value="chair">chair</option>
-                                                <option value="sofa">sofa</option>
-                                                <option value="dishwasher">dishwasher</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group ">
-                                        <label for="field6 " class="col-sm-3 control-label">Field 6</label>
-                                        <div class="col-sm-6">
-                                            <select class="form-control " id="field1">
-                                                <option value="green">green</option>
-                                                <option value="yellow">yellow</option>
-                                                <option value="red">red</option>
-                                                <option value="blue">blue</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group ">
-                                        <label for="field111 " class="col-sm-3 control-label">Field 11</label>
-                                        <div class="col-sm-6">
-                                            <select class="form-control " id="field1">
-                                                <option value="1">1</option>
-                                                <option value="3">3</option>
-                                                <option value="3.15">3.15</option>
-                                                <option value="34">34</option>
-                                                <option value="52">52</option>
-                                                <option value="42">42</option>
-                                                <option value="21.22">21.22</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group ">
-                                        <label for="field12 " class="col-sm-3 control-label">Field 12</label>
-                                        <div class="col-sm-6">
-                                            <select class="form-control " id="field1">
-                                                <option value="11">11</option>
-                                                <option value="0">0</option>
-                                                <option value="001">001</option>
-                                                <option value="928">928</option>
-                                                <option value="002">002</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group ">
-                                        <label for="field13 " class="col-sm-3 control-label">Field 13</label>
-                                        <div class="col-sm-6">
-                                            <select class="form-control " id="field1">
-                                                <option value="3">3</option>
-                                                <option value="22">22</option>
-                                                <option value="1">1</option>
-                                                <option value="56">56</option>
-                                                <option value="34">34</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                    @endif
+                                    @endforeach
 
-
-                                    <div id="main_box">
-                                        <div class="form-group inputRow" style="display:none;">
-                                            <label for="file" class="col-sm-3 control-label">File</label>
-                                            <div class="col-sm-4">
-                                                <input type="file" id="photo[]" name="photo[]" class="input-file">
-                                            </div>
-                                            <div class="col-sm-1">
-                                                <input type="button" value="-&nbsp;" class="btn btn-danger btn-sm "
-                                                       onclick="delete_child(this);
-                                                    return false;">
-                                            </div>
-                                            <div class="col-sm-1">
-                                                <input type="button" value="+" class="btn btn-primary btn-sm"
-                                                       onclick="append_child('main_box');">
-                                            </div>
-                                        </div>
-                                        <!--                                    <div class="form-group">
-                                                                                <label for="file"  class="col-sm-3 control-label">File</label>
-                                                                                <div class="col-sm-4">
-                                                                                    <input type="file" id="photo[]" name="photo[]" class="input-file">
-                                                                                </div>
-                                                                                <div class="col-sm-2">
-                                                                                    <input type="button" value="+" class="btn btn-primary btn-sm" onclick="append_child('main_box');">
-                                                                                </div>
-
-
-                                                                            </div>
-                                                                            <div id="addRow">
-
-                                                                            </div>-->
-
+                                    <div class="form-group">
+                                       <label class="col-sm-6 control-label"><u>Numeric Fields</u></label>
                                     </div>
+                                    @foreach($meta as $metadata)
+                                    @if($metadata->is_numeric)
+                                    <div class="form-group ">
+                                        <label for="field3 " class="col-sm-3 control-label">{{$metadata->name}}</label>
+                                        <div class="col-sm-6">
+                                            <select class="form-control " id="filemeta[{{$metadata->name}}]" name="filemeta[{{$metadata->name}}]">
+                                            @foreach($metadata->separate_values as $val)
+                                                <option value="{{$val}}">{{$val}}</option>
+                                             @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    @endif
+                                    @endforeach
+                                    
+
 
                                 </div>
                                 <ul class="list-inline pull-right">
@@ -563,7 +471,7 @@
                                         <button type="button" class="btn btn-default prev-step">Previous</button>
                                     </li>
                                     <li>
-                                        <button type="button" class="btn btn-primary next-step">Save and continue
+                                        <button type="submit" class="btn btn-primary next-step">Save and continue
                                         </button>
                                     </li>
                                 </ul>
