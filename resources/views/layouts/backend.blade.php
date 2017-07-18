@@ -339,7 +339,7 @@
                                         <a href="{{ url('file/meta/create') }}"><i class="fa fa-plus-square fa-fw"></i>Set Meta Data</a>
                                     </li>
                                     <li>
-                                        <a href="{{ url('settings/index') }}"><i class="fa fa-feed fa-fw"></i>General Settings</a>
+                                        <a href="{{ url('setting/') }}"><i class="fa fa-feed fa-fw"></i>General Settings</a>
                                     </li>
                                 </ul>
                                  {{--/.nav-second-level --}}
