@@ -27,7 +27,13 @@ class FileController extends Controller
 		$files = File::where($conditions)->get();
 		return view('files.index', compact('files'));
 	}
-	
+		public function countfilesforgivendate($date)
+    {
+		$filefordate=File::all()->where("created_at", $date);
+		$totalfilefordate=count($filefordate);
+		return $totalfilefordate;
+	}
+
 	public function create() {
 		$admin_ids = $this->AllAdminIds();
 		if (!Auth::guest()) {
