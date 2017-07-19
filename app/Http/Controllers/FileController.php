@@ -66,9 +66,12 @@ class FileController extends Controller
                         //Todo check for free user quota
                     } else{
                         $subsctioption=\Auth::user()->subscription()->active()->first();
-                        if($subsctioption->file_upload_balance > 0) {
+//                        dd($subsctioption);
+//                        dd($subsctioption->files_upload_balance );
+                        if($subsctioption->files_upload_balance > 0) {
+//                             dd($subsctioption);
                             $fileModel->path = $photo->store('public/upload/' . $user_id);
-                            $subsctioption->file_upload_balance = $subsctioption->setUploadBalance();
+                            $subsctioption->files_upload_balance = $subsctioption->setUploadBalance();
                             $subsctioption->save();
                         }
                         else
