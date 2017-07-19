@@ -53,7 +53,7 @@
 								    <tr>
                                         <td>{{ $sno }}</td>
                                         <td>{{ $file->created_at }}</td>
-                                        <td>{{$filemodel->countfilesforgivendate($file->created_at)}}</td>
+                                        <td>here to call countfilesforgivendate of file model</td>
                                     </tr>
                                  @endforeach
                                 </tbody>
