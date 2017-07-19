@@ -94,3 +94,7 @@ Route::resource('setting', 'SettingController');
 Route::get('paywithpaypal/{package_id?}/{user_id?}', array('as' => 'subscribe.paywithpaypal','uses' => 'SubscribeController@payWithPaypal',))->middleware('auth');
 Route::post('paypal', array('as' => 'subscribe.paypal','uses' => 'SubscribeController@postPaymentWithpaypal',))->middleware('auth');
 Route::get('paypal', array('as' => 'payment.status','uses' => 'SubscribeController@getPaymentStatus',))->middleware('auth');
+
+Route::get('/markAsRead', function(){
+    Auth::user()->unreadNotifications->markAsRead();
+});

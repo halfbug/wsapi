@@ -9,7 +9,7 @@ use App\File;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use App\UserMeta;
-
+use App\Notifications\FileProcessed;
 
 class FileController extends Controller
 {
@@ -210,6 +210,8 @@ class FileController extends Controller
 			$uploadedfile = File::find($fileid);
 			$uploadedfile->status = 3;
 			$uploadedfile->save();
+
+            $uploadedfile->user->notify(new FileProcessed($uploadedfile));
 		}
 		
 		return redirect()->route('fileList');
