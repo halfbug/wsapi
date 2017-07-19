@@ -46,14 +46,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                 @foreach($total_files as $file)
+                                 @foreach($totalfiles as $file)
 								 @php $sno=3326;
-								 
+								 $totalnumoffiles="to be calculated";
 								 @endphp
 								    <tr>
                                         <td>{{ $sno }}</td>
                                         <td>{{ $file->created_at }}</td>
-                                        <td>{{$file->file_count}}</td>
+                                        <td>here to call countfilesforgivendate of file model</td>
                                     </tr>
                                  @endforeach
                                 </tbody>

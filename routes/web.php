@@ -80,6 +80,7 @@ Route::post('/assign', 'PackageController@assignpackage');
 
 Route::group(['prefix' => 'api'], function () {
     Route::get('/', 'ApiController@index');
+    Route::get('/clients', 'ApiController@clients');
    
 });
 
