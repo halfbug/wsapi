@@ -18,4 +18,11 @@ class ApiController extends Controller
         return view('api.index');
     }
 
+    public function getAllClients()
+    {
+
+
+
+    }
+
 } 
