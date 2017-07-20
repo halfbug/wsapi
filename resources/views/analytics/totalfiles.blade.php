@@ -48,12 +48,19 @@
                                 <tbody>
                                  @foreach($totalfiles as $file)
 								 @php $sno=3326;
-								 $totalnumoffiles="to be calculated";
+
+								 $datetime = explode(" ",$file->created_at);
+									$date = $datetime[0];
+									$time = $datetime[1];
+								 
+								 $totalfiledate = DB::table('files')->whereDate('created_at',  $date)->get();	
+								 
+								$tot=count($totalfiledate);
 								 @endphp
 								    <tr>
                                         <td>{{ $sno }}</td>
                                         <td>{{ $file->created_at }}</td>
-                                        <td>here to call countfilesforgivendate of file model</td>
+                                        <td>{{$tot}}</td>
                                     </tr>
                                  @endforeach
                                 </tbody>
