@@ -108,14 +108,4 @@ class User extends Authenticatable
         return $this->hasMany('App\Subscription');
     }
 
-    /**
-     * Route notifications for the mail channel.
-     *
-     * @return string
-     */
-    /*public function routeNotificationForMail()
-    {
-        return $this->email_address;
-    }
-    */
 }

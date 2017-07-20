@@ -45,7 +45,7 @@ class FileProcessed extends Notification
     {
         return (new MailMessage)
                     ->greeting('Hello '.$notifiable->name)
-                    ->line('Your uploaded file '.$thi->file->name.' has been processed.')
+                    ->line('Your uploaded file '.$this->file->name.' has been processed.')
                     ->action('Download Processed File', url("/file/startdownloading/".$this->file->id))
                     ->line('Thank you for using our application!');
     }
