@@ -76,40 +76,13 @@ $(function() {
         resize: true
     });
 */
-    Morris.Bar({
+<?php global $barchart;?> 
+ Morris.Bar({
         element: 'morris-bar-chart',
-        data: [{
-            y: '20/5/2017',
-            a: 100,
-            b: 90
-        }, {
-            y: '24/5/2017',
-            a: 75,
-            b: 65
-        }, {
-            y: '26/5/2017',
-            a: 50,
-            b: 40
-        }, {
-            y: '28/5/2017',
-            a: 75,
-            b: 65
-        }, {
-            y: '30/5/2017',
-            a: 50,
-            b: 40
-        }, {
-            y: '1/6/2017',
-            a: 75,
-            b: 65
-        }, {
-            y: '3/6/2017',
-            a: 100,
-            b: 90
-        }],
+        data: [<?php echo $barchart;?>],
         xkey: 'y',
-        ykeys: ['a', 'b'],
-        labels: ['Uploaded', 'Processed'],
+        ykeys: ['a'],
+        labels: ['Uploaded Files'],
         hideHover: 'auto',
         resize: true
     });

@@ -46,7 +46,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                 @foreach($totalfiles as $file)
+                                 @php $barchart=""; @endphp
+
+								 @foreach($totalfiles as $file)
 								 @php $sno=3326;
 
 								 $datetime = explode(" ",$file->created_at);
@@ -54,15 +56,20 @@
 									$time = $datetime[1];
 								 
 								 $totalfiledate = DB::table('files')->whereDate('created_at',  $date)->get();	
-								 
+								
 								$tot=count($totalfiledate);
+							 
+								 $barchart=$barchart."{y:'".$date."', a:$tot}, ";
+								 
 								 @endphp
 								    <tr>
                                         <td>{{ $sno }}</td>
                                         <td>{{ $file->created_at }}</td>
                                         <td>{{$tot}}</td>
                                     </tr>
-                                 @endforeach
+                                @php $sno++; @endphp
+								 @endforeach
+                                 @php $barchart=substr($barchart, 0, -2); @endphp
                                 </tbody>
                             </table>
                         </div>
@@ -80,3 +87,21 @@
          </div>
         </div>
        @endsection
+@section('script')
+<script>
+$(function() {
+
+ Morris.Bar({
+        element: 'morris-bar-chart',
+        data: [<?php echo $barchart;?>],
+        xkey: 'y',
+        ykeys: ['a'],
+        labels: ['Uploaded Files'],
+        hideHover: 'auto',
+        resize: true
+    });
+    
+});
+
+</script>
+@endsection
