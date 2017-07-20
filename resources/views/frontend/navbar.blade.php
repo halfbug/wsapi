@@ -42,17 +42,21 @@
                             </a>
                             
                             <ul class="dropdown-menu dropdown-alerts">
-                                @foreach(Auth::user()->notifications as $notification)
-                                    <li>
-                                        <a href="{{ url("/file/startdownloading/".$notification->data['file']['id']) }}">
-                                            <div>
-                                                <i class="fa fa-file fa-fw"></i> File {{$notification->data['file']['name']}} has been processed
-                                                <!-- <span class="pull-right text-muted small">4 minutes ago</span> -->
-                                            </div>
-                                        </a>
-                                    </li>
+                                @forelse(Auth::user()->notifications as $notification)
+                                <li>
+                                    <a href="{{ url("/file/startdownloading/".$notification->data['file']['id']) }}">
+                                        <div>
+                                            <i class="fa fa-file fa-fw"></i> File {{$notification->data['file']['name']}} has been processed
+                                            <!-- <span class="pull-right text-muted small">4 minutes ago</span> -->
+                                        </div>
+                                    </a>
+                                </li>
                                 <li class="divider"></li>
-                                @endforeach
+                                @empty
+                                    <li title="No new notification">
+                                        <a>No new notification</a>
+                                    </li>
+                                @endforelse
                             </ul>
                         
                          </li>

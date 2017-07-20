@@ -126,8 +126,8 @@ class FileController extends Controller
 	
 	public function meta()
     {
-    	$usermeta = UserMeta::where([['user_id',Auth::id()],['fixed',0]])->get();
-    	$adminmeta = UserMeta::where('fixed',1)->get();
+    	$usermeta = UserMeta::where([['user_id',Auth::id()],['fixed',0]])->orderBy('id','asc')->get();
+    	$adminmeta = UserMeta::where('fixed',1)->orderBy('id','asc')->get();
     	foreach ($adminmeta as $value) {
     		$separate_values = explode(',', $value->value);
 		   	$check = array_filter($separate_values,'is_numeric');

@@ -196,7 +196,7 @@
                         </a>
                         
                         <ul class="dropdown-menu dropdown-alerts">
-                            @foreach(Auth::user()->notifications as $notification)
+                            @forelse(Auth::user()->notifications as $notification)
                                 <li>
                                     <a href="{{ url("/file/startdownloading/".$notification->data['file']['id']) }}">
                                         <div>
@@ -206,7 +206,11 @@
                                     </a>
                                 </li>
                             <li class="divider"></li>
-                            @endforeach
+                            @empty
+                                <li title="No new notification">
+                                    <a>No new notification</a>
+                                </li>
+                            @endforelse
                         </ul>
                         
                     </li>
