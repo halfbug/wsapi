@@ -13,6 +13,7 @@ class SettingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         $settings = Setting::all()->toArray();
@@ -42,6 +43,8 @@ class SettingController extends Controller
             'value'=>'required']);
         $settings->name=$request->name;
         $settings->value=$request->value;
+        $settings->option=$request->option;
+        $settings->section=$request->section;
         $settings->status=$request->status;
         $settings->save();
         return redirect('/setting');
@@ -85,6 +88,8 @@ class SettingController extends Controller
         $setting->name = $request->get('name');
         $setting->value = $request->get('value');
         $setting->status = $request->get('status');
+        $setting->option = $request->get('option');
+        $setting->section = $request->get('section');
         $setting->save();
         return redirect('/setting');
     }
