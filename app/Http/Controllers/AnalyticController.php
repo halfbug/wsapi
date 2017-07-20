@@ -27,17 +27,14 @@ class AnalyticController extends Controller
 	
  */	
  /* total files uploaded by site user*/
-	
 	$totalfiles = DB::table('files')
             ->join('role_user', 'files.user_id', '=', 'role_user.user_id')
             ->where('role_user.role_id', '=', 3)
             ->select('files.*')
-            ->get();	
+            ->distinct('created_at')->get();	
 	        //$filemodel = \App\File::all();
-	        $filemodel = new file;
 	
-	 return view('analytics.totalfiles')->with(compact('totalfiles'))->with('filemodel');
-	 //return view('analytics.totalfiles')->with(compact('totalfiles'))->with('filemodel');
+	 return view('analytics.totalfiles')->with(compact('totalfiles'));
 
 	}//function end
 
