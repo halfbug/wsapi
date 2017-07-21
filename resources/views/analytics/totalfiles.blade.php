@@ -2,6 +2,10 @@
 @extends('layouts.backend')
 @endif
 
+@section('heading')
+    Total amount of files uploaded by and sent to users
+        @endsection
+
 @section('content')
 
 
@@ -11,7 +15,7 @@
         <!-- /.panel -->
         <div class="panel panel-default">
             <div class="panel-heading">
-                <i class="fa fa-bar-chart-o fa-fw"></i> Total amount of files uploaded by and sent to users
+                <i class="fa fa-bar-chart-o fa-fw"></i>This Week
                 <div class="pull-right">
                     <div class="btn-group">
                         <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
@@ -19,9 +23,13 @@
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu pull-right" role="menu">
+                            <li><a href="lastweek">This Week</a>
+                            </li>
                             <li><a href="lastweek">Last Week</a>
                             </li>
-                            <li><a href="onemonth">Last 31 days</a>
+                            <li><a href="onemonth">This month</a>
+                            </li>
+                            <li><a href="onemonth">Last month</a>
                             </li>
                             <li><a href="lastsixmonths">Last 6 months</a>
                             </li>
@@ -43,40 +51,30 @@
                                         <th>#</th>
                                         <th>Date</th>
                                         <th>Uploaded</th>
+                                        <th>Processed</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                 @php $barchart=""; @endphp
+                                @php $sno=0; @endphp
 
-								 @foreach($totalfiles as $file)
-								 @php $sno=3326;
+								 @foreach($data as $rec)
 
-								 $datetime = explode(" ",$file->created_at);
-									$date = $datetime[0];
-									$time = $datetime[1];
-								 
-								 $totalfiledate = DB::table('files')->whereDate('created_at',  $date)->get();	
-								
-								$tot=count($totalfiledate);
-							 
-								 $barchart=$barchart."{y:'".$date."', a:$tot}, ";
-								 
-								 @endphp
 								    <tr>
-                                        <td>{{ $sno }}</td>
-                                        <td>{{ $file->created_at }}</td>
-                                        <td>{{$tot}}</td>
+                                        <td>{{ ++$sno }}</td>
+                                        <td>{{ $rec['y'] }}-2017</td>
+                                        <td>{{$rec['a']}}</td>
+                                        <td>{{$rec['b']}}</td>
                                     </tr>
-                                @php $sno++; @endphp
+
 								 @endforeach
-                                 @php $barchart=substr($barchart, 0, -2); @endphp
+
                                 </tbody>
                             </table>
                         </div>
                     </div>
                         <!-- /.table-responsive -->
                     <div class="col-lg-8">
-                        <div id="morris-bar-chart"></div>
+                        <div id="bar-chart"></div>
                     </div>
                     <!-- /.col-lg-8 (nested) -->
                 </div>
@@ -88,18 +86,32 @@
         </div>
        @endsection
 @section('script')
+    @parent
+    <!-- Morris Charts JavaScript -->
+    <script src="{{ asset("vendor/raphael/raphael.min.js")}}"></script>
+    <script src="{{ asset("vendor/morrisjs/morris.min.js")}}"></script>
+   <!--  <script src="{{ asset("data/morris-data.js")}}"></script> -->
 <script>
-$(function() {
 
- Morris.Bar({
-        element: 'morris-bar-chart',
-        data: [<?php echo $barchart;?>],
-        xkey: 'y',
-        ykeys: ['a'],
-        labels: ['Uploaded Files'],
-        hideHover: 'auto',
-        resize: true
-    });
+
+$(function() {
+    var data = {!! json_encode($data) !!},
+        config = {
+            data: data,
+            xkey: 'y',
+            ykeys: ['a', 'b'],
+            labels: ['Total Uploaded', 'Total Processed'],
+            fillOpacity: 0.6,
+            hideHover: 'auto',
+            behaveLikeLine: true,
+            resize: true,
+            pointFillColors:['#ffffff'],
+            pointStrokeColors: ['black'],
+            lineColors:['gray','red']
+        };
+    config.element = 'bar-chart';
+    Morris.Bar(config);
+
     
 });
 

@@ -7,35 +7,70 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\File;
+use Carbon\Carbon;
 
 class AnalyticController extends Controller
 {
-        public function index()
+    public function index()
     {
-		return view('analytics.index');
+        return view('analytics.index');
 
-	}
-
-	public function totalfiles()
+    }
+protected $dateRec;
+    public function totalfiles()
     {
-	/* getting all users which are siteusers i.e. role_id=3*/
-/* 		$users = DB::table('users')
-            ->join('role_user', 'users.id', '=', 'role_user.user_id')
-            ->where('role_user.role_id', '=', 3)
-            ->select('users.*')
-            ->get();	
-	
- */	
- /* total files uploaded by site user*/
-	$totalfiles = DB::table('files')
-            ->join('role_user', 'files.user_id', '=', 'role_user.user_id')
-            ->where('role_user.role_id', '=', 3)
-            ->select('files.*')
-            ->distinct('created_at')->get();	
-	        //$filemodel = \App\File::all();
-	
-	 return view('analytics.totalfiles')->with(compact('totalfiles'));
+        /* getting all users which are siteusers i.e. role_id=3*/
+        /* 		$users = DB::table('users')
+                    ->join('role_user', 'users.id', '=', 'role_user.user_id')
+                    ->where('role_user.role_id', '=', 3)
+                    ->select('users.*')
+                    ->get();
 
-	}//function end
+         */
+        /* total files uploaded by site user*/
+//	$totalfiles = DB::table('files')
+//            ->join('role_user', 'files.user_id', '=', 'role_user.user_id')
+//            ->where('role_user.role_id', '=', 3)
+//            ->select('files.*')
+//            ->distinct('created_at')->get();
+
+//            $lastWeekStart = Carbon::today()->subWeek();
+
+
+        $startDate = Carbon::now()->startOfWeek();
+        $endDate = Carbon::now()->endOfWeek();
+
+        $files = \App\File::whereBetween("created_at",[$startDate,$endDate])->with("user")->with("user.roles")->get();
+
+
+//Init interval
+        $dateInterval = \DateInterval::createFromDateString('1 day');
+//Init Date Period from start date to end date
+//1 day is added to end date since date period ends before end date. See first comment: http://php.net/manual/en/class.dateperiod.php
+        $datePeriod = new \DatePeriod($startDate, $dateInterval, $endDate->modify('+1 day'));
+
+       $data = [];
+        foreach($datePeriod as $datePeriodRow){
+//            var_dump($datePeriodRow->toDateString());
+            $this->dateRec =$datePeriodRow;
+            $data[]=[
+                "y"=> $datePeriodRow->format('d-M'),
+//                "a"=> $files->where("created_at",$datePeriodRow)->whereNull("parent_id")->count(),
+                "a"=> $files->filter(function ($record, $key) {
+                   return  $this->dateRec->isSameDay(Carbon::parse($record->created_at)) &&
+                       is_null($record->parent_id);
+                    })->count(),
+//                 "b"=> $files->where("created_at",$datePeriodRow)->whereNotNull("parent_id")->count() ];
+                 "b"=> $files->filter(function ($record, $key) {
+                     return  $this->dateRec->isSameDay(Carbon::parse($record->created_at)) &&
+                         !is_null($record->parent_id);
+                 })->count()
+            ];
+        }
+
+//        dd($data);
+	 return view('analytics.totalfiles')->with(compact('data'));
+
+    }//function end
 
 }
