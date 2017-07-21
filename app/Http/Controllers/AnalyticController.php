@@ -54,7 +54,7 @@ protected $dateRec;
 //            var_dump($datePeriodRow->toDateString());
             $this->dateRec =$datePeriodRow;
             $data[]=[
-                "y"=> $datePeriodRow->format('d-M'),
+                "y"=> $datePeriodRow->format('d-M-y'),
 //                "a"=> $files->where("created_at",$datePeriodRow)->whereNull("parent_id")->count(),
                 "a"=> $files->filter(function ($record, $key) {
                    return  $this->dateRec->isSameDay(Carbon::parse($record->created_at)) &&

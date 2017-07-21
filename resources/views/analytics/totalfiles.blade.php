@@ -61,7 +61,7 @@
 
 								    <tr>
                                         <td>{{ ++$sno }}</td>
-                                        <td>{{ $rec['y'] }}-2017</td>
+                                        <td>{{ $rec['y'] }}</td>
                                         <td>{{$rec['a']}}</td>
                                         <td>{{$rec['b']}}</td>
                                     </tr>
