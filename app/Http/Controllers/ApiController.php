@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\User;
 class ApiController extends Controller
 {
 
@@ -15,7 +15,8 @@ class ApiController extends Controller
 
     public function clients()
     {
-        return view('api.index');
+        $users = User::all();
+        return view('api.index')->with(compact('users'));
     }
 
     public function getAllClients()

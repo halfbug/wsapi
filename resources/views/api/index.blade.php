@@ -127,7 +127,11 @@
                             <label for="email" class="col-md-4 control-label">User</label>
 
                             <div class="col-md-6">
-                                <select class="form-control" id="user_id" name="user_id" required><option value="1">user1</option></select>
+                                <select class="form-control" id="user_id" name="user_id" required>
+								@foreach($users as $user)
+								<option value="{{ $user->id}}">{{ $user->name}}</option>
+								@endforeach
+								</select>
                             </div>
                         </div>
 
@@ -231,6 +235,7 @@
             $('#createForm').modal('show');
             $(".modal-title").html("Edit Client");
             clientId=$(this).val();
+			
             console.log(clients);
             client = JSON.search(clients, '//*[id="'+clientId+'"]');
             console.log(client);
