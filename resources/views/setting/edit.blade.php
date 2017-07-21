@@ -37,6 +37,18 @@
                 </div>
             </div>
             <div class="form-group row">
+                <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">Option</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control form-control-lg" id="lgFormGroupInput"  name="option" value="{{$setting->option}}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">Section</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control form-control-lg" id="lgFormGroupInput"  name="section" value="{{$setting->section}}">
+                </div>
+            </div>
+            <div class="form-group row">
                 <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">Status</label>
                 <div class="col-sm-4">
                     <div class="dropdown">

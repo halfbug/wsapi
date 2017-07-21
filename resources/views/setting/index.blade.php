@@ -11,44 +11,55 @@
 @endsection
 
 @section('css')
+    <style>
+        .top-buffer { margin-top:20px; }
+    </style>
 @endsection
 
 @section('script')
 @endsection
 
 @section('heading')
-    Settings<small></small> <a href="/setting/create" class="btn btn-primary">Add New</a>
+    Settings<small></small> <a href="/setting/create" class="btn btn-primary">Add New</a>&nbsp;<a href="/setting/index_listing" class="btn btn-success">View All</a>
 @endsection
 @section('content')
     <div class="container">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Value</th>
-                <th>Status</th>
-                <th colspan="2">Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($settings as $post)
-                <tr>
-                    <td>{{$post['id']}}</td>
-                    <td>{{$post['name']}}</td>
-                    <td>{{$post['value']}}</td>
-                    <td>{{$post['status']}}</td>
-                    <td><a href="{{action('SettingController@edit', $post['id'])}}" class="btn btn-warning">Edit</a></td>
-                    <td>
-                        <form action="{{action('SettingController@destroy', $post['id'])}}" method="post">
-                            {{csrf_field()}}
-                            <input name="_method" type="hidden" value="DELETE">
-                            <button class="btn btn-danger" type="submit">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
+        <div class="row">
+            <div class="col-xs-12" >
+                @foreach($settings as $post)
+                <a href="{{action('SettingController@show', $post['id'])}}">{{$post['section']}} </a>
+                    @if (!$loop->last)
+                        &nbsp;|&nbsp;
+                    @endif
+                @endforeach
+            </div>
+        </div>
+        @if($setting['id']!=0)
+        <div class="row top-buffer">
+                <div class="col-xs-2 col-md-2">Name</div>
+            <div class="col-xs-2 col-md-2"><a href="#" data-toggle="tooltip" data-placement="left" title="Name!"><span class="glyphicon glyphicon-question-sign"></span></span></a>{{$setting['name']}}</div>
+        </div>
+        <div class="row top-buffer">
+            <div class="col-xs-2 col-md-2">Value</div>
+            <div class="col-xs-2 col-md-2"><a href="#" data-toggle="tooltip" data-placement="left" title="Value!"><span class="glyphicon glyphicon-question-sign"></span></span></a>
+                {{$setting['value']}}</div>
+        </div>
+        <div class="row top-buffer">
+            <div class="col-xs-2 col-md-2">Option</div>
+            <div class="col-xs-2 col-md-2">{{$setting['option']}}</div>
+        </div>
+        <div class="row top-buffer">
+            <div class="col-xs-2 col-md-2">Section</div>
+            <div class="col-xs-2 col-md-2">{{$setting['section']}}</div>
+        </div>
+        <div class="row top-buffer">
+            <div class="col-xs-2 col-md-2">Status</div>
+            <div class="col-xs-2 col-md-2">@if($setting['status']==1)Yes @else No @endif</div>
+        </div>
+        <div class="row top-buffer">
+            <div class="col-xs-2 col-md-2 "><a href="{{action('SettingController@edit', $setting['id'])}}" class="btn btn-warning">Edit</a></div>
+        </div>
+        @endif
     </div>
+
 @endsection

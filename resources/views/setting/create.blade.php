@@ -17,7 +17,7 @@
 @endsection
 
 @section('heading')
-    <small>Settings</small>
+    Settings&nbsp;<small><a href="/setting" >Back</a></small>
 @endsection
 @section('content')
     <div class="container">
@@ -33,6 +33,18 @@
                 <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">Value</label>
                 <div class="col-sm-4">
                     <input type="text" class="form-control form-control-lg" id="smFormGroupInput" placeholder="Value" name="value" required autofocus>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">Option</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control form-control-lg" id="smFormGroupInput" placeholder="Option" name="option" required autofocus>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">Section</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control form-control-lg" id="smFormGroupInput" placeholder="Section" name="section" required autofocus>
                 </div>
             </div>
             <div class="form-group row">

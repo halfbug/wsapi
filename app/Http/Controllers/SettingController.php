@@ -14,11 +14,25 @@ class SettingController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index()
+    public function index($id=1)
     {
+       // $settings = Setting::all()->toArray();
+        //return view('setting.index', compact('settings'))->with('setting', $setting);
+        $setting = Setting::find($id);
         $settings = Setting::all()->toArray();
+        return view('setting.index')->with(compact('setting', 'settings'));
 
-        return view('setting.index', compact('settings'));
+
+    }
+
+    public function index_listing()
+    {
+
+       echo 'hello page';
+       $settings = Setting::all()->toArray();
+       return view('setting.index_listing', compact('settings'));
+
+
     }
 
     /**
@@ -55,9 +69,13 @@ class SettingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id=0)
     {
         //
+        $setting = Setting::find($id);
+        $settings = Setting::all()->toArray();
+        return view('setting.index')->with(compact('setting', 'settings'));
+
     }
 
     /**
