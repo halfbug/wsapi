@@ -236,19 +236,34 @@
             $(".modal-title").html("Edit Client");
             clientId=$(this).val();
 			
-            console.log(clients);
+            //console.log(clients);
             client = JSON.search(clients, '//*[id="'+clientId+'"]');
-            console.log(client);
+            //console.log(client[0]);
+           // console.log(client.name);
+$('#name').val(client[0].name);
+$('#redirect').val(client[0].redirect);
+var newname=$('#name').val();
+var newredirect=$('#redirect').val;
+/* var data=[];
+data['name'] = newname;
+data['redirect'] = newredirect;
+*/
+ var data = {
+    name: newname,
+    redirect: newredirect
+}; 
 
-//            axios.post(actionurl,  $("#addClient").serialize())
-//                .then(function (response) {
-//                    $("#addClient").hide().before($("<p> Client has been added succefully . </p>"));
-//                    console.log(response);
-//                })
-//                .catch(function (error) {
-//                    console.log(error);
-//                });
+//var data = [newname, newredirect]; 
 
+
+   // axios.get('{{url('/oauth/clients')}}')
+
+
+ console.log(data);
+axios.put('{{url('/oauth/clients/')}}' + clientId, data)
+    .then(response => {
+        console.log(response.data);
+    })
         });
     });
 
