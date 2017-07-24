@@ -28,7 +28,6 @@ class SettingController extends Controller
     public function index_listing()
     {
 
-       echo 'hello page';
        $settings = Setting::all()->toArray();
        return view('setting.index_listing', compact('settings'));
 
