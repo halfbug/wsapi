@@ -126,6 +126,9 @@ class FileController extends Controller
 	
 	public function meta()
     {
+        $deletionPeriod = UserMeta::where('name','Deletion Period')->get();
+        if(empty($deletionPeriod[0]))
+            $deletionPeriod[0]->value = 24;
     	$usermeta = UserMeta::where([['user_id',Auth::id()],['fixed',0]])->orderBy('id','asc')->get();
     	$adminmeta = UserMeta::where('fixed',1)->orderBy('id','asc')->get();
     	foreach ($adminmeta as $value) {
@@ -133,12 +136,16 @@ class FileController extends Controller
 		   	$check = array_filter($separate_values,'is_numeric');
 		   	$value->is_numeric = ($separate_values == $check)? true: false;
 		}
-		foreach ($usermeta as $value) {
+		foreach ($usermeta as $key => $value) {
     		$separate_values = explode(',', $value->value);
 		   	$check = array_filter($separate_values,'is_numeric');
 		   	$value->is_numeric = ($separate_values == $check)? true: false;
+            if ($value->name == 'Deletion Period') {
+                unset($usermeta[$key]);
+            }
 		}
-        return view('meta.create', compact('usermeta','adminmeta'));
+
+        return view('meta.create', compact('usermeta','adminmeta','deletionPeriod'));
     }
 	
 	public function startprocessing($fileid)
@@ -268,9 +275,10 @@ class FileController extends Controller
     	// if no error, then save new meta and delete previous meta of the user
     	if (empty($err)) {
             $admin_ids = $this->AllAdminIds();
-            if (in_array($user_id, $admin_ids))
-                $prev_meta = UserMeta::whereIn('user_id', $admin_ids)->delete();
-            else
+            if (in_array($user_id, $admin_ids)){
+                UserMeta::updateOrCreate(['name'=>'Deletion Period'],['value'=>$request->deletion_period, 'user_id'=>$user_id]);
+                $prev_meta = UserMeta::whereIn('user_id', $admin_ids)->where([['name','!=','Deletion Period']])->delete();
+            } else
     		    $prev_meta = UserMeta::where('user_id', $user_id)->delete();
             foreach ($meta as $value) {
                 $value->save();
