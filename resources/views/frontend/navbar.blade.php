@@ -28,34 +28,6 @@
                 </li>
                 
                 @if (Auth::guest())
-                    @if(count($notify))
-                        <li class="dropdown">
-                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-bell fa-fw"></i>
-                                <span class="badge">{{count($notify)}}</span>
-                                <i class="fa fa-caret-down"></i>
-                            </a>
-                            
-                            <ul class="dropdown-menu dropdown-alerts">
-                               @forelse($notify as $notification)
-                                <li>
-                                    <a href="{{ url("/file/startdownloading/".$notification->id) }}">
-                                        <div>
-                                            <i class="fa fa-file fa-fw"></i> File {{$notification->name}} has been processed
-                                            <!-- <span class="pull-right text-muted small">4 minutes ago</span> -->
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="divider"></li>
-                                @empty
-                                    <li title="No new notification">
-                                        <a>No new notification</a>
-                                    </li>
-                                @endforelse
-                            </ul>
-                        
-                         </li>
-                    @endif
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
                 @else

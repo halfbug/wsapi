@@ -70,10 +70,12 @@ Meta Data <small>settings</small>
                                 <div class="form-group ">
                                     <label for="field1 " class="col-sm-3 control-label">Field 1</label>
                                     <div class="col-sm-2">
-                                        Deletion Period
+                                        Deletion Period (hours)
                                     </div>
                                     <div class="col-sm-4">
-                                        24 Hours
+                                        <!-- <input type="number" id="deletion-period" name="deletion-period" value="24" min="0.05" max="128000" class="form-control">
+                                         -->
+                                         24
                                     </div>
                                 @if($view == 'backend')
                                     <div class="col-sm-3">
