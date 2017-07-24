@@ -220,8 +220,9 @@ class FileController extends Controller
 			$uploadedfile->status = 3;
 			$uploadedfile->save();
 
-            $uploadedfile->user->notify(new FileProcessed($uploadedfile));
-		}
+            if ($uploadedfile->user_id)
+                $uploadedfile->user->notify(new FileProcessed($uploadedfile));
+        }
 		
 		return redirect()->route('fileList');
     }
