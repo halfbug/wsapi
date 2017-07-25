@@ -20,7 +20,7 @@
 @endsection
 
 @section('heading')
-    Settings<small></small> <a href="/setting/create" class="btn btn-primary">Add New</a>&nbsp;<a href="/setting/index_listing" class="btn btn-success">View All</a>
+    Settings<small></small> <a href="{{url("/setting/create")}}" class="btn btn-primary">Add New</a>&nbsp;<a href="{{url("/setting/index_listing")}}" class="btn btn-success">View All</a>
 @endsection
 @section('content')
     <div class="container">

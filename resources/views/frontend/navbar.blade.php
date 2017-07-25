@@ -28,7 +28,7 @@
                 </li>
                 
                 @if (Auth::guest())
-                    @if(count($notify))
+                    @if(isset($notify) && count($notify))
                         <li class="dropdown">
                              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                 <i class="fa fa-bell fa-fw"></i>
