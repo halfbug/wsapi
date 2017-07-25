@@ -89,7 +89,7 @@ Route::group(['prefix' => 'analysis','middleware' => 'auth'], function () {
     Route::get('/totalfiles', 'AnalyticController@totalfiles');
    
 });
-
+Route::get('setting/index_listing', 'SettingController@index_listing');
 Route::resource('setting', 'SettingController');
 
 
