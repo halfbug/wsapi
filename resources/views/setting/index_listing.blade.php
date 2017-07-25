@@ -17,7 +17,7 @@
 @endsection
 
 @section('heading')
-    Settings<small></small> <a href="/setting/create" class="btn btn-primary">Add New</a>
+    Settings &nbsp; <a href="/setting/create" class="btn btn-primary">Add New</a>&nbsp;<small><a href="/setting" >Back</a></small>
 @endsection
 @section('content')
     <div class="container">

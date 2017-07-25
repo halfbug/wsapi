@@ -17,7 +17,8 @@
 @endsection
 
 @section('heading')
-    <small>Settings</small>
+    Settings &nbsp; <small><a href="/setting" >Back</a></small>
+    <h4 class="alert-danger">Please do not edit Section, unless admin approved you to do that </h4>
 @endsection
 @section('content')
     <div class="container">
