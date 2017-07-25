@@ -187,7 +187,8 @@
         axios.get('{{url('/oauth/clients')}}')
             .then(function (response) {
                 clients = response.data;
-                drawTable(response.data);
+                console.log(response.data);
+				drawTable(response.data);
             });
 
         function drawTable(data) {
@@ -202,8 +203,7 @@
             row.append($("<td align=\"center\">"
                 + "<button class=\"btn btn-default\" id=\"editClient\" value=" + rowData.id + ">"
                 + "<em class=\"fa fa-pencil\"></em></button> "
-                + "<a class=\"btn btn-danger\"><em class=\"fa fa-trash\"></em>"
-                + "</a>"
+                + "<button class=\"btn btn-danger fa fa-trash\" id=\"deleteClient\" value=" + rowData.id + ">"
                 + "</td>"));
             row.append($("<td>" + rowData.name + "</td>"));
             row.append($("<td>" + rowData.secret + "</td>"));
@@ -214,6 +214,9 @@ row.append($("<td>" + rowData.user_id + "</td>"));
             @endcan
         }
 
+		
+		
+		
         $(document).ready(function () {
             $("#addClient").submit(function (e) {
 //            alert("me here");
@@ -222,8 +225,8 @@ row.append($("<td>" + rowData.user_id + "</td>"));
 
                 //get the action-url of the form
                 var actionurl = e.currentTarget.action;
-
-                if()
+				var which="add";
+                if(which=="add"){
                 axios.post(actionurl, $("#addClient").serialize())
                     .then(function (response) {
                         $("#addClient").hide().before($("<p> Client has been added succefully . </p>"));
@@ -232,7 +235,9 @@ row.append($("<td>" + rowData.user_id + "</td>"));
                     .catch(function (error) {
                         console.log(error);
                     });
+				}//endif
                 else {
+                var actionurl = e.currentTarget.action;
                     var newname = $('#name').val();
                     var newredirect = $('#redirect').val();
 
@@ -245,8 +250,9 @@ row.append($("<td>" + rowData.user_id + "</td>"));
                     // axios.get('{{url('/oauth/clients')}}')
 
 
-                    console.log(data);
-                    axios.put('{{url('/oauth/clients/')}}' +"/"+ clientId, data)
+                    console.log(actionurl);
+                    console.log('asdsdsadasd');
+                    axios.put(actionurl +"/"+ clientId, data)
                         .then(response => {
                         console.log(response.data);
                 })
@@ -258,6 +264,7 @@ row.append($("<td>" + rowData.user_id + "</td>"));
             $(document).on('click', '#editClient', function (e) {
 
                 $('#createForm').modal('show');
+				var which="edit";
                 $(".modal-title").html("Edit Client");
                 clientId = $(this).val();
 
@@ -268,6 +275,16 @@ row.append($("<td>" + rowData.user_id + "</td>"));
                 $('#name').val(client[0].name);
                 $('#redirect').val(client[0].redirect);
 
+            });
+            $(document).on('click', '#deleteClient', function (e) {
+
+                clientId = $(this).val();
+                console.log(clientId);
+                //client = JSON.search(clients, '//*[id="' + clientId + '"]');
+axios.delete('{{url('/oauth/clients/')}}' + clientId)
+    .then(response => {
+                console.log(response.data);
+    });
             });
         });
 
