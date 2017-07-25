@@ -18,7 +18,7 @@
 
 @section('heading')
     Settings &nbsp; <small><a href="/setting" >Back</a></small>
-    <h4 class=" col-sm-8 alert alert-danger">Please do not edit Name, unless admin approved you to do that </h4>
+    <h4 class=" col-sm-8 alert alert-danger">Please do not edit Name, unless admin allow you to do</h4>
 @endsection
 @section('content')
     <div class="container">
