@@ -127,8 +127,6 @@ class FileController extends Controller
 	public function meta()
     {
         $deletionPeriod = UserMeta::where('name','Deletion Period')->get();
-        if(empty($deletionPeriod[0]))
-            $deletionPeriod[0]->value = 24;
     	$usermeta = UserMeta::where([['user_id',Auth::id()],['fixed',0]])->orderBy('id','asc')->get();
     	$adminmeta = UserMeta::where('fixed',1)->orderBy('id','asc')->get();
     	foreach ($adminmeta as $value) {
@@ -198,9 +196,13 @@ class FileController extends Controller
     	if($request->user) {
     	  //if ($request->user == 3) {
 		    foreach ($files as $key => $file) {
-		    	$user = $file->user()->get();
-		    	if (!$user[0]->hasRole('siteuser')) 
+              if ($file->user_id) {
+		    	$user = $file->user()->first();
+		    	if (!$user->hasRole('siteuser')) 
 		    		unset($files[$key]);
+              } else {
+                    unset($files[$key]);
+              }
 		    }
     	  //}
 	    }

@@ -420,9 +420,9 @@
 
                                 <div class="modal-body">
                                     <div class="form-group">
-                                        <label for="field1 " class="col-sm-3 control-label">Deletion period</label>
+                                        <label for="field1 " class="col-sm-3 control-label">Deletion period (hours)</label>
                                         <div class="col-sm-9">
-                                            <label for="field1 " class="col-sm-3 control-label">24 hours</label>
+                                            <label for="field1 " class="col-sm-3 control-label">24</label>
                                         </div>
 
                                     </div>

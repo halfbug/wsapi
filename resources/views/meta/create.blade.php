@@ -74,7 +74,8 @@ Meta Data <small>settings</small>
                                     </div>
                                     <div class="col-sm-4">
                                         @if($view == 'backend')
-                                         <input type="number" id="deletion_period" name="deletion_period" value="{{$deletionPeriod[0]->value}}" min="1" max="128000" class="form-control">
+
+                                         <input type="number" id="deletion_period" name="deletion_period" value="{{($deletionPeriod->isEmpty())?24:$deletionPeriod[0]->value}}" min="1" max="128000" class="form-control">
                                         @elseif($view == 'dashboard')
                                             {{$deletionPeriod[0]->value}}
                                         @endif
