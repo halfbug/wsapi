@@ -20,7 +20,7 @@
     Settings&nbsp;<small><a href="/setting" >Back</a></small>
 @endsection
 @section('content')
-    <div class="container">
+    <div class="col-md-12">
         <form method="post" action="{{url('setting')}}">
             <div class="form-group row">
                 {{csrf_field()}}
@@ -67,13 +67,5 @@
                 <input type="submit" class="btn btn-primary" value="Add Setting">
             </div>
         </form>
-        @if(count($errors)>0)
-            <div class="alert alert-danger">
-                @foreach($errors->all() as $error)
-                    {{$error}}
-                    @endforeach
-                @endif
-
-            </div>
-           </div>
+        </div>
 @endsection

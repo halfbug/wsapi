@@ -20,26 +20,24 @@
     Settings &nbsp; <a href="/setting/create" class="btn btn-primary">Add New</a>&nbsp;<small><a href="/setting" >Back</a></small>
 @endsection
 @section('content')
-    <div class="container">
+    <div class="col-md-12">
+        @if(count($settings)>0)
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>ID</th>
                 <th>Name</th>
                 <th>Value</th>
+                <th>Option</th>
+                <th>Section</th>
                 <th>Status</th>
-                <th>option</th>
-                <th>section</th>
-                <th colspan="2">Action</th>
+                <th class="text-center" >Action</th>
             </tr>
             </thead>
             <tbody>
             @foreach($settings as $post)
                 <tr>
-                    <td>{{$post['id']}}</td>
                     <td>{{$post['name']}}</td>
                     <td>{{$post['value']}}</td>
-                    <td>{{$post['status']}}</td>
                     <td>{{$post['option']}}</td>
                     <td>{{$post['section']}}</td>
                     <td><a href="{{action('SettingController@edit', $post['id'])}}" class="btn btn-warning">Edit</a></td>
@@ -54,5 +52,16 @@
             @endforeach
             </tbody>
         </table>
+            @else
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <td>
+                    <div class="col-sm-8 alert alert-warning text-center">Sorry No Record Found Please Add Setting</div>
+                </td>
+            </tr>
+            </thead>
+        </table>
+            @endif
     </div>
 @endsection

@@ -14,24 +14,20 @@ class SettingController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index($id=1)
+    public function index()
     {
-       // $settings = Setting::all()->toArray();
-        //return view('setting.index', compact('settings'))->with('setting', $setting);
-        $setting = Setting::find($id);
-        $settings = Setting::all()->toArray();
+       $settings = Setting::all()->toArray();
+        if(count($settings)>0)
+        {$setting = Setting::find($settings[0]['id']);}
+        else
+        {$setting=0;}
         return view('setting.index')->with(compact('setting', 'settings'));
-
-
     }
 
     public function index_listing()
     {
-
        $settings = Setting::all()->toArray();
        return view('setting.index_listing', compact('settings'));
-
-
     }
 
     /**
@@ -52,8 +48,6 @@ class SettingController extends Controller
     public function store(Request $request)
     {
         $settings = new Setting;
-        $this ->validate($request,['name'=>'required',
-            'value'=>'required']);
         $settings->name=$request->name;
         $settings->value=$request->value;
         $settings->option=$request->option;

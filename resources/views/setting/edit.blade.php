@@ -21,7 +21,7 @@
     <h4 class=" col-sm-8 alert alert-danger">Please do not edit Name, unless admin allow you to do</h4>
 @endsection
 @section('content')
-    <div class="container">
+    <div class="col-md-12">
         <form method="post" action="{{action('SettingController@update', $id)}}">
             <div class="form-group row">
                 {{csrf_field()}}
