@@ -52,7 +52,7 @@ class FileController extends Controller
 	public function store(Request $request) {
 		
 		if ($request->hasFile('photos')) {
-			$user_id = Auth::user()->id;
+			$user_id = (Auth::user())?Auth::user()->id:null;
             $photos = [];
 			foreach ($request->photos as $photo) {
 				if (strpos($request->ip(), ':')) {
