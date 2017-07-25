@@ -37,24 +37,16 @@
         @if($setting['id']!=0)
         <div class="row top-buffer">
                 <div class="col-xs-2 col-md-2">Name</div>
-            <div class="col-xs-2 col-md-2"><a href="#" data-toggle="tooltip" data-placement="left" title="Name!"><span class="glyphicon glyphicon-question-sign"></span></span></a>{{$setting['name']}}</div>
-        </div>
+            <div class="col-xs-2 col-md-2"><a href="#" data-toggle="tooltip" data-placement="left" title="Name!"><span class="glyphicon glyphicon-question-sign"></span></a>{{$setting['name']}}</div>
+    </div>
         <div class="row top-buffer">
             <div class="col-xs-2 col-md-2">Value</div>
-            <div class="col-xs-2 col-md-2"><a href="#" data-toggle="tooltip" data-placement="left" title="Value!"><span class="glyphicon glyphicon-question-sign"></span></span></a>
+            <div class="col-xs-2 col-md-2"><a href="#" data-toggle="tooltip" data-placement="left" title="Value!"><span class="glyphicon glyphicon-question-sign"></span></a>
                 {{$setting['value']}}</div>
         </div>
         <div class="row top-buffer">
             <div class="col-xs-2 col-md-2">Option</div>
             <div class="col-xs-2 col-md-2">{{$setting['option']}}</div>
-        </div>
-        <div class="row top-buffer">
-            <div class="col-xs-2 col-md-2">Section</div>
-            <div class="col-xs-2 col-md-2">{{$setting['section']}}</div>
-        </div>
-        <div class="row top-buffer">
-            <div class="col-xs-2 col-md-2">Status</div>
-            <div class="col-xs-2 col-md-2">@if($setting['status']==1)Yes @else No @endif</div>
         </div>
         <div class="row top-buffer">
             <div class="col-xs-2 col-md-2 "><a href="{{action('SettingController@edit', $setting['id'])}}" class="btn btn-warning">Edit</a></div>

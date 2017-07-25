@@ -60,7 +60,7 @@ class SettingController extends Controller
         $settings->section=$request->section;
         $settings->status=$request->status;
         $settings->save();
-        return redirect('/setting');
+        return redirect('/setting/index_listing');
     }
     /**
      * Display the specified resource.
@@ -108,7 +108,7 @@ class SettingController extends Controller
         $setting->option = $request->get('option');
         $setting->section = $request->get('section');
         $setting->save();
-        return redirect('/setting');
+        return redirect('/setting/index_listing');
     }
 
     /**
@@ -123,6 +123,6 @@ class SettingController extends Controller
         $setting = Setting::find($id);
         $setting->delete();
 
-        return redirect('/setting');
+        return redirect('/setting/index_listing');
     }
 }
