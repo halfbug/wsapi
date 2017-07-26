@@ -50,7 +50,7 @@ class SettingController extends Controller
         $settings = new Setting;
         $settings->name=$request->name;
         $settings->value=$request->value;
-        $settings->option=$request->option;
+        $settings->option=(is_null($request->option) || empty($request->option) || strlen($request->option) < 1 ? NULL : $request->option);
         $settings->section=$request->section;
         $settings->status=$request->status;
         $settings->save();
@@ -99,7 +99,7 @@ class SettingController extends Controller
         $setting->name = $request->get('name');
         $setting->value = $request->get('value');
         $setting->status = $request->get('status');
-        $setting->option = $request->get('option');
+        $setting->option=(is_null($request->get('option')) || empty($request->get('option')) || strlen($request->get('option')) < 1 ? NULL : $request->get('option'));
         $setting->section = $request->get('section');
         $setting->save();
         return redirect('/setting/index_listing');
