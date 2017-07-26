@@ -95,6 +95,7 @@ class SettingController extends Controller
     public function update(Request $request, $id)
     {
         //
+
         $setting = Setting::find($id);
         $setting->name = $request->get('name');
         $setting->value = $request->get('value');
@@ -102,7 +103,11 @@ class SettingController extends Controller
         $setting->option=(is_null($request->get('option')) || empty($request->get('option')) || strlen($request->get('option')) < 1 ? NULL : $request->get('option'));
         $setting->section = $request->get('section');
         $setting->save();
-        return redirect('/setting/index_listing');
+        if($request->has('updateuser'))
+            return redirect('/setting');
+        else
+         return redirect('/setting/index_listing');
+
     }
 
     /**
