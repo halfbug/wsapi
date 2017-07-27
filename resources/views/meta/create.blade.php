@@ -111,10 +111,18 @@ Meta Data <small>settings</small>
                                     <div class="form-group{{ $errors->has('field'.$field_number) ? ' has-error' : '' }}">
                                         <label for="field{{$field_number}}"  class="col-sm-3 control-label">Field {{$field_number}}</label>
                                         <div class="col-sm-2">
+                                            @if ($errors->has('show_old'))
+                                            <input type="text" class="form-control alpha_numeric" id="name[{{$field_number}}]" name="name[{{$field_number}}]" value="{{old('name.'.$field_number)}}" placeholder="Name">
+                                            @else
                                             <input type="text" class="form-control alpha_numeric" id="name[{{$field_number}}]" name="name[{{$field_number}}]" value="{{$meta->name}}" placeholder="Name">
+                                            @endif
                                         </div>
                                         <div class="col-sm-4">
+                                            @if($errors->has('show_old'))
+                                            <input type="text" class="form-control alpha_numeric" id="values[{{$field_number}}]" name="values[{{$field_number}}]" value="{{old('values.'.$field_number)}}" placeholder="Comma separated values">
+                                            @else
                                             <input type="text" class="form-control alpha_numeric" id="values[{{$field_number}}]" name="values[{{$field_number}}]" value="{{$meta->value}}" placeholder="Comma separated values">
+                                            @endif
                                             @if ($errors->has('field'.$field_number))
                                                 <span class="help-block">
                                                     <strong>{{ $errors->first('field'.$field_number) }}</strong>
@@ -137,10 +145,18 @@ Meta Data <small>settings</small>
                                     <div class="form-group{{ $errors->has('field'.$field_number) ? ' has-error' : '' }}">
                                         <label for="field{{$field_number}}"  class="col-sm-3 control-label">Field {{$field_number}}</label>
                                         <div class="col-sm-2">
+                                            @if ($errors->has('show_old'))
+                                            <input type="text" class="form-control alpha_numeric" id="name[{{$field_number}}]" name="name[{{$field_number}}]" value="{{old('name.'.$field_number)}}" placeholder="Name">
+                                            @else
                                             <input type="text" class="form-control alpha_numeric" id="name[{{$field_number}}]" name="name[{{$field_number}}]" value="{{$meta->name}}" placeholder="Name">
+                                            @endif
                                         </div>
                                         <div class="col-sm-4">
+                                            @if($errors->has('show_old'))
+                                            <input type="text" class="form-control alpha_numeric" id="values[{{$field_number}}]" name="values[{{$field_number}}]" value="{{old('values.'.$field_number)}}" placeholder="Comma separated values">
+                                            @else
                                             <input type="text" class="form-control alpha_numeric" id="values[{{$field_number}}]" name="values[{{$field_number}}]" value="{{$meta->value}}" placeholder="Comma separated values">
+                                            @endif
                                             @if ($errors->has('field'.$field_number))
                                                 <span class="help-block">
                                                     <strong>{{ $errors->first('field'.$field_number) }}</strong>
@@ -163,10 +179,10 @@ Meta Data <small>settings</small>
                                     <div class="form-group{{ $errors->has('field'.$field_number) ? ' has-error' : '' }}">
                                         <label for="field{{$field_number}}"  class="col-sm-3 control-label">Field {{$field_number}}</label>
                                         <div class="col-sm-2">
-                                            <input type="text" class="form-control alpha_numeric" id="name[{{$field_number}}]" name="name[{{$field_number}}]" placeholder="Name">
+                                            <input type="text" class="form-control alpha_numeric" id="name[{{$field_number}}]" name="name[{{$field_number}}]" value="{{old('name.'.$field_number)}}" placeholder="Name">
                                         </div>
                                         <div class="col-sm-4">
-                                            <input type="text" class="form-control alpha_numeric" id="values[{{$field_number}}]" name="values[{{$field_number}}]"  placeholder="Comma separated values">
+                                            <input type="text" class="form-control alpha_numeric" id="values[{{$field_number}}]" name="values[{{$field_number}}]" value="{{old('values.'.$field_number)}}" placeholder="Comma separated values">
                                             @if ($errors->has('field'.$field_number))
                                                 <span class="help-block">
                                                     <strong>{{ $errors->first('field'.$field_number) }}</strong>
@@ -203,10 +219,18 @@ Meta Data <small>settings</small>
                                     <div class="form-group{{ $errors->has('field'.$field_number) ? ' has-error' : '' }}">
                                         <label for="field{{$field_number}}"  class="col-sm-3 control-label">Field {{$field_number}}</label>
                                         <div class="col-sm-2">
+                                            @if ($errors->has('show_old'))
+                                            <input type="text" class="form-control alpha_numeric" id="name[{{$field_number}}]" name="name[{{$field_number}}]" value="{{old('name.'.$field_number)}}" placeholder="Name">
+                                            @else
                                             <input type="text" class="form-control alpha_numeric" id="name[{{$field_number}}]" name="name[{{$field_number}}]" value="{{$meta->name}}" placeholder="Name">
+                                            @endif
                                         </div>
                                         <div class="col-sm-4">
+                                            @if($errors->has('show_old'))
+                                            <input type="text" class="form-control alpha_numeric" id="values[{{$field_number}}]" name="values[{{$field_number}}]" value="{{old('values.'.$field_number)}}" placeholder="Comma separated values">
+                                            @else
                                             <input type="text" class="form-control alpha_numeric" id="values[{{$field_number}}]" name="values[{{$field_number}}]" value="{{$meta->value}}" placeholder="Comma separated values">
+                                            @endif
                                             @if ($errors->has('field'.$field_number))
                                                 <span class="help-block">
                                                     <strong>{{ $errors->first('field'.$field_number) }}</strong>
@@ -229,10 +253,18 @@ Meta Data <small>settings</small>
                                     <div class="form-group{{ $errors->has('field'.$field_number) ? ' has-error' : '' }}">
                                         <label for="field{{$field_number}}"  class="col-sm-3 control-label">Field {{$field_number}}</label>
                                         <div class="col-sm-2">
+                                            @if ($errors->has('show_old'))
+                                            <input type="text" class="form-control alpha_numeric" id="name[{{$field_number}}]" name="name[{{$field_number}}]" value="{{old('name.'.$field_number)}}" placeholder="Name">
+                                            @else
                                             <input type="text" class="form-control alpha_numeric" id="name[{{$field_number}}]" name="name[{{$field_number}}]" value="{{$meta->name}}" placeholder="Name">
+                                            @endif
                                         </div>
                                         <div class="col-sm-4">
+                                            @if($errors->has('show_old'))
+                                            <input type="text" class="form-control alpha_numeric" id="values[{{$field_number}}]" name="values[{{$field_number}}]" value="{{old('values.'.$field_number)}}" placeholder="Comma separated values">
+                                            @else
                                             <input type="text" class="form-control alpha_numeric" id="values[{{$field_number}}]" name="values[{{$field_number}}]" value="{{$meta->value}}" placeholder="Comma separated values">
+                                            @endif
                                             @if ($errors->has('field'.$field_number))
                                                 <span class="help-block">
                                                     <strong>{{ $errors->first('field'.$field_number) }}</strong>
@@ -255,10 +287,10 @@ Meta Data <small>settings</small>
                                     <div class="form-group{{ $errors->has('field'.$field_number) ? ' has-error' : '' }}">
                                         <label for="field{{$field_number}}"  class="col-sm-3 control-label">Field {{$field_number}}</label>
                                         <div class="col-sm-2">
-                                            <input type="text" class="form-control alpha_numeric" id="name[{{$field_number}}]" name="name[{{$field_number}}]" placeholder="Name">
+                                            <input type="text" class="form-control alpha_numeric" id="name[{{$field_number}}]" name="name[{{$field_number}}]" value="{{old('name.'.$field_number)}}" placeholder="Name">
                                         </div>
                                         <div class="col-sm-4">
-                                            <input type="text" class="form-control alpha_numeric" id="values[{{$field_number}}]" name="values[{{$field_number}}]"  placeholder="Comma separated values">
+                                            <input type="text" class="form-control alpha_numeric" id="values[{{$field_number}}]" name="values[{{$field_number}}]" value="{{old('values.'.$field_number)}}" placeholder="Comma separated values">
                                             @if ($errors->has('field'.$field_number))
                                                 <span class="help-block">
                                                     <strong>{{ $errors->first('field'.$field_number) }}</strong>
