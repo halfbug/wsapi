@@ -39,14 +39,21 @@ class FileController extends Controller
 		if (!Auth::guest()) {
 			array_push($admin_ids, Auth::id());
 		}
+        $deletionPeriod = UserMeta::where('name', 'Deletion Period')->get();
 		$meta = UserMeta::whereIn('user_id', $admin_ids)->get();
-        foreach ($meta as $value) {
-            $separate_values = explode(',', $value->value);
-            $check = array_filter($separate_values,'is_numeric');
-            $value->is_numeric = ($separate_values == $check)? true: false;
-            $value->separate_values = $separate_values;
+        foreach ($meta as $key => $value) {
+            if ($value->name == 'Deletion Period') {
+               unset($meta[$key]);
+            } else {
+                $separate_values = explode(',', $value->value);
+                $separate_values = array_filter($separate_values, 'strlen');
+                $check = array_filter($separate_values,'is_numeric');
+                $value->is_numeric = ($separate_values == $check)? true: false;
+                $value->separate_values = $separate_values;
+            }
         }
-		return view('files.create')->with('meta', $meta);
+        
+		return view('files.create')->with(['meta'=> $meta, 'deletionPeriod' => $deletionPeriod]);
 	}
 	
 	public function store(Request $request) {
@@ -72,16 +79,21 @@ class FileController extends Controller
                         //Todo check for free user quota
                     } else{
                         $subsctioption=\Auth::user()->subscription()->active()->first();
-//                        dd($subsctioption);
-//                        dd($subsctioption->files_upload_balance );
-                        if($subsctioption->files_upload_balance > 0) {
-//                             dd($subsctioption);
+                        // no package subscribed by registered user
+                        if ($subsctioption == null) {
                             $fileModel->path = $photo->store('public/upload/' . $user_id);
-                            $subsctioption->files_upload_balance = $subsctioption->setUploadBalance();
-                            $subsctioption->save();
+                        } else {
+    //                        dd($subsctioption);
+    //                        dd($subsctioption->files_upload_balance );
+                            if($subsctioption->files_upload_balance > 0) {
+    //                             dd($subsctioption);
+                                $fileModel->path = $photo->store('public/upload/' . $user_id);
+                                $subsctioption->files_upload_balance = $subsctioption->setUploadBalance();
+                                $subsctioption->save();
+                            }
+                            else
+                                return response()->json(array("error"=>"Package Expire"),501);
                         }
-                        else
-                            return response()->json(array("error"=>"Package Expire"),501);
                     }
 
                     $fileModel->save();
@@ -288,8 +300,10 @@ class FileController extends Controller
     		$err['success'] = "Meta Data has been saved successfully";
     		return redirect()->back()->withErrors($err);
     	}
-    	else
+    	else{
+            $err['show_old'] = true;
   		  	return redirect()->back()->withErrors($err)->withInput();
+        }
     }
 
 	/**
@@ -312,6 +326,11 @@ class FileController extends Controller
         }
 
         foreach ($files as $file) {
+            $filemeta_model = new \App\FileMeta();
+            $filemeta_model->name = 'Deletion Period';
+            $filemeta_model->value = $request->deletion_period;
+            $filemeta_model->file_id = $file->id;
+            $filemeta_model->save();
             foreach ($request->filemeta as $name => $value) {
                 $filemeta_model = new \App\FileMeta();
                 $filemeta_model->name = $name;

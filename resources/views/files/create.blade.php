@@ -220,6 +220,10 @@
 
             $(".next-step").click(function (e) {
 
+                if(this.id == 'meta-submit')
+                {   
+                    $('#meta-form').submit(); 
+                }
                 var $active = $('.wizard .nav-tabs li.active');
                 $active.next().removeClass('disabled');
                 nextTab($active);
@@ -422,9 +426,9 @@
                                     <div class="form-group">
                                         <label for="field1 " class="col-sm-3 control-label">Deletion period (hours)</label>
                                         <div class="col-sm-9">
-                                            <label for="field1 " class="col-sm-3 control-label">24</label>
+                                            <label for="field1 " class="col-sm-3 control-label">{{($deletionPeriod->isEmpty())?24:$deletionPeriod[0]->value}}</label>
                                         </div>
-
+                                        <input type="hidden" name="deletion_period" id="deletion_period" value="{{($deletionPeriod->isEmpty())?24:$deletionPeriod[0]->value}}">
                                     </div>
 
                                     <div class="form-group">
@@ -471,7 +475,7 @@
                                         <button type="button" class="btn btn-default prev-step">Previous</button>
                                     </li>
                                     <li>
-                                        <button type="submit" class="btn btn-primary next-step">Save and continue
+                                        <button type="submit" id="meta-submit" class="btn btn-primary next-step">Save and continue
                                         </button>
                                     </li>
                                 </ul>

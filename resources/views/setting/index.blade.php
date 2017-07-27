@@ -35,17 +35,23 @@
                 @endforeach
             </div>
         </div>
+            <form method="post" action="{{action('SettingController@update', $setting['id'])}}">
+                {{csrf_field()}}
+                <input name="_method" type="hidden" value="PATCH">
+                <input name="updateuser" type="hidden" value="updateuser">
+                <input name="section" type="hidden" value="{{$setting['section']}}">
+                <input name="status" type="hidden" value="{{$setting['status']}}">
             <div class="row top-buffer">
                 <div class="col-xs-2 col-md-2">Name</div>
-                <div class="col-xs-2 col-md-2"><a href="#" data-toggle="tooltip" data-placement="left" title="Name!"><span class="glyphicon glyphicon-question-sign"></span></a>{{$setting['name']}}</div>
+                <div class="col-xs-2 col-md-2">
+                    <input name="name" type="hidden" value="{{$setting['name']}}">
+                    <a href="#" data-toggle="tooltip" data-placement="left" title="This is Fixed Name!">
+                        <span class="glyphicon glyphicon-question-sign"></span></a>&nbsp;{{$setting['name']}}</div>
             </div>
-            <form method="post" action="{{action('SettingController@update', $setting['id'])}}">
-                    {{csrf_field()}}
-                    <input name="_method" type="hidden" value="PATCH">
              <div class="row top-buffer">
                 <div for="smFormGroupInput" class="col-xs-2 col-md-2 col-form-label">Value</div>
                 <div class="col-xs-2 col-md-2">
-                    <input type="text" class="form-control form-control-lg" id="lgFormGroupInput"  name="value" value="{{$setting->value}}">
+                    <input type="text" class="form-control form-control-lg" id="lgFormGroupInput"  name="value" value="{{$setting->value}}" required autofocus>
                 </div>
             </div>
                 @if(count($setting['option'])>0)
@@ -53,20 +59,20 @@
                 <div for="smFormGroupInput" class="col-xs-2 col-md-2 col-form-label">Option</div>
                 <div class="col-xs-2 col-md-2">
                     <div class="dropdown">
-                        <select class="form-control btn btn-default dropdown-toggle"  data-toggle="dropdown" name="status" id="smFormGroupInput">
+                        <select class="form-control btn btn-default dropdown-toggle"  data-toggle="dropdown" name="option" id="smFormGroupInput">
                             @foreach(explode(',',$setting['option']) as $op)
-                            <option value="1">{{$op}}</option>
+                            <option value="{{$op}}">{{$op}}</option>
                                 @endforeach
                         </select>
                     </div>
-
                     </div>
             </div>
                 @endif
             <div class="row top-buffer">
-                <div class="col-xs-2 col-md-2 "><a href="{{action('SettingController@edit', $setting['id'])}}" class="btn btn-warning">Save Setting</a></div>
+                <div class="col-xs-2 col-md-2 ">
+                    <button type="submit" class="btn btn-primary">Save Setting</button>
+                </div>
             </div>
-
             </form>
 
         @else
