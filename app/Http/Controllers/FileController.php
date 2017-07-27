@@ -180,7 +180,7 @@ class FileController extends Controller
     public function downloadfile($fileid)
     {
     	$file = File::find($fileid);
-    	$path = str_replace('/', '\\', storage_path('app\\'.$file->path));
+    	$path = str_replace('\\', '/', storage_path('app/'.$file->path));
     	return response()->download($path, $file->name);
     }
 
