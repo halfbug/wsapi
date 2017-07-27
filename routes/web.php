@@ -87,6 +87,9 @@ Route::group(['prefix' => 'api'], function () {
 Route::group(['prefix' => 'analysis','middleware' => 'auth'], function () {
     Route::get('/', 'AnalyticController@index');
     Route::get('/totalfiles', 'AnalyticController@totalfiles');
+    Route::get('/averagetime', 'AnalyticController@averagetime');
+    Route::get('/last31upload', 'AnalyticController@last31upload');
+    Route::get('/uploadfile', 'AnalyticController@uploadfile');
    
 });
 Route::get('setting/index_listing', 'SettingController@index_listing');
