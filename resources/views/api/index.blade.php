@@ -48,7 +48,7 @@
                 {{--@endcan--}}
                 <div class="panel-body">
                     <table class="table table-striped table-bordered table-list" id="clientlist">
-                        <tr>
+                        <thead>
                             <th class="text-center"><em class="fa fa-cog"></em></th>
                             <th>Name</th>
                             <th>Secret</th>
@@ -59,7 +59,8 @@
                             @endcan
 
 
-                        </tr>
+                        </thead>
+                        <tbody></tbody>
 
                     <!--        <tr>
                                 <td align="center">
@@ -155,7 +156,7 @@
 
                             </div>
                         </div>
-
+<input id="client_id" name="client_id" type="hidden" value="0">
                         <div class="form-group">
                             <div class="col-md-8 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary" value="add" id="btn_save">
@@ -184,13 +185,17 @@
     <script src="{{asset('js/defiant.min.js')}}"></script>
     <script>
         clients = "";
-        axios.get('{{url('/oauth/clients')}}')
-            .then(function (response) {
-                clients = response.data;
-                console.log(response.data);
-				drawTable(response.data);
-            });
 
+        function  load_clients() {
+
+            $("#clientlist>tbody").html("");
+            axios.get('{{url('/oauth/clients')}}')
+                .then(function (response) {
+                    clients = response.data;
+                    console.log(response.data);
+                    drawTable(response.data);
+                });
+        }
         function drawTable(data) {
             for (var i = 0; i < data.length; i++) {
                 drawRow(data[i]);
@@ -198,8 +203,9 @@
         }
 
         function drawRow(rowData) {
+
             var row = $("<tr />")
-            $("#clientlist").append(row); //this will append tr element to table... keep its reference for a while since we will add cels into it
+            $("#clientlist>tbody").append(row); //this will append tr element to table... keep its reference for a while since we will add cels into it
             row.append($("<td align=\"center\">"
                 + "<button class=\"btn btn-default\" id=\"editClient\" value=" + rowData.id + ">"
                 + "<em class=\"fa fa-pencil\"></em></button> "
@@ -218,6 +224,7 @@ row.append($("<td>" + rowData.user_id + "</td>"));
 		
 		
         $(document).ready(function () {
+            load_clients();
             $("#addClient").submit(function (e) {
 //            alert("me here");
                 //prevent Default functionality
@@ -225,19 +232,20 @@ row.append($("<td>" + rowData.user_id + "</td>"));
 
                 //get the action-url of the form
                 var actionurl = e.currentTarget.action;
-				var which="add";
-                if(which=="add"){
+//				var which="add";
+                if($('#client_id').val() == 0){
                 axios.post(actionurl, $("#addClient").serialize())
                     .then(function (response) {
-                        $("#addClient").hide().before($("<p> Client has been added succefully . </p>"));
+                        $("#addClient").hide().before($("<p class='msg'> Client has been added succefully . </p>"));
                         console.log(response);
+                        load_clients();
                     })
                     .catch(function (error) {
                         console.log(error);
                     });
 				}//endif
                 else {
-                var actionurl = e.currentTarget.action;
+//                var actionurl = e.currentTarget.action;
                     var newname = $('#name').val();
                     var newredirect = $('#redirect').val();
 
@@ -246,16 +254,19 @@ row.append($("<td>" + rowData.user_id + "</td>"));
                         redirect: newredirect
                     };
 
-
+                    clientId =$('#client_id').val();
                     // axios.get('{{url('/oauth/clients')}}')
 
 
-                    console.log(actionurl);
-                    console.log('asdsdsadasd');
+//                    console.log(actionurl);
+//                    console.log('asdsdsadasd');
                     axios.put(actionurl +"/"+ clientId, data)
-                        .then(response => {
+                        .then(function(response) {
                         console.log(response.data);
-                })
+                            $("#addClient").hide().before($("<p class='msg'> Client has been updated succefully . </p>"));
+                            load_clients();
+                });
+                    $('#client_id').val("0");
                 }
 
 
@@ -274,6 +285,9 @@ row.append($("<td>" + rowData.user_id + "</td>"));
                 // console.log(client.name);
                 $('#name').val(client[0].name);
                 $('#redirect').val(client[0].redirect);
+                $('#client_id').val(client[0].id);
+                $("#addClient").show();
+                $(".msg").html("");
 
             });
             $(document).on('click', '#deleteClient', function (e) {
