@@ -139,6 +139,12 @@ class FileController extends Controller
         return response()->json(array($file->path => true), 200);
 	}
 
+    public function delete($id)
+    {
+        $this->destroy($id);
+        return back();
+    }
+
 	public function format() {
 		return view('files.format');
 	}

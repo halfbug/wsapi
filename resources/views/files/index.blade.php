@@ -69,9 +69,9 @@ Files<small></small>
 
             <div class="panel-heading">
                 <div class="row">
-                                        <div class="col col-xs-2">
-                                             <button class="btn btn-default btn-detail" onclick="window.location ='{{ route('fileList') }}'"><span class="glyphicon glyphicon-refresh"></span></button>
-             </div>
+                    <div class="col col-xs-2">
+                        <button class="btn btn-default btn-detail" onclick="window.location ='{{ route('fileList') }}'"><span class="glyphicon glyphicon-refresh"></span></button>
+                    </div>
                     <div class="col col-xs-10 text-right">
                         <div class="btn-group">
                            
@@ -116,12 +116,14 @@ Files<small></small>
                         <td> 
                             <button class="btn btn-secondary btn-detail edit_package" value="{{$file->id}}" title="Download Processed File"><i class="fa fa-download" ></i></button>
 
-                            <form enctype='multipart/form-data' class="form-inline" style="display:inline" role="form" method="POST"  id="deleteForm_{{$file->id}}" action="{{ url("packages/".$file->id) }}">
+                            <form enctype='multipart/form-data' class="form-inline" style="display:inline" role="form" method="POST"  id="deleteForm_{{$file->id}}" action="{{ url("file/delete/".$file->id) }}">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
-                                <button type="button" class="btn btn-danger btn-delete delete-package " value="{{$file->id}}" id="delete_package_{{$file->id}}"  title="Delete">
+                                @if( $file->getStatus() == "Uploaded" || $file->getStatus() == "Processed")
+                                    <button type="submit" class="btn btn-danger btn-delete " title="Delete">
                                     <i class="fa fa-remove" ></i></button>
-                                <input type="hidden" name="package_id" value="{{$file->id}}" />
+                                @endif
+                                <input type="hidden" name="file_id" value="{{$file->id}}" />
 
                             </form>
                         </td>
