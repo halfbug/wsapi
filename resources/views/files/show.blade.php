@@ -24,7 +24,7 @@ File
                 @can('startprocessing', \App\File::class)
                 <span class="pull-right">
                     @if($file->getStatus() ==  "Uploaded")
-                        <button class="btn btn-primary " onClick="{{ url("/file/startprocessing/".$file->id) }}">Start Processing</button>
+                        <button class="btn btn-primary " onClick="window.location='{{ url("/file/startprocessing/".$file->id) }}'">Start Processing</button>
                     @elseif($file->getStatus() == "In Progress")
                         <button class="btn btn-primary " data-toggle="modal" data-target="#myModal">Upload Processed File</button>
                     @endif
@@ -56,13 +56,23 @@ File
                             <td>Status:</td>
                             <td>{{$file->getStatus()}}</td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <td>File Format:</td>
                             <td>{{ "No File format yet" }}</td>
-                        </tr>
+                        </tr> -->
                         <tr>
                             <td>Meta:</td>
+                            @if($meta->isEmpty())
                             <td>{{ "No meta-data yet" }}</td>
+                            @else
+                            <td>
+                                <table class="table">
+                                @foreach($meta as $metadata)
+                                 <tr><td>{{$metadata->name}}</td><td>{{$metadata->value}}</td></tr>
+                                @endforeach
+                                </table>
+                            </td>
+                            @endif
                         </tr>
                       </tbody>
                     </table>

@@ -96,7 +96,7 @@
 
                                 <ul class="dropdown-menu" role="menu">
                                     
-                                     <li><a href="profile/{{Auth::user()->id}}"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                                     <li><a href="{{url('profile/'.Auth::user()->id)}}"><i class="fa fa-user fa-fw"></i> User Profile</a>
                             </li>
                             <li><a href="{{url("/home")}}"><i class="fa fa-gear fa-fw"></i> Dashboard</a>
                             </li>
