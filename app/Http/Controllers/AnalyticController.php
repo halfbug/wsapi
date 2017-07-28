@@ -72,5 +72,74 @@ protected $dateRec;
 	 return view('analytics.totalfiles')->with(compact('data'));
 
     }//function end
+    public function averagetime()
+    {
+         $files = DB::table('files')
+            ->select(DB::raw('DATE(created_at) AS dt,AVG(DATEDIFF(updated_at,created_at)) average'))
+            ->where('created_at', '<>', 'updated_at')
+            ->groupBy(DB::raw('DATE(created_at)'))
+            //->orderBy('updated_at')
+            ->get();
+
+        $data = [];
+        foreach($files as $file)
+        {
+            $data[]=[
+                "y"=> date('d-m-Y',strtotime($file->dt)),
+                "a"=> number_format($file->average,2)
+            ];
+        }
+
+//        dd($data);
+        return view('analytics.averagetime')->with(compact('data'));
+
+    }//function end
+    public function last31upload()
+    {
+        $first_day = date('Y-m-01');
+        $last_day = date('Y-m-t');
+
+        $files = DB::table('files')
+            ->select(DB::raw('DATE(created_at) AS dt,COUNT(*) total_uploaded'))
+            ->where('created_at', '<>', 'updated_at')
+            ->groupBy(DB::raw('DATE(created_at)'))
+            ->whereBetween('created_at',[$first_day,$last_day])
+            ->get();
+
+        $data = [];
+        foreach($files as $file)
+        {
+            $data[]=[
+                "y"=> date('d-m-Y',strtotime($file->dt)),
+                "a"=> $file->total_uploaded
+            ];
+        }
+
+        return view('analytics.last31upload')->with(compact('data'));
+
+    }//function end
+    public function uploadfile()
+    {
+        $first_day = date('Y-m-01');
+        $last_day = date('Y-m-t');
+
+        $files = DB::table('files')
+            ->select(DB::raw('DATE(created_at) AS dt,COUNT(*) total_uploaded'))
+            ->where('created_at', '<>', 'updated_at')
+            ->groupBy(DB::raw('DATE(created_at)'))
+            ->whereBetween('created_at',[$first_day,$last_day])
+            ->get();
+
+        $data = [];
+        foreach($files as $file)
+        {
+            $data[]=[
+                "y"=> date('d-m-Y',strtotime($file->dt)),
+                "a"=> $file->total_uploaded
+            ];
+        }
+        return view('analytics.uploadfile')->with(compact('data'));
+
+    }//function end
 
 }
