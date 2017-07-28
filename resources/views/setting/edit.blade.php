@@ -17,7 +17,7 @@
 @endsection
 
 @section('heading')
-    Settings &nbsp; <small><a href="/setting" >Back</a></small>
+    Settings &nbsp; <small><a href="{{url('setting')}}" >Back</a></small>
     <h4 class=" col-sm-8 alert alert-danger">Please do not edit Name, unless admin allow you to do</h4>
 @endsection
 @section('content')

@@ -23,11 +23,15 @@ class FileController extends Controller
 			$value = array_search(str_replace('-',' ',$status), $file->getAllStatus());
 			array_push($conditions, ['status', $value]);
 		}
-		
-		$files = File::where($conditions)->get();
+
+        if(Auth::user()->hasRole('siteuser'))
+            array_push($conditions, ['user_id', Auth::id()]);
+
+		$files = File::where($conditions)->orderBy('id','desc')->get();
 		return view('files.index', compact('files'));
 	}
-		public function countfilesforgivendate($date)
+	
+    public function countfilesforgivendate($date)
     {
 		$filefordate=File::all()->where("created_at", $date);
 		$totalfilefordate=count($filefordate);
@@ -43,6 +47,8 @@ class FileController extends Controller
 		$meta = UserMeta::whereIn('user_id', $admin_ids)->get();
         foreach ($meta as $key => $value) {
             if ($value->name == 'Deletion Period') {
+               unset($meta[$key]);
+            } elseif ($value->user_id != Auth::id() && $value->fixed == 0) {
                unset($meta[$key]);
             } else {
                 $separate_values = explode(',', $value->value);
@@ -120,8 +126,9 @@ class FileController extends Controller
 
 	public function show($fileid) 
 	{
-		$file = File::find($fileid);
-		return view('files.show')->with('file', $file);
+		$file = File::where('id',$fileid)->first();
+        $meta = $file->metadata()->get();
+		return view('files.show')->with(['file'=> $file, 'meta' => $meta]);
 	}
 	
 	public function destroy($id) {
@@ -131,6 +138,12 @@ class FileController extends Controller
                 
         return response()->json(array($file->path => true), 200);
 	}
+
+    public function delete($id)
+    {
+        $this->destroy($id);
+        return back();
+    }
 
 	public function format() {
 		return view('files.format');

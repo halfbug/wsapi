@@ -34,7 +34,7 @@
                             <li><a href="#lastsixmonths">Last 6 months</a>
                             </li>
                             <li class="divider"></li>
-                            <li><a href="{{url("/analysis/totalfiles")}}">Refresh</a>
+                            <li><a href="{{url("/analysis/last31upload")}}">Refresh</a>
                             </li>
                         </ul>
                     </div>
@@ -51,7 +51,7 @@
                                         <th>#</th>
                                         <th>Date</th>
                                         <th>Uploaded</th>
-                                        <th>Processed</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -63,7 +63,7 @@
                                         <td>{{ ++$sno }}</td>
                                         <td>{{ $rec['y'] }}</td>
                                         <td>{{$rec['a']}}</td>
-                                        <td>{{$rec['b']}}</td>
+
                                     </tr>
 
 								 @endforeach
@@ -99,8 +99,8 @@ $(function() {
         config = {
             data: data,
             xkey: 'y',
-            ykeys: ['a', 'b'],
-            labels: ['Total Uploaded', 'Total Processed'],
+            ykeys: ['a'],
+            labels: ['Total Uploaded'],
             fillOpacity: 0.6,
             hideHover: 'auto',
             behaveLikeLine: true,
@@ -112,7 +112,6 @@ $(function() {
     config.element = 'bar-chart';
     Morris.Bar(config);
 
-    
 });
 
 </script>

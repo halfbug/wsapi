@@ -17,7 +17,7 @@
 @endsection
 
 @section('heading')
-    Settings &nbsp; <a href="/setting/create" class="btn btn-primary">Add New</a>&nbsp;<small><a href="/setting" >Back</a></small>
+    Settings &nbsp; <a href="{{url('setting/create')}}" class="btn btn-primary">Add New</a>&nbsp;<small><a href="{{url('setting')}}" >Back</a></small>
 @endsection
 @section('content')
     <div class="col-md-12">

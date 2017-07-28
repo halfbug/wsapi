@@ -45,6 +45,7 @@ Route::group(['prefix' => 'file','middleware' => 'auth'], function () {
     Route::post('/search', 'FileController@search');
     Route::get('/{file_id}', 'FileController@show');
     Route::post('/{file_id}', 'FileController@uploadprocessed');
+    Route::delete('/delete/{file_id}', 'FileController@delete');
 });
 
 Route::group(['prefix' => 'profile','middleware' => 'auth'], function () {
