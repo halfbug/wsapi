@@ -3,7 +3,7 @@
 @endif
 
 @section('heading')
-    Upload and download file counts per Website and the API in the last 31 days
+    Upload and download file counts per Website and the API in the last 31 days (Working)
         @endsection
 
 @section('content')
@@ -34,7 +34,7 @@
                             <li><a href="#lastsixmonths">Last 6 months</a>
                             </li>
                             <li class="divider"></li>
-                            <li><a href="{{url("/analysis/totalfiles")}}">Refresh</a>
+                            <li><a href="{{url("/analysis/uploadfile")}}">Refresh</a>
                             </li>
                         </ul>
                     </div>
@@ -51,8 +51,7 @@
                                         <th>#</th>
                                         <th>Date</th>
                                         <th>Uploaded</th>
-                                        <th>Processed</th>
-                                    </tr>
+                                        </tr>
                                 </thead>
                                 <tbody>
                                 @php $sno=0; @endphp
@@ -63,7 +62,6 @@
                                         <td>{{ ++$sno }}</td>
                                         <td>{{ $rec['y'] }}</td>
                                         <td>{{$rec['a']}}</td>
-                                        <td>{{$rec['b']}}</td>
                                     </tr>
 
 								 @endforeach
@@ -100,7 +98,7 @@ $(function() {
             data: data,
             xkey: 'y',
             ykeys: ['a', 'b'],
-            labels: ['Total Uploaded', 'Total Processed'],
+            labels: ['Total Uploaded'],
             fillOpacity: 0.6,
             hideHover: 'auto',
             behaveLikeLine: true,
