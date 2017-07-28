@@ -23,18 +23,18 @@
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu pull-right" role="menu">
-                            <li class="active"><a href="lastweek">This Week</a>
+                            <li class="active"><a href="{{url("/analysis/totalfiles/this_week")}}">This Week</a>
                             </li>
-                            <li><a href="#lastweek">Last Week</a>
+                            <li><a href="{{url("/analysis/totalfiles/last_week")}}">Last Week</a>
                             </li>
-                            <li><a href="#onemonth">This month</a>
+                            <li><a href="{{url("/analysis/totalfiles/this_month")}}">This month</a>
                             </li>
-                            <li><a href="#onemonth">Last month</a>
+                            <li><a href="{{url("/analysis/totalfiles/last_month")}}">Last month</a>
                             </li>
-                            <li><a href="#lastsixmonths">Last 6 months</a>
+                            <li><a href="{{url("/analysis/totalfiles/last_six_month")}}">Last 6 months</a>
                             </li>
                             <li class="divider"></li>
-                            <li><a href="{{url("/analysis/totalfiles")}}">Refresh</a>
+                            <li><a href="{{url("/analysis/totalfiles/this_week")}}">Refresh</a>
                             </li>
                         </ul>
                     </div>

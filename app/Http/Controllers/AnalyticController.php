@@ -17,7 +17,7 @@ class AnalyticController extends Controller
 
     }
 protected $dateRec;
-    public function totalfiles()
+    public function totalfiles($action)
     {
         /* getting all users which are siteusers i.e. role_id=3*/
         /* 		$users = DB::table('users')
@@ -37,8 +37,43 @@ protected $dateRec;
 //            $lastWeekStart = Carbon::today()->subWeek();
 
 
+
+switch ($action) {
+
+			////////////////////// This Week//////////////////////
+
+		case 'this_week':
         $startDate = Carbon::now()->startOfWeek();
         $endDate = Carbon::now()->endOfWeek();
+		break;
+		///////////////// Last Month////////////////////////////////
+		case 'last_month':
+		$startDate = new Carbon('first day of last month');
+		$endDate = new Carbon('last day of last month');
+		break;
+		////////////////This Month/////////////////////////////////
+		
+		case 'this_month':
+		$startDate = Carbon::now()->startOfMonth();
+		$endDate = Carbon::now()->endOfMonth();
+		break;
+		//////////////Last Six Month//////////////////////////////
+		case 'last_six_month':
+		$startDate= Carbon::now()->subMonths(6);
+		$endDate = Carbon::now()->endOfMonth();
+		break;
+		////////////// Last Week/////////////////////////////////
+		case 'last_week':
+		$startDate= new Carbon('last week');
+		$endDate= Carbon::now()->startOfWeek();
+		break;  
+}
+		
+
+
+////////////////////// This Week//////////////////////
+      //  $startDate = Carbon::now()->startOfWeek();
+       // $endDate = Carbon::now()->endOfWeek();
 
         $files = \App\File::whereBetween("created_at",[$startDate,$endDate])->with("user")->with("user.roles")->get();
 
