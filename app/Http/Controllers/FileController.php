@@ -8,6 +8,7 @@ use \Auth;
 use App\File;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
+use App\User;
 use App\UserMeta;
 use App\Notifications\FileProcessed;
 
@@ -82,7 +83,14 @@ class FileController extends Controller
                     $fileModel->status = 1;
                     if (Auth::guest()) {
                         $fileModel->path = $photo->store('public/upload/' . $ip);
-                        //Todo check for free user quota
+                     ///////Todo check for free user quota
+					
+					$files = \App\File::where("user_id","")->with("user")->get();
+					$tot=count($file);
+					if($tot>10) {
+						return response()->json(array("error"=>"Your free quota is expired"),501);
+	
+						}//endif
                     } else{
                         $subsctioption=\Auth::user()->subscription()->active()->first();
                         // no package subscribed by registered user
