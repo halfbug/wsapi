@@ -21,9 +21,10 @@ Route::get('/services', function () {
 Route::get('/pricing', 'PackageController@pricetable');
 Route::post('/pricing', 'PackageController@pricetablesignup');
 
-Route::get('/contact', function () {
-    return view('frontend.contact');
-});
+Route::get('/contact', 'ContactController@create')->name('contact');
+Route::post('/contact', 'ContactController@store');
+
+
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
