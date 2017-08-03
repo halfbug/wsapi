@@ -80,9 +80,13 @@ Route::get('/assign', 'PackageController@assign');
 Route::post('/assign', 'PackageController@assignpackage');
 });
 
-Route::group(['prefix' => 'api'], function () {
+Route::group(['prefix' => 'api', 'middleware' =>'auth:api'], function () {
     Route::get('/', 'ApiController@index');
     Route::get('/clients', 'ApiController@clients');
+    Route::get('/files', 'ApiController@files');
+    Route::post('/upload_file', 'ApiController@uploadFile');
+    Route::get('/file_info', 'ApiController@getfileInfo');
+
    
 });
 
