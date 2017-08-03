@@ -83,24 +83,30 @@ class FileController extends Controller
                     $fileModel->status = 1;
                     if (Auth::guest()) {
                         $fileModel->path = $photo->store('public/upload/' . $ip);
-                     ///////Todo check for free user quota
-					
-					$files = \App\File::where("user_id","")->with("user")->get();
-					$tot=count($file);
-					if($tot>10) {
-						return response()->json(array("error"=>"Your free quota is expired"),501);
-	
-						}//endif
+                     
+                        // no of files uploaded by guest
+    					$files_count = \App\File::where("ipaddress", $ip)->count();
+    		//////// NOTE => 'Total free Files' can change if name of this setting changes in settings table
+                        // no of files that can be uploaded without registration
+                    	$allowed_files_count = \App\Setting::where("name", "Total free Files")->first();
+                    	if($files_count >= $allowed_files_count->value) 
+    						return response()->json(array("error"=>"Your free quota is expired"),501);
+    					
                     } else{
                         $subsctioption=\Auth::user()->subscription()->active()->first();
-                        // no package subscribed by registered user
+                        // if no package subscribed by registered user, check free file quota
                         if ($subsctioption == null) {
+                            // get no of files uploaded by site user
+                            $files_count = \App\File::where("user_id", $user_id)->count();
+                //////// NOTE => 'Total free Files' can change if name of this setting changes in settings table
+                            // get no of files that can be uploaded by site user without any package subscription
+                            $allowed_files_count = \App\Setting::where("name", "Total free Files")->first();
+                            if($files_count >= $allowed_files_count->value) 
+                                return response()->json(array("error"=>"Your free quota is expired"),501);
+                            
                             $fileModel->path = $photo->store('public/upload/' . $user_id);
                         } else {
-    //                        dd($subsctioption);
-    //                        dd($subsctioption->files_upload_balance );
                             if($subsctioption->files_upload_balance > 0) {
-    //                             dd($subsctioption);
                                 $fileModel->path = $photo->store('public/upload/' . $user_id);
                                 $subsctioption->files_upload_balance = $subsctioption->setUploadBalance();
                                 $subsctioption->save();

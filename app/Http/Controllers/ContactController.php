@@ -14,20 +14,20 @@ class ContactController extends Controller
 
     public function store(Request $request)
     {
-		//echo $request->email;
-        \Mail::send('emails.contact',
-            array(
-                'name' => $request->name,
-                'email' => $request->email,
-                'user_message' => $request->message
-            ), function($message)
-        {
-            $message->from('testemail@mail.com');
-            $message->to('testemail@mail.com', 'Admin')->subject('Website Feedback');
+		$user = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'user_message' => $request->message
+        ];
+
+        \Mail::send('emails.contact', ['user' => $user], function($message) use ($user) {
+           // $message->from($request->email, $request->name);
+            $message->to('dev.zone.testdrive@gmail.com')->subject('Website Feedback');
         });
 
-      return \Redirect::route('contact')->with('message', 'Thanks for contacting us!');    
-	  }
+        return \Redirect::route('contact')->with('message', 'Thank you for contacting us!');    
+	}
 	
 }
  
