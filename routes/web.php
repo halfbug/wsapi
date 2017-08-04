@@ -83,11 +83,13 @@ Route::post('/assign', 'PackageController@assignpackage');
 Route::group(['prefix' => 'api', 'middleware' =>'auth:api'], function () {
     Route::get('/', 'ApiController@index');
     Route::get('/clients', 'ApiController@clients');
-    Route::get('/files', 'ApiController@files');
+    Route::get('/files/{user_id?}', 'ApiController@files');
     Route::post('/upload_file', 'ApiController@uploadFile');
     Route::get('/file_info', 'ApiController@getfileInfo');
+    Route::get('/download_file', 'ApiController@downloadFile');
 
-   
+
+
 });
 
 Route::group(['prefix' => 'analysis','middleware' => 'auth'], function () {

@@ -84,9 +84,8 @@ class FileController extends Controller
                     if (Auth::guest()) {
                         $fileModel->path = $photo->store('public/upload/' . $ip);
                      ///////Todo check for free user quota
-					
-					$files = \App\File::where("user_id","")->with("user")->get();
-					$tot=count($file);
+					$tot = \App\File::whereNull("user_id")->with("user")->where("ipaddress",$ip)->count();
+
 					if($tot>10) {
 						return response()->json(array("error"=>"Your free quota is expired"),501);
 	

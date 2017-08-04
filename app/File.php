@@ -23,7 +23,7 @@ class File extends Model {
     ];
 
     public function getAllStatus() {
-        return $this->statusz;
+        return $this->statusz ;
     }
 
     public function getStatus() {
