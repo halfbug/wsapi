@@ -303,7 +303,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                             <li>
-                                <a href="{{url("api/clients")}}"><i class="fa fa-magic fa-fw"></i> API</a>
+                                <a href="{{url("api-manager/clients")}}"><i class="fa fa-magic fa-fw"></i> API</a>
                             </li>
                           <li>
                                 <a href="#"><i class="fa fa-cog fa-fw"></i> Settings<span class="fa arrow"></span></a>

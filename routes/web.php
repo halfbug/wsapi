@@ -26,9 +26,9 @@ Route::post('/contact', 'ContactController@store');
 
 
 Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware("auth");
 Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware("auth");
 
 Route::get('/file/create', 'FileController@create');
 Route::post('/file/create', 'FileController@store');
@@ -79,13 +79,15 @@ Route::post('/add', 'PackageController@store');
 Route::get('/assign', 'PackageController@assign');
 Route::post('/assign', 'PackageController@assignpackage');
 });
+Route::get('api-manager/', 'HomeController@apiManager');
+Route::get('api-manager/clients', 'HomeController@clients')->middleware('auth');
 
 Route::group(['prefix' => 'api', 'middleware' =>'auth:api'], function () {
-    Route::get('/', 'ApiController@index');
-    Route::get('/clients', 'ApiController@clients');
+
+
     Route::get('/files/{user_id?}', 'ApiController@files');
     Route::post('/upload_file', 'ApiController@uploadFile');
-    Route::get('/file_info', 'ApiController@getfileInfo');
+    Route::get('/file_info/{file_id}', 'ApiController@fileInfo');
     Route::get('/download_file', 'ApiController@downloadFile');
 
 

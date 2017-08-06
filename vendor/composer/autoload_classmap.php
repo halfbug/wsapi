@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'AddFixedToMetaDataSetting' => $baseDir . '/database/migrations/2017_07_11_130100_add_fixed_to_meta_data_setting.php',
     'AddMaximumFieldToSettingsTable' => $baseDir . '/database/migrations/2017_07_26_151911_add_maximum_field_to_settings_table.php',
+    'AddMediumToFileTable' => $baseDir . '/database/migrations/2017_08_05_121844_add_medium_to_file_table.php',
     'AddNameToDiscountTable' => $baseDir . '/database/migrations/2017_06_15_101658_add_name_to_discount_table.php',
     'AddNameToFilesTable' => $baseDir . '/database/migrations/2017_06_13_064630_add_name_to_files_table.php',
     'AddPakageIdToUsersTable' => $baseDir . '/database/migrations/2017_06_15_101200_add_pakage_id_to_users_table.php',
@@ -24,6 +25,7 @@ return array(
     'App\\Http\\Controllers\\Auth\\LoginController' => $baseDir . '/app/Http/Controllers/Auth/LoginController.php',
     'App\\Http\\Controllers\\Auth\\RegisterController' => $baseDir . '/app/Http/Controllers/Auth/RegisterController.php',
     'App\\Http\\Controllers\\Auth\\ResetPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ResetPasswordController.php',
+    'App\\Http\\Controllers\\ContactController' => $baseDir . '/app/Http/Controllers/ContactController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\DiscountController' => $baseDir . '/app/Http/Controllers/DiscountController.php',
     'App\\Http\\Controllers\\FileController' => $baseDir . '/app/Http/Controllers/FileController.php',

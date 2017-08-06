@@ -17,7 +17,7 @@ class AnalyticController extends Controller
 
     }
 protected $dateRec;
-    public function totalfiles($action)
+    public function totalfiles($action = 'this_week' )
     {
         /* getting all users which are siteusers i.e. role_id=3*/
         /* 		$users = DB::table('users')

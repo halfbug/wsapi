@@ -62,7 +62,7 @@
         <p>You can upload a single or multiple files at once</p>
         
         <button type="button" class="btn btn-info btn-lg" onclick="window.location = '{{ url("file/create") }}'" ><i class="fa fa-upload"></i> Upload Now</button>
-        <p>you can even use our <a href="{{url('api/')}}" >Api</a> service.</p>
+        <p>you can even use our <a href="{{url('api-manager/')}}" >Api</a> service.</p>
         
         
     </div>

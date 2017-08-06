@@ -12,7 +12,7 @@ class File extends Model {
      * @var array
      */
     protected $fillable = [
-        'name', 'user_id', 'ipaddress', 'path', 'status','created_at'
+        'name', 'user_id', 'ipaddress', 'path', 'status','created_at','medium'
     ];
     protected $statusz = [
         0 => 'Not Defined',

@@ -386,6 +386,7 @@ class ComposerStaticInitc36b1a65c7508907b4782ff9edc8019a
     public static $classMap = array (
         'AddFixedToMetaDataSetting' => __DIR__ . '/../..' . '/database/migrations/2017_07_11_130100_add_fixed_to_meta_data_setting.php',
         'AddMaximumFieldToSettingsTable' => __DIR__ . '/../..' . '/database/migrations/2017_07_26_151911_add_maximum_field_to_settings_table.php',
+        'AddMediumToFileTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_05_121844_add_medium_to_file_table.php',
         'AddNameToDiscountTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_15_101658_add_name_to_discount_table.php',
         'AddNameToFilesTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_13_064630_add_name_to_files_table.php',
         'AddPakageIdToUsersTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_15_101200_add_pakage_id_to_users_table.php',
@@ -402,6 +403,7 @@ class ComposerStaticInitc36b1a65c7508907b4782ff9edc8019a
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
+        'App\\Http\\Controllers\\ContactController' => __DIR__ . '/../..' . '/app/Http/Controllers/ContactController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\DiscountController' => __DIR__ . '/../..' . '/app/Http/Controllers/DiscountController.php',
         'App\\Http\\Controllers\\FileController' => __DIR__ . '/../..' . '/app/Http/Controllers/FileController.php',
